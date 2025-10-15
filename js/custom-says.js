@@ -14,7 +14,7 @@ class CustomSaysSystem {
     // 加载说说数据
     async loadSays() {
         try {
-            const response = await fetch('/api/shuoshuo.json');
+            const response = await fetch('/_data/shuoshuo.json');
             if (!response.ok) throw new Error('数据加载失败');
 
             this.says = await response.json();
