@@ -14,15 +14,56 @@ class CustomSaysSystem {
     // 加载说说数据
     async loadSays() {
         try {
-            const response = await fetch('../_data/shuoshuo.json');
-            if (!response.ok) throw new Error('数据加载失败');
+            console.log('开始加载说说数据...');
+
+            // 正确的数据文件路径
+            const response = await fetch('/shuoshuo/data.json');
+
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
 
             this.says = await response.json();
             this.says.sort((a, b) => new Date(b.date) - new Date(a.date));
+            console.log(`成功加载 ${this.says.length} 条说说`);
+
         } catch (error) {
             console.error('加载说说失败:', error);
-            this.showError('加载失败，请刷新重试');
-            this.says = [];
+            this.showError('数据加载失败，请检查控制台');
+
+            // 使用备用数据
+            this.says = [
+                {
+                    "id": 1,
+                    "content": "欢迎来到我的说说空间！这里记录我的技术学习和生活点滴。",
+                    "date": "2025-10-15T16:00:00Z",
+                    "mood": "happy",
+                    "images": [],
+                    "likes": 8,
+                    "comments": 3,
+                    "tags": ["欢迎"]
+                },
+                {
+                    "id": 2,
+                    "content": "今天解决了Hexo部署的一个大问题，原来是因为CDN缓存导致的。**重要提示**：记得清理缓存！",
+                    "date": "2025-10-15T14:30:00Z",
+                    "mood": "excited",
+                    "images": ["/images/shuoshuo/solution.jpg"],
+                    "likes": 12,
+                    "comments": 5,
+                    "tags": ["技术", "Hexo"]
+                },
+                {
+                    "id": 3,
+                    "content": "学习前端动画真的很有趣，CSS的`transform`和`transition`配合使用效果很棒！",
+                    "date": "2025-10-15T10:15:00Z",
+                    "mood": "study",
+                    "images": [],
+                    "likes": 6,
+                    "comments": 2,
+                    "tags": ["学习", "前端"]
+                }
+            ];
         }
     }
 
