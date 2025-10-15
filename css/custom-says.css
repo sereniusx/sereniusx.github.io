@@ -273,3 +273,37 @@
         opacity: 1;
     }
 }
+
+/* 图片样式 */
+.say-images {
+    margin-top: 12px;
+}
+
+.say-images img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.3s ease;
+}
+
+.say-images img:hover {
+    transform: scale(1.02);
+}
+
+/* 多图布局 */
+.say-images {
+    display: grid;
+    gap: 8px;
+}
+
+.say-images img:only-child {
+    max-width: 100%;
+}
+
+.say-images img:nth-child(2) {
+    max-width: calc(50% - 4px);
+}
+
+.say-images img:nth-child(n+3) {
+    max-width: calc(33.333% - 5.333px);
+}

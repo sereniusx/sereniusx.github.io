@@ -10,9 +10,10 @@ class CustomSaysSystem {
         this.renderSays();
         this.bindEvents();
         this.updateStats();
+        console.log('说说系统初始化完成');
     }
 
-    // 加载说说数据 - 直接从页面嵌入的数据加载
+    // 加载说说数据
     async loadSays() {
         try {
             console.log('开始加载说说数据...');
@@ -47,7 +48,7 @@ class CustomSaysSystem {
         ];
     }
 
-    // 渲染说说列表
+    // 渲染说说列表 - 修复版
     renderSays() {
         const container = document.getElementById('saysContainer');
 
@@ -75,6 +76,15 @@ class CustomSaysSystem {
                     <div class="say-tags">
                         ${say.tags.map(tag => `
                             <span class="tag ${this.getTagClass(tag)}">#${tag}</span>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                
+                <!-- 直接处理图片，不调用 renderImages -->
+                ${say.images && say.images.length ? `
+                    <div class="say-images">
+                        ${say.images.map(img => `
+                            <img src="${img}" alt="说说图片" loading="lazy" style="max-width: 100%; border-radius: 8px; margin-top: 10px;">
                         `).join('')}
                     </div>
                 ` : ''}
