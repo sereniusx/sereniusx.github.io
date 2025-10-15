@@ -17,7 +17,7 @@ class CustomSaysSystem {
             console.log('开始加载说说数据...');
 
             // 正确的数据文件路径
-            const response = await fetch('/shuoshuo/data.json');
+            const response = await fetch('../shuoshuo/data.json');
 
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
