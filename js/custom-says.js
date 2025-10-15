@@ -18,7 +18,6 @@ class CustomSaysSystem {
         try {
             console.log('开始加载说说数据...');
 
-            // 直接使用嵌入在页面中的数据
             if (window.shuoshuoData && window.shuoshuoData.length) {
                 this.says = window.shuoshuoData;
                 this.says.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -48,7 +47,7 @@ class CustomSaysSystem {
         ];
     }
 
-    // 渲染说说列表 - 修复版
+    // 渲染说说列表 - 完全移除图片功能
     renderSays() {
         const container = document.getElementById('saysContainer');
 
@@ -76,15 +75,6 @@ class CustomSaysSystem {
                     <div class="say-tags">
                         ${say.tags.map(tag => `
                             <span class="tag ${this.getTagClass(tag)}">#${tag}</span>
-                        `).join('')}
-                    </div>
-                ` : ''}
-                
-                <!-- 直接处理图片，不调用 renderImages -->
-                ${say.images && say.images.length ? `
-                    <div class="say-images">
-                        ${say.images.map(img => `
-                            <img src="${img}" alt="说说图片" loading="lazy" style="max-width: 100%; border-radius: 8px; margin-top: 10px;">
                         `).join('')}
                     </div>
                 ` : ''}
