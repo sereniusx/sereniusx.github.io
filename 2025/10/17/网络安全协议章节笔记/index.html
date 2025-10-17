@@ -1,0 +1,341 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>网络安全协议章节笔记 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="📖网络安全协议章节复习🎲 第一章 概述1.1 TCP&#x2F;IP主要协议的安全分析 TCP&#x2F;IP协议族：通常包含四层模型，链路层、网络层、传输层、应用层  链路层：包括操作系统中的设备驱动程序和计算机中对应的网络接口卡。ARP协议：将目的主机的IP地址解析为物理地址。安全隐患：ARP欺骗。ARP欺骗攻击特征：不能上网但网络连接正常、内网的部分或全部PC机不能上网、局域网时断时续或网速突然变慢。防范措">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络安全协议章节笔记">
+<meta property="og:url" content="https://sereniusx.github.io/2025/10/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="📖网络安全协议章节复习🎲 第一章 概述1.1 TCP&#x2F;IP主要协议的安全分析 TCP&#x2F;IP协议族：通常包含四层模型，链路层、网络层、传输层、应用层  链路层：包括操作系统中的设备驱动程序和计算机中对应的网络接口卡。ARP协议：将目的主机的IP地址解析为物理地址。安全隐患：ARP欺骗。ARP欺骗攻击特征：不能上网但网络连接正常、内网的部分或全部PC机不能上网、局域网时断时续或网速突然变慢。防范措">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/my_avatar.jpg">
+<meta property="article:published_time" content="2025-10-17T12:06:25.000Z">
+<meta property="article:modified_time" content="2025-10-17T12:06:57.664Z">
+<meta property="article:author" content="SereniusX">
+<meta property="article:tag" content="课程学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/my_avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "网络安全协议章节笔记",
+  "url": "https://sereniusx.github.io/2025/10/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/",
+  "image": "https://sereniusx.github.io/img/my_avatar.jpg",
+  "datePublished": "2025-10-17T12:06:25.000Z",
+  "dateModified": "2025-10-17T12:06:57.664Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "SereniusX",
+      "url": "https://sereniusx.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/my_avatar.png"><link rel="canonical" href="https://sereniusx.github.io/2025/10/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":true},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '网络安全协议章节笔记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/my_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/background2.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">网络安全协议章节笔记</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 影视</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/links/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">网络安全协议章节笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-17T12:06:25.000Z" title="发表于 2025-10-17 20:06:25">2025-10-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-17T12:06:57.664Z" title="更新于 2025-10-17 20:06:57">2025-10-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/">计算机基础课程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="📖网络安全协议章节复习"><a href="#📖网络安全协议章节复习" class="headerlink" title="📖网络安全协议章节复习"></a>📖网络安全协议章节复习</h1><h2 id="🎲-第一章-概述"><a href="#🎲-第一章-概述" class="headerlink" title="🎲 第一章 概述"></a>🎲 第一章 概述</h2><h3 id="1-1-TCP-IP主要协议的安全分析"><a href="#1-1-TCP-IP主要协议的安全分析" class="headerlink" title="1.1 TCP/IP主要协议的安全分析"></a>1.1 TCP/IP主要协议的安全分析</h3><ol>
+<li><p>TCP/IP协议族：通常包含四层模型，链路层、网络层、传输层、应用层</p>
+</li>
+<li><p>链路层：包括操作系统中的设备驱动程序和计算机中对应的网络接口卡。<strong>ARP协议</strong>：将目的主机的IP地址解析为物理地址。<strong>安全隐患</strong>：ARP欺骗。ARP欺骗攻击特征：不能上网但网络连接正常、内网的部分或全部PC机不能上网、局域网时断时续或网速突然变慢。防范措施：查表、ARP防火墙、定位源头</p>
+</li>
+<li><p>网络层：具有向传输层提供服务、路由选择、网络互连的功能。网络层协议：IP协议、ICMP协议、IGMP协议等。典型安全隐患：IP地址欺骗(-&gt;9)、死亡之ping (-&gt;8)、smurf攻击(-&gt;11)。</p>
+</li>
+<li><p>传输层：提供应用程序之间的通信服务，负责为两台互连主机上的应用程序提供端到端的通信。传输层协议：TCP协议、UDP协议。典型安全隐患：SYN FLOOD攻击(-&gt;13)。</p>
+</li>
+<li><p>应用层：负责处理特定的应用程序细节。应用层协议：FTP、HTTP、TELNET、SNMP、SMTP、DNS。安全隐患：被窃听、DNS欺骗。</p>
+</li>
+<li><p>关于ARP协议：ARP缓存中没有目标IP-MAC映射，会首先发送ARP请求分组，广播发送，封装ARP请求分组的数据帧的目的MAC地址是<strong>FF-FF-FF-FF-FF-FF</strong>。 ARP的无状态性导致ARP欺骗攻击。</p>
+</li>
+<li><p>关于IPv4协议：<strong>提供不可靠、无连接、尽最大努力交付的分组传输机制</strong>。IP的分组传输可以分片，分片可以在任何中间路由器上进行，可以走不同路径，重组只在目的站进行。和分片相关的IP首部字段：标识符、标志、片偏移。1偏移=8bit。分片重组：在一定时间内，分片全部到齐后重新组装成原始分组，只保留第一个分片的首部作为分组首部，删除其余分片的首部，并重新计算分组长度。</p>
+</li>
+<li><p>死亡之ping：由于单个IP报的长度超过了IP协议规范所规定的包长度（65535字节）。以太网帧长度有限，IP分组必须被分片，形成的每个分片头部只包含各个分片的长度而不包含整个IP包的长度信息，因此防火墙难以检测这种攻击。而大多数包处理程序都假设包的长度不可能超过IP协议规范规定的一个IP包的最大尺寸，因此包的重组代码所分配的内存区域最大也不超过最大尺寸，当超大包出现，额外数据会导致<strong>缓冲区溢出攻击</strong>。预防方法：给操作系统打补丁。</p>
+</li>
+<li><p>IP地址欺骗：伪造一个假的源IP地址的包。预防措施：抛弃基于IP地址的信任策略</p>
+</li>
+<li><p>关于ICMP协议：Internet控制报文协议。IP没有提供差错报告和差错控制机制，使用ICMP向主机和路由器报告差错。ICMP配合IP使用，提高了IP分组交付成功的机会。</p>
+<p>![截屏2025-10-17 13.25.36](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-10-17 13.25.36.png)</p>
+</li>
+<li><p>Smurf攻击：结合IP地址欺骗和ICMP的回复方法使大量网络通信充斥目标系统，使得目标系统拒绝其他的服务，属于拒绝服务攻击。攻击者向A网络的广播地址发送一个欺骗性的ping分组，ICMP echo请求报文，源地址是目标系统。A网络很大主机很多，多数系统ICMP优先级高，所以目标系统一时间充满echo回应，阻止该系统的正常服务。解决方法：阻止smurf攻击源头，阻塞反弹站点所有入站echo请求，使用防火墙或者动态过滤技术。</p>
+</li>
+<li><p>关于TCP协议：<strong>面向连接的，提供可靠的按序传送数据的服务</strong>，全双工。 数据单位：报文段。服务对象：HTTP、Telnet、FTP、SMTP。TCP每个字节编一个序号，编号与确认、流量控制和拥塞控制（可变窗口）、重发机制。TCP连接的建立和释放，三次握手，四次挥手</p>
+</li>
+<li><p>SYN Flood：SYN Flood攻击利用的是大多数主机实现三次握手时存在的漏洞，对目标发送多个SYN请求，而对目标返回的SYN+ACK包不进行应答，本质是拒绝服务攻击。可以和IP欺骗配合使用。SYN Timeout决定了一个半连接可以存活的时间。预防措施：缩短SYN Timeout的时间，设置SYN Cookie（依赖于对方使用真实的IP地址）。</p>
+</li>
+<li><p>为了实现域名解析，客户机必须知道互联网上任意一台域名服务器的IP地址。</p>
+</li>
+<li><p>在Internet域名体系中，域的下面可以继续划分子域，各级域名用圆点分开，按照从右到左越来越小的方式分四层排列。</p>
+</li>
+<li><p>关于DNS协议：域名解析。两种类型报文：查询报文和响应报文。查询报文和响应报文的首部格式相同。DNS设计缺陷：通过16bit标识号进行匹配，简单信任先到达的数据包。</p>
+</li>
+<li><p>DNS欺骗攻击：监听查询请求，并伪造DNS应答包给DNS客户端。可能存在客户端和DNS服务器之间，也可能存在于各DNS服务器之间。可能导致服务无法访问，或者钓鱼网站。DNS攻击检测：被动监听检测，虚假报文探测，交叉检查查询</p>
+</li>
+<li><p>TCP/IP网络安全需求：机密性、完整性、可认证性、不可否认性、可用性。</p>
+</li>
+<li><p>SYN Flood是针对TCP协议的攻击，属于拒绝服务攻击。</p>
+</li>
+<li><p>DNS请求包和DNS应答包之间的关系是相同的16bit标识号。</p>
+</li>
+</ol>
+<h3 id="1-2-网络安全协议定义-1-3构成网络安全协议所需的组件"><a href="#1-2-网络安全协议定义-1-3构成网络安全协议所需的组件" class="headerlink" title="1.2 网络安全协议定义+1.3构成网络安全协议所需的组件"></a>1.2 网络安全协议定义+1.3构成网络安全协议所需的组件</h3><ol>
+<li>网络安全协议：<strong>基于密码学</strong>的<strong>通信协议</strong>，通过信息的安全交换来实现某种安全目的所共同约定的逻辑操作规则。</li>
+<li>安全协议包含的基本要素：保证信息的安全交换，使用密码技术，具有严密的共同约定的逻辑交换规则，使用访问控制等安全机制。</li>
+<li>安全协议的分类：认证协议（消息认证、数据源认证、实体认证），密钥管理协议（密钥分配、密钥交换），不可否认协议（发方不可否认协议、收方不可否认协议、数字签名协议）、信息安全交换协议（实现信息全交换功能）。</li>
+<li>网络安全协议组成：加密与解密、信息摘要、消息验证码、数字签名、密钥管理。</li>
+</ol>
+<h2 id="🎲-第二章-数据链路层安全协议"><a href="#🎲-第二章-数据链路层安全协议" class="headerlink" title="🎲 第二章 数据链路层安全协议"></a>🎲 第二章 数据链路层安全协议</h2><h3 id="2-1-广域网数据链路层安全协议"><a href="#2-1-广域网数据链路层安全协议" class="headerlink" title="2.1 广域网数据链路层安全协议"></a>2.1 广域网数据链路层安全协议</h3><ol>
+<li>广域网数据链路层安全协议：<strong>点对点隧道协议PPTP</strong>、第二层转发协议L2F、第二层隧道协议L2TP</li>
+<li>PPTP协议：以PPP协议为基础，只支持在IP网络内使用，只能在两端点间建立单一通道。</li>
+<li>L2F协议：可以支持多种传输协议，如IP，ATM，帧中继</li>
+<li>L2TP协议：支持IP、X.25、帧中继或ATM等作为传输协议。目前仅定义了基于IP网络的L2TP，支持在两端点间使用多隧道。</li>
+<li>隧道协议：利用一种网络协议来传输另一种网络协议。隧道：封装、传输和拆封数据的过程。典型二层隧道协议：PPTP、L2TP、L2F，三层隧道协议：IPSec。</li>
+<li>PPTP协议：只适用于IP网络，以PPP协议为基础，可以建立PC到LAN的VPN连接。呼叫：通信发起端建立通信连接的请求，NAS：网络接入服务器，PAC：PPTP接入控制客户端，PNS：PPTP网络服务器，控制连接：PAC-PNS之间的TCP连接，会话：建立一条PPP连接后，形成一次会话。隧道：一个隧道由&lt;PAC,PNS&gt;定义，隧道协议GREv2，可供多个会话复用。PPTP采用RSA的RC4作为加密算法。</li>
+<li>PPTP建立VPN的三种方式：没有安装PPTP协议支持的任意PPP客户，首先接入PAC（支持PPTP的接入服务器），通过PAC到PNS。同时装有PPP和PPTP两种适配器的客户机，客户机为PAC，远端PPTP服务器为PNS。一台直接连入Internet的PC机可以配制成PPTP客户机。通过PPTP，客户可采用拨号方式接入公共IP网络。</li>
+<li>PPTP流程：PPP连接+PPTP控制链接+PPTP数据连接。控制报文：负责PPTP隧道的建立、维护和断开。数据报文：负责传输用户的真正数据。</li>
+<li>PPTP拨号：连接PPTP服务器的TCP协议的1723号端口建立控制连接。</li>
+<li>PPTP封装：发生在数据链路层。封装后的分组被装入IP分组中，在IP网络上进行传送。</li>
+<li>利用PPTP协议，建立VPN有3种方式。</li>
+</ol>
+<h3 id="2-2-无线局域网数据链路层协议"><a href="#2-2-无线局域网数据链路层协议" class="headerlink" title="2.2 无线局域网数据链路层协议"></a>2.2 无线局域网数据链路层协议</h3><ol>
+<li>802.11 网络的两个基本构件：站STA和无线接入点AP。</li>
+<li>802.11 网络的两种组网模式：Ad hoc模式（点对点模式，设备之间相互直接通讯而不通过一个无线接入点，热点），基础模式（STA与AP联系，设备接入路由器）</li>
+<li>基本服务集BSS：1AP+nSTA。是无线局域网的基本构件。一个无线访问点所覆盖的微蜂窝区域就是基本服务区BSA。</li>
+<li>扩展服务集ESS：nAP+MSTA。所有AP必需共享同一个ESSID。扩展服务区只包含物理层和数据链路层，一个ESS就是一个IP子网。</li>
+<li>无线局域网安全标准：WAPI标准（国产，未在国际大规模使用，更安全）和IEEE 802.11（国际认可，广泛通用）标准。</li>
+<li>有线等效保密协议WEP：所有用户都要使用共享密钥，SSID明文传送，RC4算法缺陷，WEP可以升级为WPA。共享密钥认证假设密钥已分配并正确装入MAC层内，回避密钥分配问题，随机数加密挑战应答。WEP可以升级为WPA，但这两种协议不能共存。</li>
+<li>WPA解决共享密钥问题，确保共享密钥不会直接用于加密你的个人数据流量。</li>
+<li>RSN健壮安全网络：STA AP AS（为STA提供认证服务）。认证者中定义了两个逻辑端口，控制端口和非控制端口，控制端口始终打开，只用于交换认证信息，主要是EAPOL帧，控制端口只有认证通过才打开，用于传递网络服务。</li>
+<li>PAE：端口访问实体。申请者中的PAE负责相应认证，认证者中的PAE负责与申请者通信，并将认证信息传递给认证服务器，根据认证结果，决定控制端口状态。</li>
+<li>移动节点将凭据通过AP的非认证端口转发给身份认证服务器，此时已经通过认证，非控制端口已经打开，后续对移动节点的有效性进行确认之后，身份认证服务器将身份认证密钥发送给AP，AP使用身份验证密钥保护移动节点数据传输的安全性。</li>
+</ol>
+<h2 id="🎲-第三章-网络层安全协议"><a href="#🎲-第三章-网络层安全协议" class="headerlink" title="🎲 第三章 网络层安全协议"></a>🎲 第三章 网络层安全协议</h2><h3 id="3-1-第一讲"><a href="#3-1-第一讲" class="headerlink" title="3.1 第一讲"></a>3.1 第一讲</h3><ol>
+<li><p>TCP/IP协议族3个主要漏洞：基于IP地址的身份鉴别机制、IP协议没有提供数据的完整性保护机制、IP协议没有提供数据的机密性保护机制</p>
+</li>
+<li><p>IPSec抵御网络攻击：窃听，数据篡改、身份欺骗、中间人攻击、拒绝服务攻击</p>
+</li>
+<li><p>IPSec中的AH协议可以提供的服务：完整性保护、数据源认证、抗重放攻击，IPSec的ESP协议可以提供的服务：完整性保护、机密性保护、数据源认证、抗重放攻击</p>
+</li>
+<li><p>IPSec：为了在IP安全层提供通信安全而定制的一套协议族。安全协议（通信保护机制）+密钥协商（如何为安全协议协商保护参数，如何对通信实体进行身份鉴别）</p>
+</li>
+<li><p>安全协议：ESP封装安全载荷（机密性+完整性）、AH认证头（完整性）。都提供抗重放</p>
+</li>
+<li><p>IKE密钥协商协议：实现安全协议参数协商。安全参数：加密及认证算法，加密及认证密钥，通信的保护模式，密钥的生存期等。</p>
+</li>
+<li><p>安全关联SA：上述安全参数构成的集合。性质：单向的，协议相关的（AH或ESP），保存在安全关联数据库（SADB）中。三元组&lt;SPI，目标IP，安全协议&gt; 安全参数索引SPI存在于IPSec协议头内，目标IP地址同时决定关联方向，安全协议标识符AH或ESP二选一。</p>
+</li>
+<li><p>DOI解释域：为保证IPSec通信两端能相互交互，通信双方必须遵守共同的解释原则，即有相同的DOI</p>
+</li>
+<li><p>SA（安全关联）、SAD（安全关联数据库）、SPD（安全策略数据库）。</p>
+</li>
+<li><p><strong>安全关联是通信双方所协商的安全策略的一种描述。</strong></p>
+</li>
+<li><p>SA的管理：IPSec环境中，SA的管理通过IKE协议来完成。包括SA创建和SA删除。如果找不到SA，IPSec内核会自动调用IKE。</p>
+</li>
+<li><p>安全策略数据库SPD：对所有IP通信，无论进入或者外出，都必须经过SPD。处理选择：丢弃处理、旁路IPSec处理、实施IPSec处理.</p>
+</li>
+<li><p>SA选择符：每个SPD条目由一组IP地址和更高层协议字段值决定。根据SA选择符来查找SPD中匹配的策略条目，会指向n个SA，然后检索SADB，检索结果是一个指针，指向SA或者SA集束。SA或SA集束根据策略的需求，按指定的顺序一次对外出包进行处理，如果SA未建立则调用IKE。SA选择符是连接数据包、SPD和SAD的<strong>关键桥梁</strong>，是用于精确识别流量和查找策略/安全关联的<strong>索引关键词</strong>。</p>
+</li>
+<li><p>如何根据IPSec头查询SA：从头中提取SPI、目标IP、安全协议，作为复合键，查询SADB。</p>
+</li>
+<li><p>查询到SA后如何进行IPSec处理：验证序列号（防重放攻击），验证认证数据（完整性检查），解密数据（如果使用ESP并启用了加密），处理填充（仅ESP），解封装并上交。</p>
+</li>
+<li><p>进行IPSec处理后查询SPD：实施合规性检查，确保刚刚解密的流量确实是<strong>被授权</strong>通过这种方式传输的</p>
+</li>
+</ol>
+<h3 id="第二讲"><a href="#第二讲" class="headerlink" title="第二讲"></a>第二讲</h3><ol>
+<li>关于安全策略：数据包的外出和进入处理，都要经过SPD；SPD条目中存储了关于某一特定通信的算法，但是不存储密钥；SPD决定了每一个数据包的安全服务；SPD可以对数据包实施旁路IPSec处理，说明该数据包不需要经过IPSec保护。（旁路=bypass=绕过）</li>
+<li>安全关联SA可由唯一的三元组确定，具体包括：安全参数索引SPI、目标IP地址、安全协议</li>
+<li>IKE因特网密钥交换协议：在IPSec通信双方之间建立起共享安全参数以及检验过的密钥，是一个以受保护的方式动态协商SA的协议。功能：SA协商及管理、密钥生成、身份认证</li>
+<li>IKE：应用层协议，基于UDP，使用端口500。是一个混合的协议，组成：ISAKMP+Oakley</li>
+<li>ISAKMP因特网安全关联和密钥管理协议：定义了通信用的数据包格式和安全参数协商，目的是为通信双方建立安全关联并初始化密钥，自身不包含特定的密钥交换算法</li>
+<li>Oakley密钥确定协议：基于diffie-hellman算法的密钥交换协议，是对dh算法的优化。</li>
+<li>dh密钥交换：允许两个用户可以安全地交换一个秘密信息，用于后续的通信过程，算法安全性依赖于计算离散对数的难度。弱点：没有提供双方身份的任何信息，容易受到中间人攻击，容易受到阻塞性攻击（计算密集性）</li>
+<li>PFS完美前向保密：即使攻破了第一阶段的密钥交换，也只能阅读受该SA保护的信息，却不能阅读受IPSec SA保护的信息</li>
+<li>group组：Oakley定义的diffie-hellman密钥保护参数</li>
+<li>mode模式：一个密钥交换过程。三个模式。第一阶段：主模式，野蛮模式；第二阶段：快速模式</li>
+<li>IPSec认证采用的方法：预共享密钥、数字签名、公钥加密</li>
+<li>IKE协商阶段：阶段一 协商如何保护后续的协商传输，并建立一个主密钥，形成一个ISAKMP SA，主模式：用数字签名认证；阶段二 协商建立IPSec SA，用于实际的安全协议，保护实际通信内容</li>
+<li>策略协商：ISAKMP同时使用SA载荷、Proposal载荷、Transform载荷来表示策略。 T属于P，P属于SA</li>
+<li>IKE的密钥协商是封装在UDP协议中传输的</li>
+<li>第一阶段的密钥协商产生了4个关键密钥</li>
+<li>主模式下的第一阶段密钥协商过程的6条消息中，4个是明文传输的。</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io">SereniusX</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io/2025/10/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/">https://sereniusx.github.io/2025/10/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sereniusx.github.io" target="_blank">SereniusX的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/">课程学习</a></div><div class="post-share"><div class="social-share" data-image="/img/my_avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/10/16/%E7%A7%91%E7%A0%94%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%E6%94%B6%E9%9B%86%E5%B7%A5%E5%85%B7/" title="科研资料整理收集工具"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">科研资料整理收集工具</div></div><div class="info-2"><div class="info-item-1">🌟 1 好用的ai工具https://www.bohrium.com/journal-library 🌟 2 翻译工具英文翻译好用软件：小绿鲸 翻译插件：沉浸式翻译https://immersivetranslate.cn/ 官网有使用教程，简单易安装，可以用于快速理解文章内容、筛选信息 🌟 3 信息检索资料   微信公众号 主要方向 推荐程度及理由    安全研究GoSSIP 智安领域，主要面向安全 优，会推荐一些比较先进的论文   Coder小Q 密码领域 一般，倾向于密码领域知识的科普   苏州信息安全法学所 网安、密码、法律 一般，主要倾向于网安、密码和法律之间关系的解读及对当下的影响   凰兮 密码 不推荐，近期注重对于经典密码算法的讲解   黑客网络安全 网安 一般，主要是对网安人员和黑客的事迹介绍以及一些网络安全小技巧分享（通俗易懂）   ACM计算机学会 智安等与计算机相关的领域 优，推荐各类计算机赛事信息和具有代表性的获奖论文   中国信息安全 智安 一般，主要是聚焦相关政策介绍和专家解读   XPTY 密码 一般，介绍各类优秀论文   </div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/15/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/" title="操作系统章节笔记"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-15</div><div class="info-item-2">操作系统章节笔记</div></div><div class="info-2"><div class="info-item-1">操作系统章节复习🌟 第一章基础知识 OS作为用户与计算机硬件系统之间的接口。OS处于用户和计算机硬件系统之间，用户通过OS来使用计算机系统。用户可以通过以下三种方式使用计算机：命令行；系统调用；图形化 OS的定义：操作系统是一组控制和管理计算机硬件和软件资源，合理地对各类作业进行调度，以及方便用户使用的程序的集合 关于操作系统的比喻：魔术师，提供干净、易于使用的物理资源抽象，应用程序的“机器”是由操作系统提供的进程抽象，每个正在运行的程序都在它自己的进程中运行，进程提供了比原始硬件更好的接口。裁判，管理保护、隔离和资源共享，操作系统相互隔离各个过程，操作系统将自己与其他过程隔离开来，即使它们实际上是运行在相同的硬件上！胶水，常见的服务：存储，窗口系统，网络，共享和授权，外观和感觉 进程：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。进程是程序的一次执行，进程是一个程序及数据在处理机上顺序执行时所发生的活动。进程=地址空间+线程+与之关联的其他系统状态 操作系统的发展过程：无操作系统的计算机系统、单道批处理系统、多道批处理系统、分时系统、实时系统。多道批处理系...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/my_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本博客内容较杂，请按照需求合理检索取食</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%93%96%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%AB%A0%E8%8A%82%E5%A4%8D%E4%B9%A0"><span class="toc-text">📖网络安全协议章节复习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%B2-%E7%AC%AC%E4%B8%80%E7%AB%A0-%E6%A6%82%E8%BF%B0"><span class="toc-text">🎲 第一章 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-TCP-IP%E4%B8%BB%E8%A6%81%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%89%E5%85%A8%E5%88%86%E6%9E%90"><span class="toc-text">1.1 TCP&#x2F;IP主要协议的安全分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E5%AE%9A%E4%B9%89-1-3%E6%9E%84%E6%88%90%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E6%89%80%E9%9C%80%E7%9A%84%E7%BB%84%E4%BB%B6"><span class="toc-text">1.2 网络安全协议定义+1.3构成网络安全协议所需的组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%B2-%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE"><span class="toc-text">🎲 第二章 数据链路层安全协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%B9%BF%E5%9F%9F%E7%BD%91%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE"><span class="toc-text">2.1 广域网数据链路层安全协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%97%A0%E7%BA%BF%E5%B1%80%E5%9F%9F%E7%BD%91%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E5%8D%8F%E8%AE%AE"><span class="toc-text">2.2 无线局域网数据链路层协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8E%B2-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E7%BD%91%E7%BB%9C%E5%B1%82%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE"><span class="toc-text">🎲 第三章 网络层安全协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%AC%AC%E4%B8%80%E8%AE%B2"><span class="toc-text">3.1 第一讲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E8%AE%B2"><span class="toc-text">第二讲</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/17/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/" title="网络安全协议章节笔记">网络安全协议章节笔记</a><time datetime="2025-10-17T12:06:25.000Z" title="发表于 2025-10-17 20:06:25">2025-10-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/16/%E7%A7%91%E7%A0%94%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%E6%94%B6%E9%9B%86%E5%B7%A5%E5%85%B7/" title="科研资料整理收集工具">科研资料整理收集工具</a><time datetime="2025-10-16T13:06:08.000Z" title="发表于 2025-10-16 21:06:08">2025-10-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/16/CTF%E7%AB%9E%E8%B5%9B%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="CTF竞赛资料整理">CTF竞赛资料整理</a><time datetime="2025-10-16T13:02:12.000Z" title="发表于 2025-10-16 21:02:12">2025-10-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/16/%E6%A0%A1%E5%9B%AD%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/" title="校园资料整理">校园资料整理</a><time datetime="2025-10-16T12:56:29.000Z" title="发表于 2025-10-16 20:56:29">2025-10-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/15/%E7%83%AD%E7%82%B9%E4%BA%8B%E4%BB%B6%E6%94%B6%E9%9B%86%E7%AC%AC%E4%B8%80%E6%9C%9F/" title="热点事件收集第一期">热点事件收集第一期</a><time datetime="2025-10-15T09:05:12.000Z" title="发表于 2025-10-15 17:05:12">2025-10-15</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '6mcSyrMlXWnNDD5GTn6oE016-gzGzoHsz',
+      appKey: '7fzgXfonaE8Awis1bAGQkCrC',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
