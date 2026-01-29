@@ -1,0 +1,721 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SereniusX的博客 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="友情链接       与我互链的优质资源                 0 个链接       0 个分类                   全部     官方文档     好朋友们     点头之交                          官方文档">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SereniusX的博客">
+<meta property="og:url" content="https://sereniusx.github.io/mylink/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="友情链接       与我互链的优质资源                 0 个链接       0 个分类                   全部     官方文档     好朋友们     点头之交                          官方文档">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/my_avatar.jpg">
+<meta property="article:published_time" content="2025-05-21T09:32:19.000Z">
+<meta property="article:modified_time" content="2026-01-29T12:39:39.304Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/my_avatar.jpg"><link rel="shortcut icon" href="/img/my_avatar.png"><link rel="canonical" href="https://sereniusx.github.io/mylink/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SereniusX的博客',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/my_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="page type-mylink" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">SereniusX的博客</h1></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><div id="links-system">
+  <!-- 顶部 -->
+  <header class="links-header">
+    <div class="header-title">
+      <h1>友情链接</h1>
+      <p class="header-subtitle">与我互链的优质资源</p>
+    </div>
+    <div class="header-meta">
+      <span class="meta-item"><strong id="total-links">0</strong> 个链接</span>
+      <span class="meta-item"><strong id="total-categories">0</strong> 个分类</span>
+    </div>
+  </header>
+  <!-- 分类筛选（极简 pills） -->
+  <nav class="links-tabs" aria-label="分类筛选">
+    <button class="tab-btn active" data-category="all" type="button">全部</button>
+    <button class="tab-btn" data-category="official" type="button">官方文档</button>
+    <button class="tab-btn" data-category="friends" type="button">好朋友们</button>
+    <button class="tab-btn" data-category="acquaintance" type="button">点头之交</button>
+  </nav>
+  <!-- 链接展示区 -->
+  <main class="links-container">
+    <!-- 官方文档 -->
+    <section class="category-section" data-category="official">
+      <h2 class="category-title">官方文档</h2>
+      <div class="links-grid">
+        <article class="link-card">
+          <div class="link-avatar" aria-hidden="true">
+            <img src="../aimgs/links/hexo.png" alt="Hexo" onerror="this.src='/images/default-link.png'">
+          </div>
+          <div class="link-info">
+            <div class="link-top">
+              <h3 class="link-name">Hexo 文档</h3>
+              <p class="link-desc">静态博客框架官方文档</p>
+              <div class="link-meta">
+                <span class="link-tag">博客框架</span>
+              </div>
+            </div>
+            <a href="https://hexo.io" target="_blank" rel="noopener noreferrer" class="visit-btn">
+              访问
+              <span class="ext" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+        <article class="link-card">
+          <div class="link-avatar" aria-hidden="true">
+            <img src="../aimgs/links/butterfly-icon.png" alt="Butterfly" onerror="this.src='/images/default-link.png'">
+          </div>
+          <div class="link-info">
+            <div class="link-top">
+              <h3 class="link-name">Butterfly 主题</h3>
+              <p class="link-desc">Hexo 主题文档</p>
+              <div class="link-meta">
+                <span class="link-tag">主题美化</span>
+              </div>
+            </div>
+            <a href="https://butterfly.js.org" target="_blank" rel="noopener noreferrer" class="visit-btn">
+              访问
+              <span class="ext" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 好朋友们 -->
+    <section class="category-section" data-category="friends">
+      <h2 class="category-title">好朋友们</h2>
+      <div class="links-grid">
+        <article class="link-card">
+          <div class="link-avatar" aria-hidden="true">
+            <img src="../aimgs/links/aurora.jpg" alt="Aurora" onerror="this.src='/images/default-link.png'">
+          </div>
+          <div class="link-info">
+            <div class="link-top">
+              <h3 class="link-name">Aurora</h3>
+              <p class="link-desc">资深开发者的技术博客</p>
+              <div class="link-meta">
+                <span class="link-tag">技术分享</span>
+              </div>
+            </div>
+            <a href="https://www.cnblogs.com/blackhacker" target="_blank" rel="noopener noreferrer" class="visit-btn">
+              访问
+              <span class="ext" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+        <article class="link-card">
+          <div class="link-avatar" aria-hidden="true">
+            <img src="../aimgs/links/TDK.jpg" alt="TDK" onerror="this.src='/images/default-link.png'">
+          </div>
+          <div class="link-info">
+            <div class="link-top">
+              <h3 class="link-name">TDK</h3>
+              <p class="link-desc">打 ACM 的喵</p>
+              <div class="link-meta">
+                <span class="link-tag">技术分享</span>
+              </div>
+            </div>
+            <a href="http://blog.thedyingkai.cn" target="_blank" rel="noopener noreferrer" class="visit-btn">
+              访问
+              <span class="ext" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 点头之交 -->
+    <section class="category-section" data-category="acquaintance">
+      <h2 class="category-title">点头之交</h2>
+      <div class="links-grid">
+        <article class="link-card">
+          <div class="link-avatar" aria-hidden="true">
+            <img src="../aimgs/photos/landscape1.jpg" alt="设计笔记" onerror="this.src='/images/default-link.png'">
+          </div>
+          <div class="link-info">
+            <div class="link-top">
+              <h3 class="link-name">设计笔记</h3>
+              <p class="link-desc">UI 设计师的日常记录</p>
+              <div class="link-meta">
+                <span class="link-tag">设计</span>
+              </div>
+            </div>
+            <a href="https://example.com/acquaintance1" target="_blank" rel="noopener noreferrer" class="visit-btn">
+              访问
+              <span class="ext" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 申请友链 -->
+    <section class="apply-section">
+      <h2 class="apply-title">申请友链</h2>
+      <p class="apply-desc">欢迎在留言板提交友链申请。为便于互链，请确保你的网站已添加本站链接：</p>
+      <div class="my-link-card">
+        <div class="my-link-header">
+          <h3>我的站点信息</h3>
+        </div>
+        <div class="my-link-info">
+          <div class="info-item"><strong>名称：</strong> SereniusX 的博客</div>
+          <div class="info-item"><strong>网址：</strong> https://sereniusx.github.io</div>
+          <div class="info-item"><strong>描述：</strong> 记录技术学习与生活点滴</div>
+        </div>
+        <!-- 可选：复制按钮（功能性强、装饰性弱） -->
+        <div class="copy-row">
+          <button id="copy-site-info" class="btn btn-primary" type="button">复制站点信息</button>
+          <span id="copy-tip" class="copy-tip" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<style>
+/* ========== 极简黑白灰（对齐你“说说页”的风格） ========== */
+#links-system{
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 28px 18px 60px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #111;
+  background: #fff;
+}
+
+/* 顶部 */
+.links-header{
+  padding: 18px 0 22px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 18px;
+}
+
+.header-title h1{
+  margin: 0;
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+
+.header-subtitle{
+  margin: 6px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.header-meta{
+  margin-top: 12px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: #777;
+  font-size: 13px;
+}
+.meta-item strong{
+  color: #111;
+  font-weight: 650;
+}
+
+/* pills tabs */
+.links-tabs{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 14px 0 22px;
+}
+
+.tab-btn{
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: transform .08s ease, border-color .12s ease, background .12s ease;
+}
+.tab-btn:hover{ background:#f7f7f7; border-color:#dedede; }
+.tab-btn:active{ transform: translateY(1px); }
+.tab-btn.active{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+/* 分类标题 */
+.category-section{
+  margin-bottom: 28px;
+}
+.category-title{
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 650;
+  color: #111;
+}
+
+/* 网格 */
+.links-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+/* 卡片 */
+.link-card{
+  border: 1px solid #eee;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  display: flex;
+  min-height: 110px;
+  transition: border-color .12s ease, box-shadow .12s ease, transform .08s ease;
+}
+.link-card:hover{
+  border-color: #e2e2e2;
+  box-shadow: 0 8px 24px rgba(0,0,0,.05);
+}
+.link-card:active{
+  transform: translateY(1px);
+}
+
+/* 左侧头像 */
+.link-avatar{
+  width: 96px;
+  height: 96px;
+  flex: 0 0 auto;
+  margin: 12px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  background: #fafafa;
+}
+.link-avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 右侧内容 */
+.link-info{
+  padding: 12px 14px 12px 0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.link-top{
+  flex: 1;
+  min-width: 0;
+}
+.link-name{
+  margin: 2px 0 6px;
+  font-size: 15px;
+  font-weight: 650;
+  color: #111;
+}
+.link-desc{
+  margin: 0 0 10px;
+  color: #666;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.link-meta{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.link-tag{
+  background: #f5f5f5;
+  border: 1px solid #eee;
+  color: #444;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* 访问按钮 */
+.visit-btn{
+  align-self: flex-start;
+  margin-top: 12px;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #111;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background .12s ease, border-color .12s ease, transform .08s ease;
+}
+.visit-btn:hover{
+  background: #f7f7f7;
+  border-color: #dedede;
+}
+.visit-btn:active{
+  transform: translateY(1px);
+}
+.ext{ font-size: 12px; color:#666; }
+
+/* 申请友链区 */
+.apply-section{
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid #eee;
+}
+.apply-title{
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 650;
+}
+.apply-desc{
+  margin: 0 0 14px;
+  color: #666;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+
+/* 我的站点信息卡片 */
+.my-link-card{
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 14px;
+  background: #fafafa;
+}
+.my-link-header h3{
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 650;
+}
+.my-link-info{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+.info-item{
+  font-size: 13.5px;
+  color: #333;
+}
+.info-item strong{
+  color:#111;
+  font-weight: 650;
+}
+
+/* 按钮（与说说页一致） */
+.btn{
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #111;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform .08s ease, border-color .12s ease, background .12s ease;
+}
+.btn:hover{ background: #f7f7f7; border-color:#dedede; }
+.btn:active{ transform: translateY(1px); }
+.btn-primary{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.btn-primary:hover{ background:#1a1a1a; }
+
+/* 复制区域 */
+.copy-row{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+.copy-tip{
+  color: #777;
+  font-size: 12.5px;
+}
+
+/* 响应式 */
+@media (max-width: 720px){
+  .links-grid{ grid-template-columns: 1fr; }
+  .link-card{ flex-direction: row; }
+  .link-info{ padding-right: 12px; }
+}
+</style>
+
+<script>
+(function(){
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+  function updateStats(){
+    const linkCards = $$('.link-card');
+    const categories = new Set($$('.category-section').map(s => s.getAttribute('data-category')));
+    $('#total-links').textContent = String(linkCards.length);
+    $('#total-categories').textContent = String(categories.size);
+  }
+
+  function filterCategory(category){
+    $$('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.category === category));
+    $$('.category-section').forEach(section => {
+      section.style.display = (category === 'all' || section.dataset.category === category) ? 'block' : 'none';
+    });
+  }
+
+  async function copyText(text){
+    try{
+      await navigator.clipboard.writeText(text);
+      return true;
+    }catch(e){
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+      return true;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateStats();
+
+    // tabs
+    $$('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => filterCategory(btn.dataset.category));
+    });
+
+    // 复制站点信息（可选功能：高功能性、低装饰）
+    const copyBtn = $('#copy-site-info');
+    if(copyBtn){
+      copyBtn.addEventListener('click', async () => {
+        const payload =
+`名称：SereniusX 的博客
+网址：https://sereniusx.github.io
+描述：记录技术学习与生活点滴`;
+        const ok = await copyText(payload);
+        const tip = $('#copy-tip');
+        if(ok && tip){
+          tip.textContent = '已复制';
+          setTimeout(() => tip.textContent = '', 1200);
+        }
+      });
+    }
+  });
+})();
+</script>
+</div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/my_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本博客内容较杂，请按照需求合理检索取食</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E6%9E%81%E7%AE%80%E9%A3%8E%E7%BE%8E%E5%8C%96%E6%95%99%E7%A8%8B/" title="极简风美化教程">极简风美化教程</a><time datetime="2026-01-29T11:29:29.000Z" title="发表于 2026-01-29 19:29:29">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E6%95%99%E7%A8%8B/" title="主题美化教程">主题美化教程</a><time datetime="2026-01-29T11:22:13.000Z" title="发表于 2026-01-29 19:22:13">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E5%8D%9A%E5%AE%A2%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="博客日常使用完整教程">博客日常使用完整教程</a><time datetime="2026-01-29T11:13:22.000Z" title="发表于 2026-01-29 19:13:22">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/18/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E9%AA%8C%E5%8F%8A%E4%BD%9C%E4%B8%9A/" title="操作系统实验及作业">操作系统实验及作业</a><time datetime="2025-10-17T17:14:42.000Z" title="发表于 2025-10-18 01:14:42">2025-10-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/16/%E7%A7%91%E7%A0%94%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%E6%94%B6%E9%9B%86%E5%B7%A5%E5%85%B7/" title="科研资料整理收集工具">科研资料整理收集工具</a><time datetime="2025-10-16T13:06:08.000Z" title="发表于 2025-10-16 21:06:08">2025-10-16</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%85%B6%E4%BB%96/"><span class="card-category-list-name">其他</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4/"><span class="card-category-list-name">博客日常维护</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%B6%E4%BA%8B%E4%BA%86%E8%A7%A3/"><span class="card-category-list-name">时事了解</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/"><span class="card-category-list-name">计算机基础课程</span><span class="card-category-list-count">2</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%97%B6%E4%BA%8B%E8%BF%BD%E8%B8%AA/" style="font-size: 1.1em; color: #999">时事追踪</a> <a href="/tags/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/" style="font-size: 1.3em; color: #99a1ac">课程学习</a> <a href="/tags/%E5%85%B6%E4%BB%96%E8%B5%84%E6%96%99/" style="font-size: 1.5em; color: #99a9bf">其他资料</a> <a href="/tags/%E7%83%AD%E7%82%B9%E4%BA%8B%E4%BB%B6/" style="font-size: 1.1em; color: #999">热点事件</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8/" style="font-size: 1.1em; color: #999">博客使用</a> <a href="/tags/%E7%A4%BE%E4%BC%9A%E8%A7%82%E5%AF%9F/" style="font-size: 1.1em; color: #999">社会观察</a> <a href="/tags/hexo%E7%BE%8E%E5%8C%96/" style="font-size: 1.3em; color: #99a1ac">hexo美化</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              一月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">6</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">9</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-01-29T14:32:06.895Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '6mcSyrMlXWnNDD5GTn6oE016-gzGzoHsz',
+      appKey: '7fzgXfonaE8Awis1bAGQkCrC',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

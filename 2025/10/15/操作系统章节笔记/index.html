@@ -1,0 +1,411 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>操作系统章节笔记 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="🌲操作系统章节复习🌟 第一章基础知识 OS作为用户与计算机硬件系统之间的接口。OS处于用户和计算机硬件系统之间，用户通过OS来使用计算机系统。用户可以通过以下三种方式使用计算机：命令行；系统调用；图形化 OS的定义：操作系统是一组控制和管理计算机硬件和软件资源，合理地对各类作业进行调度，以及方便用户使用的程序的集合 关于操作系统的比喻：魔术师，提供干净、易于使用的物理资源抽象，应用程序的“机器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统章节笔记">
+<meta property="og:url" content="https://sereniusx.github.io/2025/10/15/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="🌲操作系统章节复习🌟 第一章基础知识 OS作为用户与计算机硬件系统之间的接口。OS处于用户和计算机硬件系统之间，用户通过OS来使用计算机系统。用户可以通过以下三种方式使用计算机：命令行；系统调用；图形化 OS的定义：操作系统是一组控制和管理计算机硬件和软件资源，合理地对各类作业进行调度，以及方便用户使用的程序的集合 关于操作系统的比喻：魔术师，提供干净、易于使用的物理资源抽象，应用程序的“机器">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/my_avatar.jpg">
+<meta property="article:published_time" content="2025-10-15T07:48:40.000Z">
+<meta property="article:modified_time" content="2025-10-19T03:45:12.151Z">
+<meta property="article:author" content="SereniusX">
+<meta property="article:tag" content="课程学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/my_avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "操作系统章节笔记",
+  "url": "https://sereniusx.github.io/2025/10/15/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/",
+  "image": "https://sereniusx.github.io/img/my_avatar.jpg",
+  "datePublished": "2025-10-15T07:48:40.000Z",
+  "dateModified": "2025-10-19T03:45:12.151Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "SereniusX",
+      "url": "https://sereniusx.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/my_avatar.png"><link rel="canonical" href="https://sereniusx.github.io/2025/10/15/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '操作系统章节笔记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/my_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">操作系统章节笔记</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">操作系统章节笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-10-15T07:48:40.000Z" title="发表于 2025-10-15 15:48:40">2025-10-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-10-19T03:45:12.151Z" title="更新于 2025-10-19 11:45:12">2025-10-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/">计算机基础课程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><h1 id="🌲操作系统章节复习"><a href="#🌲操作系统章节复习" class="headerlink" title="🌲操作系统章节复习"></a>🌲操作系统章节复习</h1><h2 id="🌟-第一章基础知识"><a href="#🌟-第一章基础知识" class="headerlink" title="🌟 第一章基础知识"></a>🌟 第一章基础知识</h2><ol>
+<li>OS作为用户与计算机硬件系统之间的接口。OS处于用户和计算机硬件系统之间，用户通过OS来使用计算机系统。用户可以通过以下三种方式使用计算机：命令行；系统调用；图形化</li>
+<li>OS的定义：操作系统是一组控制和管理计算机硬件和软件资源，合理地对各类作业进行调度，以及方便用户使用的程序的集合</li>
+<li>关于操作系统的比喻：魔术师，提供干净、易于使用的物理资源抽象，应用程序的“机器”是由操作系统提供的进程抽象，每个正在运行的程序都在它自己的进程中运行，进程提供了比原始硬件更好的接口。裁判，管理保护、隔离和资源共享，操作系统相互隔离各个过程，操作系统将自己与其他过程隔离开来，即使它们实际上是运行在相同的硬件上！胶水，常见的服务：存储，窗口系统，网络，共享和授权，外观和感觉</li>
+<li>进程：进程是进程实体的运行过程，是系统进行资源分配和调度的一个独立单位。进程是程序的一次执行，进程是一个程序及数据在处理机上顺序执行时所发生的活动。进程=地址空间+线程+与之关联的其他系统状态</li>
+<li>操作系统的发展过程：无操作系统的计算机系统、单道批处理系统、多道批处理系统、分时系统、实时系统。多道批处理系统是操作系统成熟的标志。</li>
+<li>分时系统的特征：多路性、独占性、及时性、交互性</li>
+<li>操作系统的基本特征：并发性、共享性、虚拟性、异步性</li>
+<li>共享：系统中的资源可供内存中多个并发执行的进程共同使用，相应地把这种资源共同使用称为资源共享或称为资源复用。</li>
+<li>临界资源：在一段时间内只允许一个进程访问的资源</li>
+<li>并发和共享是操作系统的两个最基本特征，他们又是互为存在的条件。</li>
+<li>虚拟技术：操作系统中所谓的虚拟，是指通过某种技术把一个物理实体变为若干个逻辑上的对应物。物理实体是实的，即实际存在的，后者是虚的，是用户感觉上的东西。用于实现虚拟的技术称为虚拟技术。</li>
+<li><strong>操作系统的主要功能</strong>：（1）处理机管理功能：进程控制、进程同步、进程通信、调度（2）存储器管理功能：对内存进行分配、保护和扩充、地址映射 （3）设备管理功能：缓冲管理、设备分配、设备处理 （4）文件管理功能：文件存储空间的管理、目录管理、文件的读写管理和保护 （5）操作系统与用户之间的接口：用户接口和程序接口</li>
+</ol>
+<hr>
+<h2 id="🌟-第二章-进程、线程与文件系统"><a href="#🌟-第二章-进程、线程与文件系统" class="headerlink" title="🌟 第二章 进程、线程与文件系统"></a>🌟 第二章 进程、线程与文件系统</h2><h3 id="2-1-四个操作系统基本概念"><a href="#2-1-四个操作系统基本概念" class="headerlink" title="2.1 四个操作系统基本概念"></a>2.1 四个操作系统基本概念</h3><ol>
+<li>线程：单个唯一执行上下文（PC寄存器、数据寄存器、执行标志、堆栈、内存状态）。当线程驻留在处理器寄存器中时，它是在处理器上执行的。当状态未被加载到处理器时，线程被挂起（不执行） ，处理器状态指向其他线程，程序计数器不指向此线程的下一个指令。线程是虚拟内核，时分复用，线程在真正的物理核心，或保存在内存块中（线程控制块TCB），TCB在线程不运行时保留寄存器的内容，TCB现在存储在内核</li>
+<li>地址空间：程序可访问的一组内存地址（用于读取或写入）保护操作系统免受程序攻击：base&amp;bound，重定位，地址空间转换，分页虚拟地址空间</li>
+<li>进程：运行程序的实例（受保护的地址空间+一个或多个线程）权利受限的执行环境，具有一个或者多个线程，拥有内存、文件描述符、套接字，封装一个或多个线程共享过程资源，提供内存保护。线程封装并发，地址空间封装保护，并行性</li>
+<li>双模式操作保护：只有系统才有能力访问某些资源 内核态/用户态 管态/目态。用户内核模式转换：系统调用fopen、中断（硬件触发，如时钟中断、键盘操作）、陷入或异常</li>
+<li>code：代码段，程序的可执行指令，编译后的二进制代码 static data：数据段，已初始化的全局变量和静态变量（如 <code>int global_var = 42;</code>）未初始化的全局/静态变量（BSS段，默认值为0，如 <code>static int uninit_var;</code>） heap：堆，通过malloc或者new等动态分配的内存，如运行时创建的数组、对象、数据结构 stack：栈，函数调用的上下文，局部变量、函数参数、返回地址等</li>
+</ol>
+<h3 id="2-2-并发进程与线程"><a href="#2-2-并发进程与线程" class="headerlink" title="2.2 并发进程与线程"></a>2.2 并发进程与线程</h3><p><img src="/../../../../aimgs/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/%E8%99%9A%E6%8B%9F%E5%9C%B0%E5%9D%80%E7%A9%BA%E9%97%B4.png" alt="虚拟地址空间"></p>
+<ol>
+<li><strong>并发</strong>：多处理器：多个CPU（核心），多道：多个作业/进程，多线程：多个线程/进程</li>
+<li>并发性是同时处理多件事情，并行是同时做多件事情</li>
+<li>进程管理API：exit终止进程 fork复制当前进程 exec更改当前进程运行的程序 wait等待进程完成 kill向其他进程发送信号（中断式通知） sigaction为信号设置处理程序</li>
+<li>基础代码：</li>
+</ol>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span><br><span class="line">{</span><br><span class="line">  <span class="comment">/* get current processes PID */</span></span><br><span class="line">  <span class="type">pid_t</span> pid = getpid();</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"My pid: %d\n"</span>, pid);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span> {</span><br><span class="line">  <span class="type">pid_t</span> cpid, mypid;</span><br><span class="line">  <span class="type">pid_t</span> pid = getpid();            <span class="comment">/* get current processes PID */</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Parent pid: %d\n"</span>, pid);</span><br><span class="line">  cpid = fork();</span><br><span class="line">  <span class="keyword">if</span> (cpid &gt; <span class="number">0</span>) {		     <span class="comment">/* Parent Process */</span></span><br><span class="line">    mypid = getpid();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[%d] parent of [%d]\n"</span>, mypid, cpid);</span><br><span class="line">  } <span class="keyword">else</span> <span class="keyword">if</span> (cpid == <span class="number">0</span>) {	     <span class="comment">/* Child Process */</span></span><br><span class="line">    mypid = getpid();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"[%d] child\n"</span>, mypid);</span><br><span class="line">  } <span class="keyword">else</span> {</span><br><span class="line">    perror(<span class="string">"Fork failed"</span>);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">signal_callback_handler</span><span class="params">(<span class="type">int</span> signum)</span> {</span><br><span class="line">  <span class="built_in">printf</span>(“Caught signal!\n”);</span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">}</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> {</span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span> <span class="title">sa</span>;</span></span><br><span class="line">  sa.sa_flags = <span class="number">0</span>;</span><br><span class="line">  sigemptyset(&amp;sa.sa_mask);</span><br><span class="line">  sa.sa_handler = signal_callback_handler;</span><br><span class="line">  sigaction(SIGINT, &amp;sa, <span class="literal">NULL</span>);</span><br><span class="line">  <span class="keyword">while</span> (<span class="number">1</span>) {}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ol start="5">
+<li><p>线程掩盖了I/O延迟。</p>
+</li>
+<li><p>线程的三种状态：运行、就绪、阻塞</p>
+</li>
+<li><p>多线程程序：运行可执行程序将创建执行该程序的进程，最初新进程在自己的地址空间中只有一个线程。生成多线程程序的方法：调用<code>pthread_create()</code>创建新线程，指定线程函数和参数，使用<code>pthread_join()</code>等待线程结束，编译时需链接<code>-lpthread</code>库。</p>
+</li>
+<li><p><code>pthread</code> 是一套标准化的C语言线程操作函数库（如 <code>pthread_create</code>, <code>pthread_join</code>），允许程序在单进程内并发执行多个任务，共享进程资源但拥有独立执行流。</p>
+</li>
+<li><p><strong>pthread常用函数包括：</strong></p>
+<ol>
+<li><strong><code>pthread_create()</code></strong> - 创建新线程，需指定线程函数和参数；</li>
+<li><strong><code>pthread_join()</code></strong> - 阻塞等待线程结束并回收资源；</li>
+<li><strong><code>pthread_exit()</code></strong> - 线程主动退出，可返回结果；</li>
+<li><strong><code>pthread_self()</code></strong> - 获取当前线程ID；</li>
+<li>同步控制函数：<ul>
+<li><strong><code>pthread_mutex_init()/lock()/unlock()</code></strong> - 互斥锁保护共享数据；</li>
+<li><strong><code>pthread_cond_wait()/signal()</code></strong> - 条件变量实现线程间通信；</li>
+</ul>
+</li>
+<li><strong><code>pthread_detach()</code></strong> - 设置线程为分离状态，终止后自动回收资源。</li>
+</ol>
+<p><strong>注</strong>：使用时需链接<code>-lpthread</code>库，并注意同步避免竞争条件。</p>
+</li>
+<li><p>竞争与锁：线程之间的协调，通常涉及共享数据。临界区：访问临界资源的代码，一个线程的临界区必须一次执行完，不能中断。</p>
+</li>
+<li><p><strong>线程竞争（Race Condition）</strong>是指多个线程同时访问和修改同一共享资源时，由于执行顺序的不确定性导致程序结果出现错误或不可预测的行为。例如，两个线程同时对一个变量进行自增操作时，可能因线程切换导致部分修改丢失，最终结果不符合预期。<strong>锁（如互斥锁<code>pthread_mutex_t</code>）</strong>是解决竞争的核心机制：它在共享资源被访问前加锁（确保同一时间仅一个线程能操作），操作完成后解锁（允许其他线程访问）。锁强制将并发操作转为串行，保证数据一致性，但过度使用可能降低性能。简单来说，竞争是“乱抢资源引发的混乱”，锁则是“排队使用资源的规则”。</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">pthread_mutex_init</span><span class="params">(<span class="type">pthread_mutex_t</span> *mutex,			     <span class="type">const</span> <span class="type">pthread_mutexattr_t</span> *attr)</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_mutex_lock</span><span class="params">(<span class="type">pthread_mutex_t</span> *mutex)</span>;  </span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">pthread_mutex_unlock</span><span class="params">(<span class="type">pthread_mutex_t</span> *mutex)</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="2-3-文件与I-O"><a href="#2-3-文件与I-O" class="headerlink" title="2.3 文件与I/O"></a>2.3 文件与I/O</h3><ol>
+<li>对于文件的抽象：在UNIX系统中，<strong>“万物皆文件”</strong> 是其核心设计哲学，此处的“文件”是一个高度抽象的概念，它远不止于磁盘上存储数据的普通文件。本质上，<strong>一切可以被读写操作（read/write）的资源都被抽象成了文件</strong>，并通过统一的<strong>文件描述符（File Descriptor）</strong> 接口进行访问。这包括：存储数据的<strong>普通文件</strong>（-）、提供进程间通信的<strong>管道（pipe, |）</strong> 和<strong>套接字（socket）</strong>、代表硬件设备的<strong>设备文件</strong>（如/dev/sda，分字符c和块设备b）、以及映射进内存的<strong>虚拟文件</strong>（如/proc目录下的文件，它们实际上是内核数据结构接口）。因此，无论是操作硬盘数据、键盘输入、屏幕输出，还是进行网络通信，在UNIX看来，都只是在用<code>open</code>、<code>read</code>、<code>write</code>、<code>close</code>等相同的系统调用对不同的“文件”进行读写，这种极致抽象极大地简化了系统的设计和应用开发。</li>
+<li>POSIX I/O：POSIX I/O 是POSIX标准定义的一组文件输入/输出（Input/Output）系统调用，提供跨UNIX/Linux系统的统一文件操作接口。使用前open，面向字节，显式close</li>
+<li>文件的缓冲机制：<strong>操作系统的文件缓冲机制</strong> 是一种提升I/O效率的核心技术，其核心思想是在<strong>高速的内存（RAM）中开辟一块区域作为缓冲区</strong>，作为慢速的外设（如硬盘）与高速的CPU之间的数据中转站。当进程写入数据时，并不直接写入磁盘，而是先复制到内存缓冲区，由操作系统在后台选择合适的时机（如缓冲区满或定期刷写）再统一写入磁盘，这能将多次零散的小写操作合并为一次大的顺序写操作，极大减少了耗时的磁盘访问次数；读取数据时，操作系统也会预读更多数据到缓冲区，使得后续的读取请求可以直接从内存获取，避免了真实的磁盘寻道。这种机制<strong>以少量的内存空间为代价，通过批处理和预读策略，有效地掩盖了I/O速度的不匹配问题</strong>，显著提升了系统整体性能，但代价是可能带来数据延迟写入的风险（如突然断电可能导致数据丢失）。</li>
+<li><strong>共享文件描述符</strong>是指多个进程（如父子进程通过<code>fork()</code>继承）或线程持有指向<strong>同一个内核文件表项</strong>的描述符编号，这意味着它们不仅共享对底层文件（如普通文件、套接字或管道）的访问权限，更重要的是<strong>共享文件的内部状态</strong>，尤其是<strong>当前读写偏移量</strong>。例如，若进程A通过<code>lseek</code>移动了文件指针，进程B接下来的读操作会从新的位置开始；同理，若两个进程同时写入一个共享描述符指向的文件，它们的输出数据会按写入顺序正确拼接，而不会相互覆盖。这种机制是实现进程间顺序协作通信（如管道）的基础，但也要求使用者注意并发操作的同步问题。</li>
+</ol>
+<hr>
+<h2 id="🌟-第三章-进程管理与进程调度"><a href="#🌟-第三章-进程管理与进程调度" class="headerlink" title="🌟 第三章 进程管理与进程调度"></a>🌟 第三章 进程管理与进程调度</h2><ol>
+<li><strong>进程控制块（PCB）</strong> 是操作系统内核中为每个进程创建的一个核心数据结构，它如同进程的“身份证”和“档案袋”，完整地记录了进程的所有关键信息。当进程被创建时，内核就为其分配一个PCB；当进程被调度执行时，CPU的上下文（如寄存器值）被存入其PCB；当进程被切换下CPU时，其运行状态又从PCB中恢复。PCB中主要包含<strong>进程标识信息（如PID）</strong>、<strong>处理器状态（如寄存器、程序计数器）</strong>、<strong>进程控制信息（如状态、优先级）</strong> 以及<strong>资源清单（如打开的文件、内存分配）</strong>。因此，PCB是操作系统感知、管理和控制进程的唯一实体，是进程调度的直接依据。</li>
+<li>三状态模型（运行、就绪、阻塞）—（+new +terminated）—-&gt; 五状态模型 —-（+suspend）—&gt;七状态模型。</li>
+</ol>
+<p><img src="/../../../../aimgs/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/%E4%BA%94%E7%8A%B6%E6%80%81%E6%A8%A1%E5%9E%8B.png" alt="五状态模型"></p>
+<p><img src="/../../../../aimgs/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/%E4%B8%83%E7%8A%B6%E6%80%81%E6%A8%A1%E5%9E%8B.png" alt="七状态模型"></p>
+<ol start="3">
+<li><p><strong>操作系统的上下文切换-调度循环</strong>是内核在多进程间实现并发执行的核心机制。其本质是一个“保存-切换-恢复”的循环：当定时中断发生或运行中进程主动放弃CPU时，<strong>调度器</strong>会首先将当前进程的执行现场（包括程序计数器、寄存器等上下文）保存到其进程控制块（PCB，在内存中）中，并将其状态置为就绪或阻塞；随后，<strong>调度算法</strong>从就绪队列中选择一个最应运行的进程，并将其PCB中保存的上下文重新加载到CPU寄存器中；最后，CPU开始执行新进程。这个过程循环往复，通过快速轮转，在用户看来便形成了多个进程“同时”运行的假象。整个循环完全由内核在背后驱动，对进程透明，是实现多任务并发的基石。</p>
+</li>
+<li><p><strong>开销</strong>：（1）只有一个CPU核心，非并行 切换开销:  同进程:  低 不同进程: 高 数据保护 同进程: 低 不同进程: 高 共享数据开销 同进程: 低 不同进程: 高 。（2）多个CPU核心，并行 切换开销:  同进程:  低 不同进程: 高 数据保护 同进程: 低 不同进程: 高 共享数据开销 同进程: 低 不同进程同核心：中 不同进程不同核心: 高 （cache)</p>
+</li>
+<li><p><strong>内部事件</strong>源于当前正在CPU上执行的进程自身的动作，而<strong>外部事件</strong>则源于与该进程无关的系统活动。内部事件：系统调用如fopen、发生异常、主动让出CPU。外部事件：时钟中断、I/O中断。</p>
+</li>
+<li><p>进程调度主要是队列操作，调度算法从就绪队列中选取线程。</p>
+</li>
+<li><p>CPU进程调度：通过多道程序设计得到CPU的最高利用率。CPU调度决策可能发生在：进程从运行切换到等待，进程从运行切换到就绪，进程从等待切换到就绪，进程终止。14非抢占，23抢占。调度延时：调度程序终止一个进程的运行并并启动另一个进程运行所花的时间</p>
+</li>
+<li><p>调度算法优化准则：最大的CPU利用率，最大的吞吐量，最短的周转时间，最短的等待时间，最短的响应时间。</p>
+</li>
+<li><p>调度算法：先来先服务FCFS、短作业优先SJF、最短剩余时间优先（指数平均数）、轮转法、优先级调度、多级队列、多级反馈队列、最早截止时间优先、比例分享调度、可移植操作系统接口（POSIX）实时调度</p>
+</li>
+</ol>
+<p><img src="/../../../../aimgs/posts/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/%E6%9C%80%E7%9F%AD%E5%89%A9%E4%BD%99%E6%97%B6%E9%97%B4%E4%BC%98%E5%85%88.png" alt="最短剩余时间优先"></p>
+<ol start="10">
+<li>操作系统调度算法详解</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="left">调度算法</th>
+<th align="left">核心思想</th>
+<th align="left">调度依据</th>
+<th align="left">优点</th>
+<th align="left">缺点</th>
+<th align="left">适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>先来先服务 (FCFS)</strong></td>
+<td align="left">像排队一样，先到的进程先接受服务。</td>
+<td align="left">进程到达就绪队列的时间。</td>
+<td align="left">简单、公平、实现简单。</td>
+<td align="left">** convoy效应 **：短进程可能因等待长进程而耗时很久；平均等待时间较长。</td>
+<td align="left">早期批处理系统；现已很少作为主要算法。</td>
+</tr>
+<tr>
+<td align="left"><strong>短作业优先 (SJF)</strong></td>
+<td align="left">优先运行预计执行时间最短的进程，以使平均等待时间最小。</td>
+<td align="left">进程的（预估）下一个CPU执行区间长度。</td>
+<td align="left"><strong>理论上的最优平均等待时间</strong>（针对非抢占式）。</td>
+<td align="left"><strong>可能导致长进程饥饿</strong>；需要预知未来（执行时间难以准确预估）。</td>
+<td align="left">理论模型；适用于能较准确估计运行时间的批作业。</td>
+</tr>
+<tr>
+<td align="left"><strong>最短剩余时间优先 (SRTN)</strong></td>
+<td align="left">SJF的<strong>抢占式</strong>版本。当新进程就绪时，会与当前进程的剩余时间比较，运行剩余时间最短的。</td>
+<td align="left">进程的<strong>剩余</strong>执行时间。</td>
+<td align="left">比SJF有更优的平均周转时间。</td>
+<td align="left">实现复杂；需要预知总执行时间；可能造成长进程饥饿。</td>
+<td align="left">理论价值高，实际因“预知时间”问题而较少使用。</td>
+</tr>
+<tr>
+<td align="left"><strong>轮转法 (RR)</strong></td>
+<td align="left">为每个进程分配一个固定的<strong>时间片</strong>，时间片用完则强行切换，进程回到就绪队列末尾。</td>
+<td align="left">时间片是否用完。</td>
+<td align="left"><strong>公平性强</strong>，响应时间有保障，适用于分时系统。</td>
+<td align="left">时间片设置关键：太长退化为FCFS；太短切换开销过大。平均等待时间较长。</td>
+<td align="left"><strong>交互式系统</strong>的经典算法（如Unix/Linux的默认调度）。</td>
+</tr>
+<tr>
+<td align="left"><strong>优先级调度</strong></td>
+<td align="left">每个进程拥有一个优先级，调度器总是选择优先级最高的进程运行。</td>
+<td align="left">进程的优先级（静态或动态）。</td>
+<td align="left">能区分任务紧急程度，灵活。</td>
+<td align="left"><strong>可能导致低优先级进程饥饿</strong>；静态优先级不够灵活。</td>
+<td align="left">广泛用于各种系统，常与其他算法（如RR）结合使用。</td>
+</tr>
+<tr>
+<td align="left"><strong>多级队列 (MQ)</strong></td>
+<td align="left">将就绪队列划分为多个独立队列，每个队列可拥有自己的调度算法（如系统进程用RR，交互进程用高优先级）。</td>
+<td align="left">进程的类型（系统、交互、批处理等）。</td>
+<td align="left">根据进程类型区别对待，策略灵活。</td>
+<td align="left">队列间调度不灵活（可能存在队列饥饿）；需要预先分类。</td>
+<td align="left">用于对任务类型有清晰划分的系统。</td>
+</tr>
+<tr>
+<td align="left"><strong>多级反馈队列 (MLFQ)</strong></td>
+<td align="left"><strong>MQ的改进版</strong>，是实际系统中最常用的算法之一。允许进程在队列间<strong>移动</strong>（如未在时间片内完成则降低优先级）。</td>
+<td align="left">进程已执行的时间和历史行为。</td>
+<td align="left">结合了RR和优先级调度的优点：<strong>短作业优先完成，交互式任务响应快，长作业也不会完全饥饿</strong>。</td>
+<td align="left">参数（队列数量、时间片大小、优先级调整规则）设置复杂，影响性能。</td>
+<td align="left"><strong>通用操作系统的核心调度算法</strong>（如Windows NT、Unix System V）。</td>
+</tr>
+<tr>
+<td align="left"><strong>最早截止时间优先 (EDF)</strong></td>
+<td align="left">优先运行<strong>截止时间最早</strong>的任务。是<strong>动态优先级</strong>调度。</td>
+<td align="left">任务的绝对截止时间。</td>
+<td align="left"><strong>理论最优</strong>的动态优先级实时调度算法（CPU利用率可达100%）。</td>
+<td align="left">进程超载时系统行为难以预测；实现复杂。</td>
+<td align="left"><strong>软实时系统</strong>（如多媒体播放）。</td>
+</tr>
+<tr>
+<td align="left"><strong>比例分享调度</strong></td>
+<td align="left">目标是让每个进程获得其预先定义的<strong>CPU时间份额</strong>（如A占50%，B占30%）。</td>
+<td align="left">进程已获得的CPU时间与其应得份额的差距。</td>
+<td align="left">能提供精确的QoS（服务质量）保证。</td>
+<td align="left">需要额外的机制（如彩票、步幅）来跟踪和决策。</td>
+<td align="left">需要保证特定应用性能的场景（如虚拟化、云平台）。</td>
+</tr>
+<tr>
+<td align="left"><strong>POSIX实时调度</strong></td>
+<td align="left">这是一套<strong>API标准</strong>，定义了如何控制调度策略，而非具体算法。主要包括： 1. <strong><code>SCHED_FIFO</code></strong>: 类似FCFS，但基于静态优先级，可抢占低优先级任务，无限时间运行。 2. <strong><code>SCHED_RR</code></strong>: 类似<code>SCHED_FIFO</code>，但增加了时间片，同优先级任务按轮转法执行。 3. <strong><code>SCHED_OTHER</code></strong>: 指系统默认的非实时调度策略（如Linux的CFS）。</td>
+<td align="left">由程序员通过API设置的静态优先级和策略。</td>
+<td align="left">为实时应用提供<strong>可预测性和确定性</strong>。</td>
+<td align="left">需要程序员负责正确设置优先级，否则高优先级任务可能霸占CPU。</td>
+<td align="left"><strong>硬实时和软实时应用</strong>（如工业控制、机器人、航空电子）。</td>
+</tr>
+</tbody></table>
+<ol start="11">
+<li>算法评估确定性评价：对于每个算法计算最小平均等待时间。随机过程的排队模型，下一个人将在x时间内到达。概率模型，不是精确值，而是均值</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io">SereniusX</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io/2025/10/15/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/">https://sereniusx.github.io/2025/10/15/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sereniusx.github.io" target="_blank">SereniusX的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/">课程学习</a></div><div class="post-share"><div class="social-share" data-image="/img/my_avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/10/15/%E7%83%AD%E7%82%B9%E4%BA%8B%E4%BB%B6%E6%94%B6%E9%9B%86%E7%AC%AC%E4%B8%80%E6%9C%9F/" title="热点事件收集第一期"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">热点事件收集第一期</div></div><div class="info-2"><div class="info-item-1">📰 热点事件收集第一期 🔥 记录当下热点，追踪事件发展，深度思考社会现象   🌍 国际热点🇺🇸 美国大选动态 时间：2025年10月 关键点：两党候选人政策主张对比 影响：全球政治格局变化 🔗 相关链接：详细报道  🌐 全球气候变化会议 📍 地点：德国柏林 📊 成果：新的减排目标达成 💡 意义：推动绿色能源发展   🇨🇳 国内要...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/10/18/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E9%AA%8C%E5%8F%8A%E4%BD%9C%E4%B8%9A/" title="操作系统实验及作业"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-18</div><div class="info-item-2">操作系统实验及作业</div></div><div class="info-2"><div class="info-item-1">📖 操作系统课程作业🧪 实验一源代码#include &lt;stdio.h&gt;#include &lt;stdlib.h&gt;#include &lt;string.h&gt;#include &lt;unistd.h&gt;#include &lt;sys/types.h&gt;#include &lt;sys/wait.h&gt;#de...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/my_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本博客内容较杂，请按照需求合理检索取食</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%8C%B2%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AB%A0%E8%8A%82%E5%A4%8D%E4%B9%A0"><span class="toc-text">🌲操作系统章节复习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E7%AC%AC%E4%B8%80%E7%AB%A0%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">🌟 第一章基础知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">🌟 第二章 进程、线程与文件系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%9B%9B%E4%B8%AA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">2.1 四个操作系统基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E5%B9%B6%E5%8F%91%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="toc-text">2.2 并发进程与线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%96%87%E4%BB%B6%E4%B8%8EI-O"><span class="toc-text">2.3 文件与I&#x2F;O</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%F0%9F%8C%9F-%E7%AC%AC%E4%B8%89%E7%AB%A0-%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86%E4%B8%8E%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6"><span class="toc-text">🌟 第三章 进程管理与进程调度</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E6%9E%81%E7%AE%80%E9%A3%8E%E7%BE%8E%E5%8C%96%E6%95%99%E7%A8%8B/" title="极简风美化教程">极简风美化教程</a><time datetime="2026-01-29T11:29:29.000Z" title="发表于 2026-01-29 19:29:29">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E6%95%99%E7%A8%8B/" title="主题美化教程">主题美化教程</a><time datetime="2026-01-29T11:22:13.000Z" title="发表于 2026-01-29 19:22:13">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E5%8D%9A%E5%AE%A2%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="博客日常使用完整教程">博客日常使用完整教程</a><time datetime="2026-01-29T11:13:22.000Z" title="发表于 2026-01-29 19:13:22">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/18/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E9%AA%8C%E5%8F%8A%E4%BD%9C%E4%B8%9A/" title="操作系统实验及作业">操作系统实验及作业</a><time datetime="2025-10-17T17:14:42.000Z" title="发表于 2025-10-18 01:14:42">2025-10-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/16/%E7%A7%91%E7%A0%94%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%E6%94%B6%E9%9B%86%E5%B7%A5%E5%85%B7/" title="科研资料整理收集工具">科研资料整理收集工具</a><time datetime="2025-10-16T13:06:08.000Z" title="发表于 2025-10-16 21:06:08">2025-10-16</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const initValine = (el, path) => {
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyValine = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+
+    const valineConfig = {
+      el: '#vcomment',
+      appId: '6mcSyrMlXWnNDD5GTn6oE016-gzGzoHsz',
+      appKey: '7fzgXfonaE8Awis1bAGQkCrC',
+      avatar: 'monsterid',
+      serverURLs: '',
+      emojiMaps: "",
+      visitor: false,
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || window.location.pathname
+    }
+
+    new Valine(valineConfig)
+  }
+
+  const loadValine = async (el, path) => {
+    if (typeof Valine === 'function') {
+      initValine(el, path)
+    } else {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine(el, path)
+    }
+  }
+
+  if (isShuoshuo) {
+    'Valine' === 'Valine'
+      ? window.shuoshuoComment = { loadComment: loadValine }
+      : window.loadOtherComment = loadValine
+    return
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

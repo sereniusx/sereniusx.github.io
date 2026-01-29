@@ -1,0 +1,844 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SereniusX的博客 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="实用工具       我常用的在线工具与资源                 添加       编辑模式                 0 个链接       0 个分类                                                 AI工具">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SereniusX的博客">
+<meta property="og:url" content="https://sereniusx.github.io/useful/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="实用工具       我常用的在线工具与资源                 添加       编辑模式                 0 个链接       0 个分类                                                 AI工具">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/my_avatar.jpg">
+<meta property="article:published_time" content="2025-10-17T12:24:43.000Z">
+<meta property="article:modified_time" content="2026-01-29T13:32:25.684Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/my_avatar.jpg"><link rel="shortcut icon" href="/img/my_avatar.png"><link rel="canonical" href="https://sereniusx.github.io/useful/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SereniusX的博客',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/my_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="page type-useful" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 分享</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">SereniusX的博客</h1></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><div id="useful-system">
+  <!-- 顶部 -->
+  <header class="useful-header">
+    <div class="header-title">
+      <h1>实用工具</h1>
+      <p class="header-subtitle">我常用的在线工具与资源</p>
+    </div>
+    <div class="header-actions">
+      <button id="btn-add-link" class="btn btn-primary" type="button">添加</button>
+      <button id="btn-toggle-edit" class="btn" type="button" aria-pressed="false">编辑模式</button>
+    </div>
+    <div class="header-meta">
+      <span class="meta-item"><strong id="total-links">0</strong> 个链接</span>
+      <span class="meta-item"><strong id="total-categories">0</strong> 个分类</span>
+    </div>
+    <div class="searchbar">
+      <input id="search-input" class="search-input" placeholder="搜索：名称 / 描述 / 域名…">
+    </div>
+  </header>
+
+  <!-- 内容 -->
+  <main class="useful-container" id="useful-container">
+    <!-- 分类：AI -->
+    <section class="category-section" data-category="AI工具">
+      <h2 class="category-title">AI工具</h2>
+      <div class="cards-container">
+        <article class="link-card" data-name="ChatGPT" data-desc="OpenAI开发的智能对话助手" data-url="https://chat.openai.com">
+          <a class="card-main" href="https://chat.openai.com" target="_blank" rel="noopener">
+            <div class="card-top">
+              <div class="card-name">ChatGPT</div>
+              <div class="card-host">chat.openai.com</div>
+            </div>
+            <p class="card-desc">OpenAI开发的智能对话助手</p>
+          </a>
+          <div class="card-actions" aria-hidden="true">
+            <button class="mini-btn" data-action="copy" type="button">复制链接</button>
+            <button class="mini-btn danger" data-action="delete" type="button">删除</button>
+          </div>
+        </article>
+        <article class="link-card" data-name="DeepSeek" data-desc="强大的国产AI助手" data-url="https://www.deepseek.com">
+          <a class="card-main" href="https://www.deepseek.com" target="_blank" rel="noopener">
+            <div class="card-top">
+              <div class="card-name">DeepSeek</div>
+              <div class="card-host">deepseek.com</div>
+            </div>
+            <p class="card-desc">强大的国产AI助手</p>
+          </a>
+          <div class="card-actions" aria-hidden="true">
+            <button class="mini-btn" data-action="copy" type="button">复制链接</button>
+            <button class="mini-btn danger" data-action="delete" type="button">删除</button>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 分类：搜索 -->
+    <section class="category-section" data-category="搜索引擎">
+      <h2 class="category-title">搜索引擎</h2>
+      <div class="cards-container">
+        <article class="link-card" data-name="百度" data-desc="中文搜索引擎" data-url="https://www.baidu.com">
+          <a class="card-main" href="https://www.baidu.com" target="_blank" rel="noopener">
+            <div class="card-top">
+              <div class="card-name">百度</div>
+              <div class="card-host">baidu.com</div>
+            </div>
+            <p class="card-desc">中文搜索引擎</p>
+          </a>
+          <div class="card-actions" aria-hidden="true">
+            <button class="mini-btn" data-action="copy" type="button">复制链接</button>
+            <button class="mini-btn danger" data-action="delete" type="button">删除</button>
+          </div>
+        </article>
+        <article class="link-card" data-name="Google" data-desc="全球搜索引擎" data-url="https://www.google.com">
+          <a class="card-main" href="https://www.google.com" target="_blank" rel="noopener">
+            <div class="card-top">
+              <div class="card-name">Google</div>
+              <div class="card-host">google.com</div>
+            </div>
+            <p class="card-desc">全球搜索引擎</p>
+          </a>
+          <div class="card-actions" aria-hidden="true">
+            <button class="mini-btn" data-action="copy" type="button">复制链接</button>
+            <button class="mini-btn danger" data-action="delete" type="button">删除</button>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- 分类：开发 -->
+    <section class="category-section" data-category="开发工具">
+      <h2 class="category-title">开发工具</h2>
+      <div class="cards-container">
+        <article class="link-card" data-name="GitHub" data-desc="代码托管平台" data-url="https://github.com">
+          <a class="card-main" href="https://github.com" target="_blank" rel="noopener">
+            <div class="card-top">
+              <div class="card-name">GitHub</div>
+              <div class="card-host">github.com</div>
+            </div>
+            <p class="card-desc">代码托管平台</p>
+          </a>
+          <div class="card-actions" aria-hidden="true">
+            <button class="mini-btn" data-action="copy" type="button">复制链接</button>
+            <button class="mini-btn danger" data-action="delete" type="button">删除</button>
+          </div>
+        </article>
+        <article class="link-card" data-name="Stack Overflow" data-desc="开发者问答社区" data-url="https://stackoverflow.com">
+          <a class="card-main" href="https://stackoverflow.com" target="_blank" rel="noopener">
+            <div class="card-top">
+              <div class="card-name">Stack Overflow</div>
+              <div class="card-host">stackoverflow.com</div>
+            </div>
+            <p class="card-desc">开发者问答社区</p>
+          </a>
+          <div class="card-actions" aria-hidden="true">
+            <button class="mini-btn" data-action="copy" type="button">复制链接</button>
+            <button class="mini-btn danger" data-action="delete" type="button">删除</button>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- 添加生成器弹窗：生成可复制卡片 / 或新分类段落 -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="1"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h2 id="modal-title">添加链接（生成可复制代码）</h2>
+        <button class="icon-btn" id="modal-close" type="button" aria-label="关闭">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <label class="field full">
+            <span class="label">分类（可选）</span>
+            <input id="f-category" class="input" placeholder="例如：设计 / 学习 / 工具箱（留空只生成 link-card）">
+          </label>
+          <label class="field full">
+            <span class="label">名称</span>
+            <input id="f-name" class="input" placeholder="例如：Notion">
+          </label>
+          <label class="field full">
+            <span class="label">链接</span>
+            <input id="f-url" class="input" placeholder="https://example.com">
+          </label>
+          <label class="field full">
+            <span class="label">描述（可选）</span>
+            <textarea id="f-desc" class="textarea" placeholder="一句话介绍（可留空）"></textarea>
+          </label>
+        </div>
+        <div class="preview">
+          <div class="preview-title">复制用代码片段</div>
+          <textarea id="output" class="output" readonly=""></textarea>
+          <div class="preview-actions">
+            <button id="btn-generate" class="btn" type="button">生成</button>
+            <button id="btn-copy" class="btn btn-primary" type="button">复制</button>
+          </div>
+          <div class="hint">
+            只填“分类”会生成一个空分类段落模板；
+            <br>不填“分类”会只生成一个 <code>link-card</code>，粘贴到目标分类的 <code>.cards-container</code> 里即可。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ========== 极简黑白灰（与相册/书单同风格） ========== */
+#useful-system{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 18px 60px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #111;
+  background: #fff;
+}
+
+/* 顶部 */
+.useful-header{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px 16px;
+  align-items: center;
+  padding: 18px 0 22px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 18px;
+}
+.header-title h1{
+  margin: 0;
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+.header-subtitle{
+  margin: 6px 0 0;
+  color: #777;
+  font-size: 13px;
+}
+.header-meta{
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  color: #888;
+  font-size: 12.5px;
+}
+.meta-item strong{ color:#111; font-weight:650; }
+
+/* 搜索 */
+.searchbar{
+  grid-column: 1 / -1;
+}
+.search-input{
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-size: 14px;
+  outline: none;
+}
+.search-input:focus{ border-color:#111; }
+
+/* 按钮 */
+.btn{
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #111;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform .08s ease, border-color .12s ease, background .12s ease;
+}
+.btn:hover{ background:#f7f7f7; border-color:#dedede; }
+.btn:active{ transform: translateY(1px); }
+.btn-primary{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+.btn-primary:hover{ background:#1a1a1a; }
+
+/* 分类 */
+.category-section{ margin-bottom: 24px; }
+.category-title{
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 650;
+  color: #555;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* 卡片网格 */
+.cards-container{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+/* 卡片：像 ChatGPT 的块状信息 */
+.link-card{
+  border: 1px solid #f0f0f0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  transition: box-shadow .12s ease, border-color .12s ease, transform .08s ease;
+}
+.link-card:hover{
+  border-color:#e8e8e8;
+  box-shadow: 0 10px 28px rgba(0,0,0,.06);
+}
+.link-card:active{ transform: translateY(1px); }
+
+/* 主链接区域 */
+.card-main{
+  display: block;
+  padding: 14px 14px 12px;
+  text-decoration: none;
+  color: inherit;
+}
+.card-top{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.card-name{
+  font-size: 15px;
+  font-weight: 650;
+  color: #111;
+}
+.card-host{
+  font-size: 12px;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45%;
+}
+.card-desc{
+  margin: 8px 0 0;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* 编辑模式按钮条（默认隐藏） */
+.card-actions{
+  display: none;
+  gap: 8px;
+  padding: 10px 12px 12px;
+  border-top: 1px solid #f1f1f1;
+}
+.mini-btn{
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  color:#111;
+  padding: 7px 10px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+.mini-btn:hover{ background:#f7f7f7; border-color:#dedede; }
+.mini-btn.danger{
+  border-color: #f0d3d3;
+  color: #a12b2b;
+}
+.mini-btn.danger:hover{
+  background: #fff5f5;
+  border-color: #eebcbc;
+}
+
+/* ========== 添加弹窗：小 + 可滚动 + 底部按钮固定可点 ========== */
+.modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+.modal[data-open="1"]{ display:block; }
+.modal-backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.45);
+}
+.modal-panel{
+  position: relative;
+  max-width: 640px;
+  width: calc(100% - 24px);
+  margin: 6vh auto;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  box-shadow: 0 30px 80px rgba(0,0,0,.25);
+  overflow: hidden;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+  flex: 0 0 auto;
+}
+.modal-header h2{ margin:0; font-size:16px; font-weight:650; }
+.icon-btn{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:16px;
+  padding:6px 10px;
+  border-radius:10px;
+}
+.icon-btn:hover{ background:#f4f4f4; }
+
+.modal-body{
+  padding: 16px;
+  overflow: auto;
+  flex: 1 1 auto;
+}
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+.field{ display:flex; flex-direction:column; gap:6px; }
+.label{ font-size:12.5px; color:#666; }
+.input, .textarea, .output{
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+.input:focus, .textarea:focus, .output:focus{ border-color:#111; }
+.textarea{ min-height: 80px; resize: vertical; }
+
+.preview{
+  margin-top: 14px;
+  border-top: 1px solid #eee;
+  padding-top: 14px;
+}
+.preview-title{ font-size:12.5px; color:#666; margin-bottom:8px; }
+.output{
+  width: 100%;
+  min-height: 150px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background: #fafafa;
+}
+.preview-actions{
+  display:flex;
+  gap: 10px;
+  margin-top: 10px;
+  position: sticky;
+  bottom: 0;
+  padding: 10px 0 2px;
+  background: #fff;
+}
+.hint{
+  margin-top: 10px;
+  color:#777;
+  font-size:12.5px;
+  line-height:1.6;
+}
+.hint code{
+  background:#f5f5f5;
+  border:1px solid #eee;
+  padding:2px 6px;
+  border-radius:8px;
+}
+
+/* 响应式 */
+@media (max-width: 720px){
+  .useful-header{ grid-template-columns: 1fr; }
+  .header-actions{ justify-self: start; display:flex; gap: 10px; flex-wrap: wrap; }
+  .cards-container{ grid-template-columns: 1fr; }
+  .modal-panel{ margin: 4vh auto; max-height: 90vh; }
+}
+</style>
+
+<script>
+(function(){
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+  function getHost(url){
+    try{
+      const u = new URL(url);
+      return u.host.replace(/^www\./,'');
+    }catch(e){
+      return (url || '').replace(/^https?:\/\//,'').split('/')[0].replace(/^www\./,'');
+    }
+  }
+
+  function updateStats(){
+    const cards = $$('.link-card');
+    const categories = $$('.category-section');
+    $('#total-links').textContent = String(cards.length);
+    $('#total-categories').textContent = String(categories.length);
+  }
+
+  // ====== 搜索过滤 ======
+  function applySearch(q){
+    const query = (q || '').trim().toLowerCase();
+    const cards = $$('.link-card');
+    const sections = $$('.category-section');
+
+    cards.forEach(card => {
+      const name = (card.dataset.name || '').toLowerCase();
+      const desc = (card.dataset.desc || '').toLowerCase();
+      const url  = (card.dataset.url  || '').toLowerCase();
+      const host = getHost(url).toLowerCase();
+      const hit = !query || name.includes(query) || desc.includes(query) || url.includes(query) || host.includes(query);
+      card.style.display = hit ? '' : 'none';
+    });
+
+    // 如果该分类下都被过滤掉，则隐藏分类
+    sections.forEach(sec => {
+      const visible = $$('.link-card', sec).some(c => c.style.display !== 'none');
+      sec.style.display = visible ? '' : 'none';
+    });
+  }
+
+  // ====== 编辑模式（显示复制/删除按钮） ======
+  let editMode = false;
+  function setEditMode(on){
+    editMode = !!on;
+    $('#btn-toggle-edit').setAttribute('aria-pressed', editMode ? 'true' : 'false');
+    $('#btn-toggle-edit').textContent = editMode ? '退出编辑' : '编辑模式';
+    $$('.card-actions').forEach(x => x.style.display = editMode ? 'flex' : 'none');
+
+    // 编辑模式下，避免点到卡片直接跳转
+    $$('.card-main').forEach(a => {
+      a.style.pointerEvents = editMode ? 'none' : 'auto';
+      a.style.opacity = editMode ? '0.92' : '1';
+    });
+  }
+
+  // ====== 添加生成器（复制 HTML 片段） ======
+  const modal = $('#modal');
+  function openModal(){
+    modal.setAttribute('data-open','1');
+    modal.setAttribute('aria-hidden','false');
+    $('#f-name').focus();
+  }
+  function closeModal(){
+    modal.removeAttribute('data-open');
+    modal.setAttribute('aria-hidden','true');
+  }
+
+  function safeText(s){ return (s || '').trim(); }
+  function escapeHtml(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function escapeAttr(s){
+    return String(s).replace(/"/g,'&quot;');
+  }
+
+  function buildSnippet(){
+    const category = safeText($('#f-category').value);
+    const name = safeText($('#f-name').value);
+    const url = safeText($('#f-url').value);
+    const desc = safeText($('#f-desc').value);
+    const host = getHost(url);
+
+    if(category && !name && !url && !desc){
+      const section =
+`<section class="category-section" data-category="${escapeAttr(category)}">
+  <h2 class="category-title">${escapeHtml(category)}</h2>
+  <div class="cards-container">
+    <!-- 在这里粘贴 link-card -->
+  </div>
+</section>`;
+      $('#output').value = section;
+      return section;
+    }
+
+    if(!name){ $('#output').value = '⚠️ 名称不能为空。'; return ''; }
+    if(!url){ $('#output').value = '⚠️ 链接不能为空。'; return ''; }
+
+    const card =
+`<article class="link-card" data-name="${escapeAttr(name)}" data-desc="${escapeAttr(desc)}" data-url="${escapeAttr(url)}">
+  <a class="card-main" href="${escapeAttr(url)}" target="_blank" rel="noopener">
+    <div class="card-top">
+      <div class="card-name">${escapeHtml(name)}</div>
+      <div class="card-host">${escapeHtml(host)}</div>
+    </div>
+    <p class="card-desc">${escapeHtml(desc)}</p>
+  </a>
+  <div class="card-actions" aria-hidden="true">
+    <button class="mini-btn" data-action="copy" type="button">复制链接</button>
+    <button class="mini-btn danger" data-action="delete" type="button">删除</button>
+  </div>
+</article>`;
+
+    if(!category){
+      $('#output').value = card;
+      return card;
+    }
+
+    const section =
+`<section class="category-section" data-category="${escapeAttr(category)}">
+  <h2 class="category-title">${escapeHtml(category)}</h2>
+  <div class="cards-container">
+    ${card}
+  </div>
+</section>`;
+    $('#output').value = section;
+    return section;
+  }
+
+  async function copyText(text){
+    try{
+      await navigator.clipboard.writeText(text);
+      return true;
+    }catch(e){
+      const out = $('#output');
+      out.focus(); out.select();
+      document.execCommand('copy');
+      return true;
+    }
+  }
+
+  // ====== 卡片操作：复制/删除（仅前端即时，刷新会恢复；主要用于临时整理） ======
+  async function copyLinkFromCard(card){
+    const url = card?.dataset?.url || '';
+    if(!url) return;
+    try{
+      await navigator.clipboard.writeText(url);
+    }catch(e){
+      const tmp = document.createElement('textarea');
+      tmp.value = url;
+      document.body.appendChild(tmp);
+      tmp.select();
+      document.execCommand('copy');
+      tmp.remove();
+    }
+  }
+  function deleteCard(card){
+    if(!card) return;
+    card.remove();
+    updateStats();
+    applySearch($('#search-input').value);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateStats();
+
+    // 搜索
+    $('#search-input').addEventListener('input', (e) => applySearch(e.target.value));
+
+    // 编辑模式
+    $('#btn-toggle-edit').addEventListener('click', () => setEditMode(!editMode));
+    setEditMode(false);
+
+    // 添加弹窗
+    $('#btn-add-link').addEventListener('click', openModal);
+    $('#modal-close').addEventListener('click', closeModal);
+    $('.modal-backdrop', modal).addEventListener('click', closeModal);
+
+    // 生成 / 复制
+    $('#btn-generate').addEventListener('click', buildSnippet);
+    $('#btn-copy').addEventListener('click', async () => {
+      const snippet = $('#output').value.trim() || buildSnippet();
+      if(!snippet || snippet.startsWith('⚠️')) return;
+      const ok = await copyText(snippet);
+      if(ok){
+        $('#btn-copy').textContent = '已复制';
+        setTimeout(()=> $('#btn-copy').textContent = '复制', 900);
+      }
+    });
+
+    // 卡片按钮委托
+    $('#useful-container').addEventListener('click', async (e) => {
+      const btn = e.target.closest('button[data-action]');
+      if(!btn) return;
+      const card = e.target.closest('.link-card');
+      const action = btn.dataset.action;
+
+      if(action === 'copy'){
+        await copyLinkFromCard(card);
+        btn.textContent = '已复制';
+        setTimeout(()=> btn.textContent = '复制链接', 800);
+      }
+      if(action === 'delete'){
+        btn.textContent = '已删除';
+        deleteCard(card);
+      }
+    });
+
+    // ESC 关闭弹窗
+    document.addEventListener('keydown', (e) => {
+      if(e.key !== 'Escape') return;
+      if(modal.getAttribute('data-open') === '1') closeModal();
+    });
+  });
+})();
+</script>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/my_avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">本博客内容较杂，请按照需求合理检索取食</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E6%9E%81%E7%AE%80%E9%A3%8E%E7%BE%8E%E5%8C%96%E6%95%99%E7%A8%8B/" title="极简风美化教程">极简风美化教程</a><time datetime="2026-01-29T11:29:29.000Z" title="发表于 2026-01-29 19:29:29">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96%E6%95%99%E7%A8%8B/" title="主题美化教程">主题美化教程</a><time datetime="2026-01-29T11:22:13.000Z" title="发表于 2026-01-29 19:22:13">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E5%8D%9A%E5%AE%A2%E6%97%A5%E5%B8%B8%E4%BD%BF%E7%94%A8%E5%AE%8C%E6%95%B4%E6%95%99%E7%A8%8B/" title="博客日常使用完整教程">博客日常使用完整教程</a><time datetime="2026-01-29T11:13:22.000Z" title="发表于 2026-01-29 19:13:22">2026-01-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/18/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%9E%E9%AA%8C%E5%8F%8A%E4%BD%9C%E4%B8%9A/" title="操作系统实验及作业">操作系统实验及作业</a><time datetime="2025-10-17T17:14:42.000Z" title="发表于 2025-10-18 01:14:42">2025-10-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/10/16/%E7%A7%91%E7%A0%94%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%E6%94%B6%E9%9B%86%E5%B7%A5%E5%85%B7/" title="科研资料整理收集工具">科研资料整理收集工具</a><time datetime="2025-10-16T13:06:08.000Z" title="发表于 2025-10-16 21:06:08">2025-10-16</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%85%B6%E4%BB%96/"><span class="card-category-list-name">其他</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4/"><span class="card-category-list-name">博客日常维护</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%B6%E4%BA%8B%E4%BA%86%E8%A7%A3/"><span class="card-category-list-name">时事了解</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/"><span class="card-category-list-name">计算机基础课程</span><span class="card-category-list-count">2</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%97%B6%E4%BA%8B%E8%BF%BD%E8%B8%AA/" style="font-size: 1.1em; color: #999">时事追踪</a> <a href="/tags/%E8%AF%BE%E7%A8%8B%E5%AD%A6%E4%B9%A0/" style="font-size: 1.3em; color: #99a1ac">课程学习</a> <a href="/tags/%E5%85%B6%E4%BB%96%E8%B5%84%E6%96%99/" style="font-size: 1.5em; color: #99a9bf">其他资料</a> <a href="/tags/%E7%83%AD%E7%82%B9%E4%BA%8B%E4%BB%B6/" style="font-size: 1.1em; color: #999">热点事件</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8/" style="font-size: 1.1em; color: #999">博客使用</a> <a href="/tags/%E7%A4%BE%E4%BC%9A%E8%A7%82%E5%AF%9F/" style="font-size: 1.1em; color: #999">社会观察</a> <a href="/tags/hexo%E7%BE%8E%E5%8C%96/" style="font-size: 1.3em; color: #99a1ac">hexo美化</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              一月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">6</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">9</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-01-29T14:32:06.895Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

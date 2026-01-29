@@ -1,0 +1,124 @@
+#shuoshuo-page .shuoshuo-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+#shuoshuo-page .shuoshuo-form {
+    margin-bottom: 2rem;
+}
+
+#shuoshuo-page .shuoshuo-form textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+#shuoshuo-page .shuoshuo-form textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+#shuoshuo-page .shuoshuo-form .btn {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#shuoshuo-page .shuoshuo-form .btn:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+}
+
+#shuoshuo-page .shuoshuo-form .btn:active {
+    transform: translateY(0);
+}
+
+#shuoshuo-page .shuoshuo-item {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+#shuoshuo-page .shuoshuo-item:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+#shuoshuo-page .shuoshuo-item .content {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+#shuoshuo-page .shuoshuo-item .meta {
+    display: flex;
+    justify-content: space-between;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+#shuoshuo-page .shuoshuo-item .meta .time {
+    color: #666;
+}
+
+#shuoshuo-page .shuoshuo-item .meta .likes {
+    color: #ff4757;
+    cursor: pointer;
+}
+
+#shuoshuo-page .shuoshuo-item .meta .likes:hover {
+    color: #ff3742;
+}
+
+#shuoshuo-page .loading {
+    text-align: center;
+    padding: 2rem;
+    color: #999;
+    font-size: 1.1rem;
+}
+
+#shuoshuo-page .empty {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #999;
+    font-size: 1.1rem;
+}
+
+#shuoshuo-page .empty .empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    #shuoshuo-page .shuoshuo-container {
+        padding: 1rem;
+    }
+
+    #shuoshuo-page .shuoshuo-item {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    #shuoshuo-page .shuoshuo-form textarea {
+        min-height: 80px;
+    }
+}
