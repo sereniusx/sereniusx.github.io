@@ -1,0 +1,408 @@
+/* =========================================================
+   Butterfly 5.4.x - 全屏淡彩流光（Safari稳定 + 全页覆盖）
+   + 首页两列极简卡片 + 微互动
+   目标：全屏背景有质感但低干扰；无“包裹卡片半透明框”；无竖线
+   ========================================================= */
+
+
+/* -------------------------
+   0) 全页高度与背景覆盖（关键）
+   ------------------------- */
+html, body {
+    height: auto;
+    min-height: 100%;
+}
+
+/* ✅ 双色背景：只用 A / B 两种主色（mix 仅为 A/B 派生过渡）
+   说明：
+   - 通过 html[data-bg="..."] 控制当天配色档位
+   - 不改你已稳定的 animation / fixed / 多层 radial-gradient 结构
+*/
+html {
+    /* ---- 默认兜底：0 篇（冷灰蓝 + 灰紫） ---- */
+    --bg-base: 250, 250, 250;
+
+    --bg-a-rgb: 120, 170, 210; /* 主色 A */
+    --bg-b-rgb: 165, 150, 200; /* 主色 B */
+    --bg-mix-rgb: 142, 160, 206; /* A/B 派生过渡（不是第三主色体系） */
+
+    /* 各层透明度（可微调，但保持克制） */
+    --bg-a-1: 0.26;
+    --bg-b-1: 0.22;
+    --bg-m-1: 0.18;
+    --bg-a-2: 0.12;
+
+    background-color: rgba(var(--bg-base), 1);
+
+    /* ✅ 把流光背景放到 html（根元素）上：覆盖整页（含滚动到底）
+       ✅ 同一时刻仅两种主色：所有层仅引用 --bg-a / --bg-b / --bg-mix(派生)
+    */
+    background-image:
+            radial-gradient(1200px 920px at 12% 8%,
+            rgba(var(--bg-a-rgb), var(--bg-a-1)), transparent 64%),
+            radial-gradient(1300px 980px at 88% 14%,
+            rgba(var(--bg-b-rgb), var(--bg-b-1)), transparent 66%),
+            radial-gradient(1500px 1200px at 50% 96%,
+            rgba(var(--bg-mix-rgb), var(--bg-m-1)), transparent 68%),
+            radial-gradient(1100px 920px at 32% 60%,
+            rgba(var(--bg-a-rgb), var(--bg-a-2)), transparent 72%);
+    background-repeat: no-repeat;
+
+    /* 给漂移空间 */
+    background-size: 160% 160%, 170% 170%, 190% 190%, 215% 215%;
+    background-position: 10% 6%, 90% 10%, 50% 98%, 32% 60%;
+
+    /* ✅ 保持“贴着视口”，滚动时底部也有背景 */
+    background-attachment: fixed;
+
+    /* ✅ 全屏持续流动（保留你原稳定参数） */
+    animation: auroraBgMove 16s ease-in-out infinite alternate;
+
+    will-change: background-position, background-size;
+}
+
+@keyframes auroraBgMove {
+    0% {
+        background-position: 10% 6%, 90% 10%, 50% 98%, 32% 60%;
+        background-size: 160% 160%, 170% 170%, 190% 190%, 215% 215%;
+    }
+    50% {
+        background-position: 16% 12%, 84% 18%, 48% 94%, 40% 64%;
+        background-size: 170% 170%, 180% 180%, 200% 200%, 225% 225%;
+    }
+    100% {
+        background-position: 12% 18%, 88% 8%, 52% 92%, 36% 70%;
+        background-size: 165% 165%, 175% 175%, 195% 195%, 220% 220%;
+    }
+}
+
+/* -------------------------
+   0.1) 当天双色档位（浅色）
+   由 JS 写入：html[data-bg="bg0"|"bg1"|"bg2"|"bg3"]
+   ------------------------- */
+
+/* 0 篇：冷灰蓝 + 灰紫（默认兜底，仍写出来便于你以后改） */
+html[data-bg="bg0"] {
+    --bg-base: 250, 250, 250;
+    --bg-a-rgb: 120, 170, 210;
+    --bg-b-rgb: 165, 150, 200;
+    --bg-mix-rgb: 142, 160, 206;
+
+    --bg-a-1: 0.26;
+    --bg-b-1: 0.22;
+    --bg-m-1: 0.18;
+    --bg-a-2: 0.12;
+}
+
+/* 1–2 篇：冷蓝 + 灰青 */
+html[data-bg="bg1"] {
+    --bg-base: 250, 250, 250;
+    --bg-a-rgb: 110, 165, 210;
+    --bg-b-rgb: 120, 190, 175;
+    --bg-mix-rgb: 116, 178, 192;
+
+    --bg-a-1: 0.25;
+    --bg-b-1: 0.21;
+    --bg-m-1: 0.17;
+    --bg-a-2: 0.11;
+}
+
+/* 3–4 篇：灰青 + 暖灰杏（开始轻微转暖，但仍低饱和） */
+html[data-bg="bg2"] {
+    --bg-base: 250, 250, 250;
+    --bg-a-rgb: 118, 192, 178;
+    --bg-b-rgb: 210, 186, 150;
+    --bg-mix-rgb: 164, 190, 164;
+
+    --bg-a-1: 0.23;
+    --bg-b-1: 0.18;
+    --bg-m-1: 0.16;
+    --bg-a-2: 0.10;
+}
+
+/* ≥5 篇：暖雾粉 + 暖灰金（更活跃但仍克制） */
+html[data-bg="bg3"] {
+    --bg-base: 250, 250, 250;
+    --bg-a-rgb: 214, 178, 190;
+    --bg-b-rgb: 214, 198, 150;
+    --bg-mix-rgb: 214, 188, 170;
+
+    --bg-a-1: 0.20;
+    --bg-b-1: 0.16;
+    --bg-m-1: 0.14;
+    --bg-a-2: 0.09;
+}
+
+
+/* -------------------------
+   0.2) 暗色模式：更克制、更低亮度（同档位双色）
+   ------------------------- */
+html[data-theme='dark'] {
+    --bg-base: 12, 12, 12;
+
+    /* 暗色默认兜底：0 篇 */
+    --bg-a-rgb: 160, 210, 245;
+    --bg-b-rgb: 200, 175, 245;
+    --bg-mix-rgb: 178, 192, 245;
+
+    --bg-a-1: 0.15;
+    --bg-b-1: 0.12;
+    --bg-m-1: 0.11;
+    --bg-a-2: 0.07;
+}
+
+/* 暗色 + 0 篇 */
+html[data-theme='dark'][data-bg="bg0"] {
+    --bg-a-rgb: 160, 210, 245;
+    --bg-b-rgb: 200, 175, 245;
+    --bg-mix-rgb: 178, 192, 245;
+
+    --bg-a-1: 0.15;
+    --bg-b-1: 0.12;
+    --bg-m-1: 0.11;
+    --bg-a-2: 0.07;
+}
+
+/* 暗色 + 1–2 篇：冷蓝 + 灰青（暗色也更克制） */
+html[data-theme='dark'][data-bg="bg1"] {
+    --bg-a-rgb: 150, 205, 245;
+    --bg-b-rgb: 150, 235, 210;
+    --bg-mix-rgb: 150, 220, 228;
+
+    --bg-a-1: 0.14;
+    --bg-b-1: 0.11;
+    --bg-m-1: 0.10;
+    --bg-a-2: 0.06;
+}
+
+/* 暗色 + 3–4 篇：灰青 + 暖灰杏 */
+html[data-theme='dark'][data-bg="bg2"] {
+    --bg-a-rgb: 150, 235, 215;
+    --bg-b-rgb: 245, 215, 175;
+    --bg-mix-rgb: 200, 225, 195;
+
+    --bg-a-1: 0.13;
+    --bg-b-1: 0.09;
+    --bg-m-1: 0.09;
+    --bg-a-2: 0.055;
+}
+
+/* 暗色 + ≥5 篇：暖雾粉 + 暖灰金 */
+html[data-theme='dark'][data-bg="bg3"] {
+    --bg-a-rgb: 245, 195, 210;
+    --bg-b-rgb: 245, 225, 175;
+    --bg-mix-rgb: 245, 210, 190;
+
+    --bg-a-1: 0.12;
+    --bg-b-1: 0.085;
+    --bg-m-1: 0.085;
+    --bg-a-2: 0.05;
+}
+
+
+/* -------------------------
+   1) 禁止主题容器把背景盖掉
+   ------------------------- */
+body {
+    background: transparent !important;
+}
+
+/* 主题最外层若有底色，强制透明（避免覆盖 html 背景） */
+#body-wrap,
+.page,
+#content-inner,
+#recent-posts {
+    background: transparent !important;
+}
+
+
+/* -------------------------
+   2) 版心宽度（阅读友好）
+   ------------------------- */
+main.layout#content-inner {
+    max-width: 1100px;
+}
+
+/* ✅ 去掉“包裹卡片的半透明框框”
+   这里直接让 content-inner 不要任何背景/blur */
+#content-inner {
+    border-radius: 0;
+    padding: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+
+/* -------------------------
+   3) 首页两列卡片（上下左右间距一致）
+   ------------------------- */
+#recent-posts .recent-post-items {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    row-gap: 0px;
+    padding: 10px 0 0px; /* 让网格上下有一点呼吸 */
+}
+
+@media (max-width: 900px) {
+    #recent-posts .recent-post-items { grid-template-columns: 1fr; }
+}
+
+/* 卡片：无边框线条，仅靠圆角 + 阴影 */
+#recent-posts .recent-post-item {
+    position: relative;
+    border: 0 !important;
+    border-radius: 16px !important;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    transition: transform .16s ease, box-shadow .16s ease;
+}
+
+#recent-posts .recent-post-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.10);
+}
+
+/* 统一卡片内边距 */
+#recent-posts .recent-post-item .recent-post-info {
+    padding: 18px 18px 16px !important;
+    margin-left: 0 !important;
+}
+
+/* 标题 */
+#recent-posts .recent-post-item a.article-title {
+    display: inline-block;
+    font-size: 1.10rem !important;
+    line-height: 1.38 !important;
+    letter-spacing: .2px;
+}
+
+/* meta 更轻 */
+#recent-posts .recent-post-item .article-meta-wrap {
+    opacity: .62;
+    font-size: .84rem;
+    margin-top: 8px;
+}
+
+/* 去掉 meta 的 “|” 分隔符 */
+#recent-posts .recent-post-item .article-meta-separator {
+    display: none;
+}
+
+/* 摘要：三行收束 */
+#recent-posts .recent-post-item .content {
+    margin-top: 10px;
+    line-height: 1.78;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 兜底：确保不存在左侧竖线 */
+#recent-posts .recent-post-item::before {
+    content: none !important;
+    display: none !important;
+}
+
+
+/* -------------------------
+   4) 卡片微互动：微光扫过（克制）
+   ------------------------- */
+#recent-posts .recent-post-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 16px;
+    opacity: 0;
+    transform: translateX(-18%) translateY(-6%);
+    background: radial-gradient(520px 260px at 20% 0%,
+    rgba(255, 255, 255, 0.55),
+    transparent 60%);
+    transition: opacity .18s ease, transform .26s ease;
+}
+
+#recent-posts .recent-post-item:hover::after {
+    opacity: .28;
+    transform: translateX(0) translateY(0);
+}
+
+
+/* -------------------------
+   5) 暗色适配：卡片/微光
+   ------------------------- */
+html[data-theme='dark'] #recent-posts .recent-post-item {
+    background: rgba(18, 18, 18, 0.74);
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.48);
+}
+
+html[data-theme='dark'] #recent-posts .recent-post-item:hover {
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.64);
+}
+
+html[data-theme='dark'] #recent-posts .recent-post-item::after {
+    background: radial-gradient(560px 280px at 20% 0%,
+    rgba(255, 255, 255, 0.12),
+    transparent 60%);
+}
+
+/* =========================================================
+   修复：首页分页与页脚间距过小的问题
+   ========================================================= */
+
+/* 分页整体与页脚拉开距离 */
+#pagination {
+    margin-bottom: 56px;
+}
+
+/* 分页按钮本身略微上提，视觉更居中 */
+#pagination .pagination {
+    margin-top: 24px;
+}
+
+/* 移动端稍微收紧一点 */
+@media (max-width: 768px) {
+    #pagination {
+        margin-bottom: 40px;
+    }
+}
+
+/* =========================================
+   Footer 渐变（稳定版，不越界、不漂移）
+   结构：你的 DOM 是 <footer id="footer">...</footer>
+   效果：footer 顶部透明 → 底部 #1a1a1a
+   ========================================= */
+
+/* footer 本体作为承载：但不直接整块黑 */
+#footer{
+    position: relative;
+    background: transparent !important; /* 让你的 html 流光背景还能透上来 */
+    padding-top: 96px;                  /* ✅ 过渡高度：越大越柔 */
+    overflow: hidden;                   /* ✅ 保证渐变不溢出 */
+}
+
+/* 渐变层：完全在 footer 内部，从顶部透明到主题色 */
+#footer::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+            to bottom,
+            rgba(26,26,26,0) 0%,
+            rgba(26,26,26,0) 20%,
+            rgba(26,26,26,1) 20%,
+            rgba(26,26,26,1) 60%,
+            rgba(26,26,26,1) 85%,
+            rgba(26,26,26,1) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* footer 内容层级提升，避免被渐变盖住 */
+#footer > *{
+    position: relative;
+    z-index: 1;
+}

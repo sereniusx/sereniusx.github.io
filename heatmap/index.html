@@ -1,0 +1,632 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SereniusX的博客 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="博客热力图             按年查看 · 每天显示发文总数                                                 Year                                                            0 天有更新                 共 0">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SereniusX的博客">
+<meta property="og:url" content="https://sereniusx.github.io/heatmap/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="博客热力图             按年查看 · 每天显示发文总数                                                 Year                                                            0 天有更新                 共 0">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/avatar2.jpg">
+<meta property="article:published_time" content="2026-01-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-01-30T12:24:29.430Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/avatar2.jpg"><link rel="shortcut icon" href="/img/avatar2.png"><link rel="canonical" href="https://sereniusx.github.io/heatmap/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SereniusX的博客',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/heatmap.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-heart"></i><span> 热力图</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-heart"></i><span> 热力图</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">SereniusX的博客</h1></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><div id="hm-system">
+    <header class="hm-header">
+        <div class="hm-title">
+            <h1>博客热力图</h1>
+            <p class="hm-subtitle">按年查看 · 每天显示发文总数</p>
+        </div>
+
+        <div class="hm-actions">
+            <label class="hm-select">
+                <span class="label">Year</span>
+                <select id="hm-year" aria-label="select year"></select>
+            </label>
+            <div class="hm-meta">
+                <span class="meta-item"><strong id="hm-active-days">0</strong> 天有更新</span>
+                <span class="meta-item">共 <strong id="hm-sum">0</strong> 篇</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hm-panel">
+        <div class="hm-panel-head">
+            <div class="hm-legend" aria-hidden="true">
+                <span class="t">Less</span>
+                <span class="dots">
+          <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i><i class="lv4"></i>
+        </span>
+                <span class="t">More</span>
+            </div>
+        </div>
+
+        <!-- 同一滚动容器：月份 + 网格一起滚 -->
+        <div class="hm-scroll" id="hm-scroll">
+            <div class="hm-months" id="hm-months" aria-hidden="true"></div>
+            <div id="hm-grid" class="hm-grid" aria-label="activity heatmap"></div>
+        </div>
+
+        <div class="hm-hint">
+            tip：悬停方格查看 <code>YYYY-MM-DD · 篇数</code>（数据来自 <code>post-meta.js</code>）
+        </div>
+    </section>
+</div>
+
+<style>
+    #hm-system{
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 28px 18px 64px;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        color: #111;
+    }
+
+    /* header */
+    .hm-header{
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 12px 16px;
+        align-items: end;
+        padding: 16px 0 18px;
+        border-bottom: 1px solid rgba(0,0,0,.08);
+        margin-bottom: 16px;
+    }
+    .hm-title h1{
+        margin: 0;
+        font-size: 26px;
+        font-weight: 650;
+        letter-spacing: -0.02em;
+        color: #1a1a1a;
+    }
+    .hm-subtitle{
+        margin: 6px 0 0;
+        font-size: 13px;
+        color: rgba(0,0,0,.55);
+    }
+
+    .hm-actions{
+        display:flex;
+        align-items:flex-end;
+        gap: 14px;
+        justify-content:flex-end;
+        flex-wrap: wrap;
+    }
+
+    .hm-meta{
+        display:flex;
+        gap: 14px;
+        color: rgba(0,0,0,.55);
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .hm-meta strong{
+        color:#111;
+        font-weight: 650;
+    }
+
+    .hm-select{
+        display:flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .hm-select .label{
+        font-size: 12px;
+        color: rgba(0,0,0,.50);
+        letter-spacing: .2px;
+    }
+    .hm-select select{
+        border: 1px solid rgba(0,0,0,.12);
+        background: rgba(255,255,255,.85);
+        color: #111;
+        padding: 8px 10px;
+        border-radius: 12px;
+        font-size: 13.5px;
+        outline: none;
+    }
+    .hm-select select:focus{ border-color: rgba(0,0,0,.40); }
+
+    /* panel */
+    .hm-panel{
+        border: 1px solid rgba(0,0,0,.08);
+        border-radius: 16px;
+        background: rgba(255,255,255,.82);
+        padding: 14px 14px 12px;
+    }
+    .hm-panel-head{
+        display:flex;
+        justify-content: flex-end;
+        align-items:center;
+        padding: 2px 2px 10px;
+        border-bottom: 1px solid rgba(0,0,0,.06);
+        margin-bottom: 10px;
+    }
+
+    /* legend */
+    .hm-legend{
+        display:flex;
+        align-items:center;
+        gap: 10px;
+        user-select:none;
+        opacity: .72;
+        font-size: 12px;
+    }
+    .hm-legend .dots{ display:flex; gap: 6px; align-items:center; }
+    /* legend：让每个等级对应自己的颜色 */
+    .hm-legend i{
+        display:block;
+        width: 10px; height: 10px;
+        border-radius: 3px;
+    }
+
+    /* ✅ 关键：按 class 映射到变量 */
+    .hm-legend i.lv0{ background: var(--hm-lv0); }
+    .hm-legend i.lv1{ background: var(--hm-lv1); }
+    .hm-legend i.lv2{ background: var(--hm-lv2); }
+    .hm-legend i.lv3{ background: var(--hm-lv3); }
+    .hm-legend i.lv4{ background: var(--hm-lv4); }
+
+
+    /* ✅ scroll */
+    .hm-scroll{
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 2px;
+    }
+
+    /* ✅ 月份行：关键修复
+       - 列宽必须 = 格子的列宽（CELL）
+       - gap 必须 = 格子的 gap（GAP）
+       这样 1 列月份 === 1 列周
+    */
+    .hm-months{
+        display:grid;
+        grid-auto-flow: column;
+        grid-auto-columns: var(--hm-cell, 12px);
+        gap: var(--hm-gap, 6px);
+        margin: 6px 0 6px;
+        opacity: .55;
+        font-size: 12px;
+        letter-spacing: .2px;
+        padding-left: 2px;
+    }
+    .hm-months span{
+        transform: translateX(-1px);
+        white-space: nowrap;
+    }
+
+    /* grid */
+    .hm-grid{
+        display:grid;
+        grid-auto-flow: column;
+        grid-auto-columns: var(--hm-cell, 12px);
+        grid-template-rows: repeat(7, var(--hm-cell, 12px));
+        gap: var(--hm-gap, 6px);
+        padding: 8px 2px 8px;
+    }
+
+    .hm-cell{
+        width: var(--hm-cell, 12px);
+        height: var(--hm-cell, 12px);
+        border-radius: 3px;
+        background: var(--hm-lv0);
+        transition: transform .08s ease, filter .12s ease;
+        opacity: .95;
+    }
+    .hm-cell:hover{
+        transform: translateY(-1px);
+        filter: brightness(1.05);
+        opacity: 1;
+    }
+
+    .hm-hint{
+        margin-top: 10px;
+        color: rgba(0,0,0,.52);
+        font-size: 12.5px;
+        line-height: 1.6;
+    }
+    .hm-hint code{
+        background: rgba(0,0,0,.04);
+        border: 1px solid rgba(0,0,0,.08);
+        padding: 2px 6px;
+        border-radius: 8px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    /* colors */
+    :root{
+        --hm-lv0: rgba(30, 40, 60, 0.06);
+        --hm-lv1: rgba(120, 190, 175, 0.20);
+        --hm-lv2: rgba(120, 190, 175, 0.32);
+        --hm-lv3: rgba(120, 190, 175, 0.46);
+        --hm-lv4: rgba(120, 190, 175, 0.60);
+    }
+
+    .hm-lv0{ background: var(--hm-lv0); }
+    .hm-lv1{ background: var(--hm-lv1); }
+    .hm-lv2{ background: var(--hm-lv2); }
+    .hm-lv3{ background: var(--hm-lv3); }
+    .hm-lv4{ background: var(--hm-lv4); }
+
+    /* dark */
+    html[data-theme='dark'] #hm-system{ color: rgba(255,255,255,.88); }
+    html[data-theme='dark'] .hm-title h1{ color: rgba(255,255,255,.92); }
+    html[data-theme='dark'] .hm-subtitle{ color: rgba(255,255,255,.55); }
+    html[data-theme='dark'] .hm-meta{ color: rgba(255,255,255,.55); }
+    html[data-theme='dark'] .hm-meta strong{ color: rgba(255,255,255,.92); }
+    html[data-theme='dark'] .hm-header{ border-bottom-color: rgba(255,255,255,.10); }
+    html[data-theme='dark'] .hm-select .label{ color: rgba(255,255,255,.55); }
+    html[data-theme='dark'] .hm-select select{
+        border-color: rgba(255,255,255,.14);
+        background: rgba(18,18,18,.55);
+        color: rgba(255,255,255,.92);
+    }
+    html[data-theme='dark'] .hm-select select:focus{ border-color: rgba(255,255,255,.32); }
+    html[data-theme='dark'] .hm-panel{
+        border-color: rgba(255,255,255,.10);
+        background: rgba(18,18,18,.55);
+    }
+    html[data-theme='dark'] .hm-panel-head{ border-bottom-color: rgba(255,255,255,.08); }
+    html[data-theme='dark'] .hm-hint{ color: rgba(255,255,255,.55); }
+    html[data-theme='dark'] .hm-hint code{
+        background: rgba(255,255,255,.06);
+        border-color: rgba(255,255,255,.10);
+    }
+    html[data-theme='dark']{
+        --hm-lv0: rgba(255,255,255, 0.07);
+        --hm-lv1: rgba(150, 235, 210, 0.16);
+        --hm-lv2: rgba(150, 235, 210, 0.26);
+        --hm-lv3: rgba(150, 235, 210, 0.38);
+        --hm-lv4: rgba(150, 235, 210, 0.52);
+    }
+
+    /* responsive */
+    @media (max-width: 720px){
+        .hm-header{ grid-template-columns: 1fr; align-items: start; }
+        .hm-actions{ justify-content: flex-start; }
+        .hm-meta{ justify-content: flex-start; }
+    }
+</style>
+
+<script>
+    (function(){
+        const gridEl = document.getElementById("hm-grid");
+        const monthsEl = document.getElementById("hm-months");
+        const yearEl = document.getElementById("hm-year");
+        const activeDaysEl = document.getElementById("hm-active-days");
+        const sumEl = document.getElementById("hm-sum");
+        if(!gridEl || !monthsEl || !yearEl) return;
+
+        // 尺寸统一（月份行与网格共享）
+        const CELL = 12;
+        const GAP = 6;
+        document.documentElement.style.setProperty('--hm-cell', CELL + 'px');
+        document.documentElement.style.setProperty('--hm-gap', GAP + 'px');
+
+        const pad2 = (n) => String(n).padStart(2, "0");
+        const dayMs = 24 * 60 * 60 * 1000;
+
+        function dateKey(d){
+            return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+        }
+        function parseToKey(input){
+            if(!input) return "";
+            if(typeof input === "string") return input.slice(0,10);
+            try{
+                const d = new Date(input);
+                if(Number.isNaN(d.getTime())) return "";
+                return dateKey(d);
+            }catch(_){
+                return "";
+            }
+        }
+
+        // 周起点：周日
+        function startOfWeek(d){
+            const x = new Date(d);
+            x.setHours(0,0,0,0);
+            const dow = x.getDay(); // 0..6
+            x.setTime(x.getTime() - dow * dayMs);
+            return x;
+        }
+        function addDays(d, n){
+            const x = new Date(d);
+            x.setDate(x.getDate() + n);
+            x.setHours(0,0,0,0);
+            return x;
+        }
+
+        function buildCountMap(meta){
+            const map = new Map();
+            if(!Array.isArray(meta)) return map;
+            for(const item of meta){
+                const raw = (typeof item === "string") ? item : item.date;
+                const k = parseToKey(raw);
+                if(!k) continue;
+                map.set(k, (map.get(k) || 0) + 1);
+            }
+            return map;
+        }
+
+        function levelForCount(c){
+            if(c <= 0) return 0;
+            if(c === 1) return 1;
+            if(c === 2) return 2;
+            if(c === 3) return 3;
+            return 4;
+        }
+
+        function getYearsFromMeta(meta){
+            const set = new Set();
+            if(Array.isArray(meta)){
+                for(const item of meta){
+                    const raw = (typeof item === "string") ? item : item.date;
+                    const k = parseToKey(raw);
+                    if(!k) continue;
+                    set.add(Number(k.slice(0,4)));
+                }
+            }
+            set.add(new Date().getFullYear());
+            return Array.from(set).sort((a,b)=> b-a);
+        }
+
+        function fillYearSelect(years){
+            yearEl.innerHTML = "";
+            for(const y of years){
+                const opt = document.createElement("option");
+                opt.value = String(y);
+                opt.textContent = String(y);
+                yearEl.appendChild(opt);
+            }
+        }
+
+        function render(year){
+            const meta = window.__POST_META__ || [];
+            const map = buildCountMap(meta);
+
+            const start = new Date(year, 0, 1);
+            start.setHours(0,0,0,0);
+            const end = new Date(year, 11, 31);
+            end.setHours(0,0,0,0);
+
+            const gridStart = startOfWeek(start);
+            const totalDays = Math.round((end - gridStart) / dayMs) + 1;
+            const weeks = Math.ceil(totalDays / 7);
+
+            // 统计
+            let activeDays = 0;
+            let sumPosts = 0;
+
+            // cells
+            const frag = document.createDocumentFragment();
+            for(let i=0; i<totalDays; i++){
+                const d = addDays(gridStart, i);
+                const k = dateKey(d);
+
+                let c = 0;
+                if(d >= start && d <= end) c = map.get(k) || 0;
+
+                if(c > 0){ activeDays += 1; sumPosts += c; }
+
+                const lv = levelForCount(c);
+                const cell = document.createElement("div");
+                cell.className = `hm-cell hm-lv${lv}`;
+                cell.title = `${k} · ${c}`;
+                cell.setAttribute("data-date", k);
+                cell.setAttribute("data-count", String(c));
+                frag.appendChild(cell);
+            }
+            gridEl.innerHTML = "";
+            gridEl.appendChild(frag);
+
+            // ✅ months：用“数学定位”保证每月只出现一次且永远对齐周列
+            const labels = new Array(weeks).fill("");
+            for(let m=0; m<12; m++){
+                const first = new Date(year, m, 1);
+                first.setHours(0,0,0,0);
+
+                const col = Math.floor((startOfWeek(first) - gridStart) / (7 * dayMs));
+                if(col >= 0 && col < weeks){
+                    labels[col] = String(m + 1); // 1..12
+                }
+            }
+
+            monthsEl.innerHTML = "";
+            const mfrag = document.createDocumentFragment();
+            for(let i=0; i<weeks; i++){
+                const sp = document.createElement("span");
+                sp.textContent = labels[i];
+                mfrag.appendChild(sp);
+            }
+            monthsEl.appendChild(mfrag);
+
+            activeDaysEl.textContent = String(activeDays);
+            sumEl.textContent = String(sumPosts);
+        }
+
+        function init(){
+            const meta = window.__POST_META__ || [];
+            const years = getYearsFromMeta(meta);
+            fillYearSelect(years);
+
+            const current = new Date().getFullYear();
+            const defaultYear = years.includes(current) ? current : years[0];
+            yearEl.value = String(defaultYear);
+
+            render(defaultYear);
+
+            yearEl.addEventListener("change", () => {
+                render(Number(yearEl.value));
+            });
+        }
+
+        if(document.readyState === "loading"){
+            document.addEventListener("DOMContentLoaded", init, { once: true });
+        }else{
+            init();
+        }
+    })();
+</script>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              一月 2026
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">6</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">10</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-09-30T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-01-30T12:25:40.999Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script src="/js/post-meta.js"></script><script src="/js/bg-duotone.js"></script><script src="/js/post-meta.js"></script><script src="/js/heatmap.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

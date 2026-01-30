@@ -1,0 +1,114 @@
+/* ===== Heatmap Page (minimal, no borders) ===== */
+
+.hm-wrap{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10px 0 30px;
+}
+
+.hm-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 16px;
+    margin: 6px 0 10px;
+}
+
+.hm-hint{
+    font-size: .9rem;
+    opacity: .55;
+    letter-spacing: .2px;
+}
+
+.hm-legend{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    opacity: .65;
+    font-size: .78rem;
+    user-select:none;
+    white-space: nowrap;
+}
+
+.hm-legend-dots{
+    display:flex;
+    gap: 6px;
+    align-items:center;
+}
+.hm-legend-dots i{
+    display:block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--hm-lv0);
+}
+
+/* Grid: 52w x 7d */
+.hm-grid{
+    /* GitHub-like: columns are weeks, rows are weekdays */
+    display:grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 12px;
+    grid-template-rows: repeat(7, 12px);
+    gap: 6px;
+    padding: 8px 0 10px;
+}
+
+/* Cell */
+.hm-cell{
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: var(--hm-lv0);
+    transition: transform .16s ease, filter .16s ease, opacity .16s ease;
+    opacity: .92;
+}
+
+/* hover: super subtle lift (符合你“克制微互动”要求) */
+.hm-cell:hover{
+    transform: translateY(-1px);
+    filter: brightness(1.03);
+    opacity: 1;
+}
+
+/* Months label row (very light) */
+.hm-months{
+    display:grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc(12px + 6px); /* cell + gap baseline */
+    gap: 6px;
+    margin-top: 4px;
+    opacity: .42;
+    font-size: .76rem;
+    letter-spacing: .2px;
+}
+.hm-months span{
+    transform: translateX(-2px);
+}
+
+/* --- Color scale (light) ---
+   低饱和、多级，不用纯绿
+*/
+html{
+    --hm-lv0: rgba(30, 40, 60, 0.06);
+    --hm-lv1: rgba(120, 190, 175, 0.22);
+    --hm-lv2: rgba(120, 190, 175, 0.34);
+    --hm-lv3: rgba(120, 190, 175, 0.48);
+    --hm-lv4: rgba(120, 190, 175, 0.62);
+}
+
+/* dark mode */
+html[data-theme='dark']{
+    --hm-lv0: rgba(255, 255, 255, 0.07);
+    --hm-lv1: rgba(150, 235, 210, 0.18);
+    --hm-lv2: rgba(150, 235, 210, 0.28);
+    --hm-lv3: rgba(150, 235, 210, 0.40);
+    --hm-lv4: rgba(150, 235, 210, 0.54);
+}
+
+/* map level -> color */
+.hm-lv0{ background: var(--hm-lv0); }
+.hm-lv1{ background: var(--hm-lv1); }
+.hm-lv2{ background: var(--hm-lv2); }
+.hm-lv3{ background: var(--hm-lv3); }
+.hm-lv4{ background: var(--hm-lv4); }
