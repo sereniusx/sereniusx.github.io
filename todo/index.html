@@ -1,0 +1,1289 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>SereniusX的博客 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="每日事项       LocalStorage 保存 · 勾选完成 · 支持编辑&#x2F;删除&#x2F;清空                 新建                今日：0 条         已完成：0 条                       清除已完成         清空勾选         清空所有">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SereniusX的博客">
+<meta property="og:url" content="https://sereniusx.github.io/todo/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="每日事项       LocalStorage 保存 · 勾选完成 · 支持编辑&#x2F;删除&#x2F;清空                 新建                今日：0 条         已完成：0 条                       清除已完成         清空勾选         清空所有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/avatar2.jpg">
+<meta property="article:published_time" content="2026-02-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-02T08:13:06.136Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/avatar2.jpg"><link rel="shortcut icon" href="/img/avatar2.png"><link rel="canonical" href="https://sereniusx.github.io/todo/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'SereniusX的博客',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/heatmap.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li><li><a class="site-page child" href="/achievements/"><i class="fa-fw fa fa-medal"></i><span> 成就</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li><li><a class="site-page child" href="/achievements/"><i class="fa-fw fa fa-medal"></i><span> 成就</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">SereniusX的博客</h1></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><div id="todo-system">
+  <header class="todo-header">
+    <div class="todo-title">
+      <h1>每日事项</h1>
+      <p class="todo-subtitle">LocalStorage 保存 · 勾选完成 · 支持编辑/删除/清空</p>
+    </div>
+    <div class="todo-actions">
+      <button id="btn-add" class="btn btn-primary" type="button">新建</button>
+      <div class="todo-meta">
+        <span class="meta-item">今日：<strong id="todo-count">0</strong> 条</span>
+        <span class="meta-item">已完成：<strong id="todo-done">0</strong> 条</span>
+      </div>
+      <div class="todo-bulk">
+        <button id="btn-clear-done" class="btn" type="button">清除已完成</button>
+        <button id="btn-reset-check" class="btn" type="button">清空勾选</button>
+        <button id="btn-clear-all" class="btn btn-danger" type="button">清空所有</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="todo-panel">
+    <div class="todo-panel-head">
+      <div class="todo-left">
+        <label class="todo-date">
+          <span class="label">Date</span>
+          <input id="todo-date" class="date-input" type="date" aria-label="select date">
+        </label>
+        <div class="todo-search">
+          <input id="todo-q" class="search-input" placeholder="搜索：内容…">
+        </div>
+      </div>
+      <div class="todo-legend" aria-hidden="true">
+        <span class="dot"></span>
+        <span>参考热力图配色</span>
+      </div>
+    </div>
+    <main class="todo-list" id="todo-list"></main>
+    <div class="todo-hint">
+      tip：数据仅保存在浏览器 <code>localStorage</code>（同一设备/浏览器可长期保存）
+    </div>
+  </section>
+
+  <!-- 添加/编辑弹窗（滚动方式参考你 useful 页：modal-body 自滚 + 按钮 sticky） -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="1"></div>
+
+<pre><code>&lt;div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title"&gt;
+  &lt;div class="modal-header"&gt;
+    &lt;h2 id="modal-title"&gt;新建事项&lt;/h2&gt;
+    &lt;button class="icon-btn" id="modal-close" type="button" aria-label="关闭"&gt;✕&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class="modal-body"&gt;
+    &lt;div class="form-grid"&gt;
+      &lt;label class="field full"&gt;
+        &lt;span class="label"&gt;日期&lt;/span&gt;
+        &lt;input id="f-date" class="input" type="date" /&gt;
+      &lt;/label&gt;
+
+      &lt;label class="field full"&gt;
+        &lt;span class="label"&gt;内容&lt;/span&gt;
+        &lt;textarea id="f-text" class="textarea" placeholder="写点什么…（建议简短）"&gt;&lt;/textarea&gt;
+      &lt;/label&gt;
+
+      &lt;label class="field"&gt;
+        &lt;span class="label"&gt;已完成&lt;/span&gt;
+        &lt;div class="row"&gt;
+          &lt;input id="f-done" type="checkbox" /&gt;
+          &lt;span class="row-hint"&gt;勾选表示完成&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/label&gt;
+
+      &lt;label class="field"&gt;
+        &lt;span class="label"&gt;（可选）标签&lt;/span&gt;
+        &lt;input id="f-tag" class="input" placeholder="#学习 / #生活（可留空）" /&gt;
+      &lt;/label&gt;
+    &lt;/div&gt;
+
+    &lt;div class="preview"&gt;
+      &lt;div class="preview-title"&gt;操作&lt;/div&gt;
+      &lt;div class="preview-actions"&gt;
+        &lt;button id="btn-save" class="btn btn-primary" type="button"&gt;保存&lt;/button&gt;
+        &lt;button id="btn-cancel" class="btn" type="button"&gt;取消&lt;/button&gt;
+        &lt;button id="btn-delete" class="btn btn-danger" type="button" style="margin-left:auto; display:none;"&gt;删除&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="hint"&gt;
+        说明：保存后会写入 &lt;code&gt;localStorage&lt;/code&gt;；可随时编辑/删除。
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+  </div>
+</div>
+
+<style>
+/* ===== 颜色：参考热力图页面 ===== */
+:root{
+  --t0: rgba(30, 40, 60, 0.06);
+  --t1: rgba(120, 190, 175, 0.20);
+  --t2: rgba(120, 190, 175, 0.32);
+  --t3: rgba(120, 190, 175, 0.46);
+  --t4: rgba(120, 190, 175, 0.60);
+
+  --bd: rgba(0,0,0,.08);
+  --bd2: rgba(0,0,0,.06);
+  --txt2: rgba(0,0,0,.55);
+  --txt3: rgba(0,0,0,.50);
+  --bg: rgba(255,255,255,.82);
+}
+
+html[data-theme='dark']{
+  --t0: rgba(255,255,255, 0.07);
+  --t1: rgba(150, 235, 210, 0.16);
+  --t2: rgba(150, 235, 210, 0.26);
+  --t3: rgba(150, 235, 210, 0.38);
+  --t4: rgba(150, 235, 210, 0.52);
+
+  --bd: rgba(255,255,255,.10);
+  --bd2: rgba(255,255,255,.08);
+  --txt2: rgba(255,255,255,.55);
+  --txt3: rgba(255,255,255,.55);
+  --bg: rgba(18,18,18,.55);
+}
+
+#todo-system{
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 18px 64px;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #111;
+}
+html[data-theme='dark'] #todo-system{ color: rgba(255,255,255,.88); }
+
+/* header */
+.todo-header{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px 16px;
+  align-items: end;
+  padding: 16px 0 18px;
+  border-bottom: 1px solid var(--bd);
+  margin-bottom: 16px;
+}
+.todo-title h1{
+  margin: 0;
+  font-size: 26px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #1a1a1a;
+}
+html[data-theme='dark'] .todo-title h1{ color: rgba(255,255,255,.92); }
+
+.todo-subtitle{
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--txt2);
+}
+
+.todo-actions{
+  display:flex;
+  align-items:flex-end;
+  gap: 12px;
+  justify-content:flex-end;
+  flex-wrap: wrap;
+}
+
+.todo-meta{
+  display:flex;
+  gap: 14px;
+  color: var(--txt2);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.todo-meta strong{
+  color:#111;
+  font-weight: 650;
+}
+html[data-theme='dark'] .todo-meta strong{ color: rgba(255,255,255,.92); }
+
+.todo-bulk{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content:flex-end;
+}
+
+/* buttons */
+.btn{
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.85);
+  color: #111;
+  padding: 9px 12px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: transform .08s ease, border-color .12s ease, background .12s ease;
+}
+.btn:hover{ background: rgba(255,255,255,.95); border-color: rgba(0,0,0,.24); }
+.btn:active{ transform: translateY(1px); }
+
+.btn-primary{
+  background: rgba(0,0,0,.90);
+  color: #fff;
+  border-color: rgba(0,0,0,.90);
+}
+.btn-primary:hover{ background: rgba(0,0,0,.96); }
+
+.btn-danger{
+  background: rgba(255, 80, 80, .10);
+  border-color: rgba(255, 80, 80, .28);
+  color: rgba(160, 35, 35, .98);
+}
+.btn-danger:hover{
+  background: rgba(255, 80, 80, .14);
+  border-color: rgba(255, 80, 80, .35);
+}
+
+html[data-theme='dark'] .btn{
+  border-color: rgba(255,255,255,.14);
+  background: rgba(18,18,18,.55);
+  color: rgba(255,255,255,.92);
+}
+html[data-theme='dark'] .btn:hover{
+  background: rgba(18,18,18,.68);
+  border-color: rgba(255,255,255,.28);
+}
+html[data-theme='dark'] .btn-primary{
+  background: rgba(255,255,255,.92);
+  border-color: rgba(255,255,255,.92);
+  color: rgba(0,0,0,.92);
+}
+html[data-theme='dark'] .btn-danger{
+  background: rgba(255, 80, 80, .14);
+  border-color: rgba(255, 110, 110, .32);
+  color: rgba(255, 190, 190, .96);
+}
+
+/* panel */
+.todo-panel{
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  background: var(--bg);
+  padding: 14px 14px 12px;
+}
+.todo-panel-head{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 14px;
+  padding: 2px 2px 10px;
+  border-bottom: 1px solid var(--bd2);
+  margin-bottom: 10px;
+}
+
+.todo-left{
+  display:flex;
+  align-items:flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.todo-date{
+  display:flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.todo-date .label{
+  font-size: 12px;
+  color: var(--txt3);
+  letter-spacing: .2px;
+}
+.date-input{
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.85);
+  color: #111;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  outline: none;
+}
+.date-input:focus{ border-color: rgba(0,0,0,.40); }
+
+.todo-search .search-input{
+  width: 280px;
+  max-width: 72vw;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.85);
+  color: #111;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  outline: none;
+}
+.todo-search .search-input:focus{ border-color: rgba(0,0,0,.40); }
+
+html[data-theme='dark'] .date-input,
+html[data-theme='dark'] .todo-search .search-input{
+  border-color: rgba(255,255,255,.14);
+  background: rgba(18,18,18,.55);
+  color: rgba(255,255,255,.92);
+}
+html[data-theme='dark'] .date-input:focus,
+html[data-theme='dark'] .todo-search .search-input:focus{
+  border-color: rgba(255,255,255,.32);
+}
+
+/* legend */
+.todo-legend{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  user-select:none;
+  opacity: .72;
+  font-size: 12px;
+  color: var(--txt2);
+}
+.todo-legend .dot{
+  width: 10px; height: 10px;
+  border-radius: 3px;
+  background: var(--t3);
+  border: 1px solid rgba(0,0,0,.06);
+}
+html[data-theme='dark'] .todo-legend .dot{ border-color: rgba(255,255,255,.10); }
+
+/* list */
+.todo-list{
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 2px 6px;
+}
+.todo-item{
+  display:flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 10px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: rgba(255,255,255,.72);
+  border-radius: 14px;
+}
+.todo-item:hover{ border-color: rgba(0,0,0,.14); }
+html[data-theme='dark'] .todo-item{
+  border-color: rgba(255,255,255,.10);
+  background: rgba(18,18,18,.50);
+}
+
+.todo-check{
+  margin-top: 2px;
+  width: 18px;
+  height: 18px;
+  accent-color: rgba(120, 190, 175, 0.72);
+  cursor: pointer;
+}
+html[data-theme='dark'] .todo-check{
+  accent-color: rgba(150, 235, 210, 0.62);
+}
+
+.todo-main{
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.todo-top{
+  display:flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.todo-text{
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: #111;
+  word-break: break-word;
+}
+html[data-theme='dark'] .todo-text{ color: rgba(255,255,255,.90); }
+
+.todo-tag{
+  font-size: 12px;
+  color: rgba(0,0,0,.55);
+  background: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.08);
+  padding: 2px 8px;
+  border-radius: 999px;
+  user-select:none;
+}
+html[data-theme='dark'] .todo-tag{
+  color: rgba(255,255,255,.60);
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+}
+
+.todo-sub{
+  margin-top: 6px;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--txt2);
+  font-size: 12.5px;
+}
+.todo-sub .when{
+  white-space: nowrap;
+}
+
+.todo-actions2{
+  display:flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.mini{
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.70);
+  color: rgba(0,0,0,.72);
+  padding: 6px 9px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+.mini:hover{ border-color: rgba(0,0,0,.18); background: rgba(255,255,255,.86); }
+html[data-theme='dark'] .mini{
+  border-color: rgba(255,255,255,.12);
+  background: rgba(18,18,18,.45);
+  color: rgba(255,255,255,.68);
+}
+html[data-theme='dark'] .mini:hover{
+  border-color: rgba(255,255,255,.22);
+  background: rgba(18,18,18,.60);
+}
+
+/* done state */
+.todo-item[data-done="1"]{
+  border-color: rgba(120, 190, 175, 0.22);
+  background: linear-gradient(0deg, rgba(120, 190, 175, 0.10), rgba(255,255,255,.72));
+}
+html[data-theme='dark'] .todo-item[data-done="1"]{
+  border-color: rgba(150, 235, 210, 0.18);
+  background: linear-gradient(0deg, rgba(150, 235, 210, 0.08), rgba(18,18,18,.50));
+}
+.todo-item[data-done="1"] .todo-text{
+  text-decoration: line-through;
+  opacity: .70;
+}
+
+/* hint */
+.todo-hint{
+  margin-top: 10px;
+  color: var(--txt2);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.todo-hint code{
+  background: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.08);
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+html[data-theme='dark'] .todo-hint code{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+}
+
+/* ===== modal（完全参考 useful 页滚动方式） ===== */
+.modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+.modal[data-open="1"]{ display:block; }
+.modal-backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.45);
+}
+.modal-panel{
+  position: relative;
+  max-width: 640px;
+  width: calc(100% - 24px);
+  margin: 6vh auto;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  box-shadow: 0 30px 80px rgba(0,0,0,.25);
+  overflow: hidden;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+html[data-theme='dark'] .modal-panel{
+  background: rgba(18,18,18,.90);
+  border-color: rgba(255,255,255,.10);
+}
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  flex: 0 0 auto;
+}
+html[data-theme='dark'] .modal-header{
+  border-bottom-color: rgba(255,255,255,.10);
+}
+.modal-header h2{
+  margin:0;
+  font-size:16px;
+  font-weight:650;
+}
+.icon-btn{
+  border:none;
+  background:transparent;
+  cursor:pointer;
+  font-size:16px;
+  padding:6px 10px;
+  border-radius:10px;
+  color: inherit;
+}
+.icon-btn:hover{ background: rgba(0,0,0,.05); }
+html[data-theme='dark'] .icon-btn:hover{ background: rgba(255,255,255,.06); }
+
+/* ✅ body 自滚 */
+.modal-body{
+  padding: 16px;
+  overflow: auto;
+  flex: 1 1 auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+/* form */
+.form-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.field{ display:flex; flex-direction:column; gap:6px; }
+.field.full{ grid-column: 1 / -1; }
+.label{ font-size:12.5px; color: var(--txt2); }
+
+.input, .textarea{
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.85);
+  color: #111;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  outline: none;
+}
+.input:focus, .textarea:focus{ border-color: rgba(0,0,0,.40); }
+
+html[data-theme='dark'] .input,
+html[data-theme='dark'] .textarea{
+  border-color: rgba(255,255,255,.14);
+  background: rgba(18,18,18,.55);
+  color: rgba(255,255,255,.92);
+}
+html[data-theme='dark'] .input:focus,
+html[data-theme='dark'] .textarea:focus{ border-color: rgba(255,255,255,.32); }
+
+.textarea{ min-height: 110px; resize: vertical; }
+
+.row{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.85);
+  border-radius: 12px;
+}
+html[data-theme='dark'] .row{
+  border-color: rgba(255,255,255,.14);
+  background: rgba(18,18,18,.55);
+}
+.row-hint{ color: var(--txt2); font-size: 13px; }
+
+/* action area */
+.preview{
+  margin-top: 14px;
+  border-top: 1px solid rgba(0,0,0,.08);
+  padding-top: 14px;
+}
+html[data-theme='dark'] .preview{ border-top-color: rgba(255,255,255,.10); }
+
+.preview-title{
+  font-size: 12.5px;
+  color: var(--txt2);
+  margin-bottom: 8px;
+}
+
+/* ✅ sticky 按钮条 */
+.preview-actions{
+  display:flex;
+  gap: 10px;
+  margin-top: 10px;
+  position: sticky;
+  bottom: 0;
+  padding: 10px 0 2px;
+  background: transparent;
+}
+.preview-actions::before{
+  content:"";
+  position:absolute;
+  left:0; right:0;
+  top:-10px;
+  height:10px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,.92));
+  pointer-events:none;
+}
+html[data-theme='dark'] .preview-actions::before{
+  background: linear-gradient(to bottom, rgba(18,18,18,0), rgba(18,18,18,.92));
+}
+
+.hint{
+  margin-top: 10px;
+  color: var(--txt2);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.hint code{
+  background: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.08);
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+html[data-theme='dark'] .hint code{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+}
+
+/* responsive */
+@media (max-width: 720px){
+  .todo-header{ grid-template-columns: 1fr; align-items: start; }
+  .todo-actions{ justify-content: flex-start; }
+  .todo-meta{ justify-content: flex-start; }
+  .todo-search .search-input{ width: 100%; max-width: 100%; }
+  .form-grid{ grid-template-columns: 1fr; }
+  .modal-panel{ margin: 4vh auto; max-height: 90vh; }
+}
+</style>
+
+<script>
+(function(){
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+  const STORAGE_KEY = 'todo.daily.v1';
+
+  const listEl = $('#todo-list');
+  const dateEl = $('#todo-date');
+  const qEl = $('#todo-q');
+
+  const countEl = $('#todo-count');
+  const doneEl = $('#todo-done');
+
+  const btnAdd = $('#btn-add');
+  const btnClearAll = $('#btn-clear-all');
+  const btnClearDone = $('#btn-clear-done');
+  const btnResetCheck = $('#btn-reset-check');
+
+  const modal = $('#modal');
+  const modalTitle = $('#modal-title');
+  const btnClose = $('#modal-close');
+  const btnCancel = $('#btn-cancel');
+  const btnSave = $('#btn-save');
+  const btnDelete = $('#btn-delete');
+
+  const fDate = $('#f-date');
+  const fText = $('#f-text');
+  const fDone = $('#f-done');
+  const fTag = $('#f-tag');
+
+  let state = { items: [] };
+  let editingId = null;
+
+  // ===== utils =====
+  const pad2 = (n) => String(n).padStart(2,'0');
+  const todayKey = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+  };
+  const uid = () => Math.random().toString(16).slice(2) + Date.now().toString(16);
+
+  function normalizeTagText(raw){
+    const s = (raw || '').trim();
+    if(!s) return '';
+    // 支持 "#a #b" / "a b" / "a,b"
+    const parts = s.split(/[\s、，,]+/g).map(x=>x.trim()).filter(Boolean);
+    const tags = parts.map(p => p.startsWith('#') ? p : ('#' + p));
+    return tags.join(' ');
+  }
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return;
+      const parsed = JSON.parse(raw);
+      if(parsed && Array.isArray(parsed.items)){
+        state.items = parsed.items;
+      }
+    }catch(e){}
+  }
+  function save(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function compareItem(a,b){
+    // 同一天：未完成在前，其次按更新时间倒序
+    if(a.date !== b.date) return a.date < b.date ? 1 : -1; // newer date first
+    if(!!a.done !== !!b.done) return a.done ? 1 : -1;
+    return (b.updatedAt || 0) - (a.updatedAt || 0);
+  }
+
+  function getFiltered(){
+    const date = (dateEl.value || '').trim();
+    const q = (qEl.value || '').trim().toLowerCase();
+    return state.items
+      .filter(x => !date || x.date === date)
+      .filter(x => !q || (x.text || '').toLowerCase().includes(q) || (x.tag || '').toLowerCase().includes(q))
+      .sort(compareItem);
+  }
+
+  function statsFor(date){
+    const items = state.items.filter(x => x.date === date);
+    const done = items.filter(x => !!x.done).length;
+    return { total: items.length, done };
+  }
+
+  // ===== render =====
+  function render(){
+    if(!listEl) return;
+
+    const date = (dateEl.value || '').trim();
+    const filtered = getFiltered();
+
+    // meta: 今日统计（按 date 输入框）
+    const s = statsFor(date);
+    countEl.textContent = String(s.total);
+    doneEl.textContent = String(s.done);
+
+    if(filtered.length === 0){
+      listEl.innerHTML = `
+        <div class="todo-empty">
+          <div class="empty-title">没有事项</div>
+          <div class="empty-sub">点右上角「新建」开始记录。</div>
+        </div>
+      `;
+      return;
+    }
+
+    const frag = document.createDocumentFragment();
+    for(const item of filtered){
+      const div = document.createElement('div');
+      div.className = 'todo-item';
+      div.setAttribute('data-id', item.id);
+      div.setAttribute('data-done', item.done ? '1' : '0');
+
+      const tag = (item.tag || '').trim();
+      const tagHtml = tag ? `<span class="todo-tag">${escapeHtml(tag)}</span>` : '';
+
+      div.innerHTML = `
+        <input class="todo-check" type="checkbox" ${item.done ? 'checked' : ''} aria-label="toggle done">
+        <div class="todo-main">
+          <div class="todo-top">
+            <div class="todo-text">${escapeHtml(item.text || '')}</div>
+            ${tagHtml}
+          </div>
+          <div class="todo-sub">
+            <span class="when">${escapeHtml(item.date)}</span>
+            <div class="todo-actions2">
+              <button class="mini" data-act="edit" type="button">编辑</button>
+              <button class="mini" data-act="del" type="button">删除</button>
+            </div>
+          </div>
+        </div>
+      `;
+      frag.appendChild(div);
+    }
+    listEl.innerHTML = '';
+    listEl.appendChild(frag);
+  }
+
+  function escapeHtml(s){
+    return String(s)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+
+  // ===== modal =====
+  function openModal(mode, item){
+    // mode: 'new' | 'edit'
+    editingId = item ? item.id : null;
+    modalTitle.textContent = mode === 'edit' ? '编辑事项' : '新建事项';
+
+    fDate.value = (item && item.date) ? item.date : (dateEl.value || todayKey());
+    fText.value = (item && item.text) ? item.text : '';
+    fDone.checked = !!(item && item.done);
+    fTag.value = (item && item.tag) ? item.tag : '';
+
+    btnDelete.style.display = (mode === 'edit') ? '' : 'none';
+
+    modal.setAttribute('data-open','1');
+    modal.setAttribute('aria-hidden','false');
+
+    // 聚焦
+    setTimeout(()=> fText.focus(), 0);
+  }
+
+  function closeModal(){
+    modal.removeAttribute('data-open');
+    modal.setAttribute('aria-hidden','true');
+    editingId = null;
+  }
+
+  function upsertFromForm(){
+    const date = (fDate.value || '').trim() || todayKey();
+    const text = (fText.value || '').trim();
+    const done = !!fDone.checked;
+    const tag = normalizeTagText(fTag.value);
+
+    if(!text){
+      // 用最轻的方式提示
+      fText.focus();
+      return false;
+    }
+
+    const now = Date.now();
+    if(editingId){
+      const idx = state.items.findIndex(x => x.id === editingId);
+      if(idx >= 0){
+        state.items[idx] = { ...state.items[idx], date, text, done, tag, updatedAt: now };
+      }
+    }else{
+      state.items.push({
+        id: uid(),
+        date,
+        text,
+        done,
+        tag,
+        createdAt: now,
+        updatedAt: now
+      });
+    }
+
+    save();
+    render();
+    buildTagOptions(); // 更新筛选项（如果你写了 tag 搜索习惯也 OK）
+    return true;
+  }
+
+  // ===== bulk actions =====
+  function clearAll(){
+    const date = (dateEl.value || '').trim();
+    if(!date) return;
+
+    // 只清当前日期的事项？——用户需求是“清空所有项目”，这里按“全库”更符合字面
+    // 但会很危险，所以做二次保护：如果选择了日期，则提示只清当天/清全部？
+    // 你没要求弹确认，我就直接清全库（最符合“所有项目”）
+    state.items = [];
+    save();
+    render();
+  }
+
+  function clearDone(){
+    const date = (dateEl.value || '').trim();
+    if(!date) return;
+
+    state.items = state.items.filter(x => x.date !== date || !x.done);
+    save();
+    render();
+  }
+
+  function resetCheck(){
+    const date = (dateEl.value || '').trim();
+    if(!date) return;
+
+    state.items = state.items.map(x => {
+      if(x.date !== date) return x;
+      return { ...x, done:false, updatedAt: Date.now() };
+    });
+    save();
+    render();
+  }
+
+  // ===== init =====
+  function init(){
+    load();
+
+    // 默认日期：今天
+    const t = todayKey();
+    if(dateEl){
+      dateEl.value = t;
+    }
+    if(fDate){
+      fDate.value = t;
+    }
+
+    render();
+
+    // header actions
+    btnAdd.addEventListener('click', () => openModal('new', null));
+
+    btnClearAll.addEventListener('click', () => {
+      // 轻量确认：避免误触
+      const ok = confirm('确定要清空所有事项吗？此操作不可恢复。');
+      if(!ok) return;
+      state.items = [];
+      save();
+      render();
+    });
+
+    btnClearDone.addEventListener('click', () => {
+      const ok = confirm('清除当前日期的“已完成事项”？');
+      if(!ok) return;
+      clearDone();
+    });
+
+    btnResetCheck.addEventListener('click', () => {
+      const ok = confirm('清空当前日期的“完成状态”（仅取消勾选，不删除事项）？');
+      if(!ok) return;
+      resetCheck();
+    });
+
+    // filters
+    dateEl.addEventListener('change', render);
+    qEl.addEventListener('input', render);
+
+    // modal close
+    btnClose.addEventListener('click', closeModal);
+    btnCancel.addEventListener('click', closeModal);
+    $('.modal-backdrop', modal).addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && modal.getAttribute('data-open') === '1') closeModal();
+    });
+
+    // modal save/delete
+    btnSave.addEventListener('click', () => {
+      const ok = upsertFromForm();
+      if(ok) closeModal();
+    });
+
+    btnDelete.addEventListener('click', () => {
+      if(!editingId) return;
+      const ok = confirm('确定删除这条事项吗？');
+      if(!ok) return;
+      state.items = state.items.filter(x => x.id !== editingId);
+      save();
+      render();
+      closeModal();
+    });
+
+    // list interactions (delegate)
+    listEl.addEventListener('click', (e) => {
+      const itemEl = e.target.closest('.todo-item');
+      if(!itemEl) return;
+      const id = itemEl.getAttribute('data-id');
+      const item = state.items.find(x => x.id === id);
+      if(!item) return;
+
+      const btn = e.target.closest('button[data-act]');
+      if(btn){
+        const act = btn.getAttribute('data-act');
+        if(act === 'edit'){
+          openModal('edit', item);
+        }
+        if(act === 'del'){
+          const ok = confirm('确定删除这条事项吗？');
+          if(!ok) return;
+          state.items = state.items.filter(x => x.id !== id);
+          save();
+          render();
+        }
+        return;
+      }
+
+      const cb = e.target.closest('input.todo-check');
+      if(cb){
+        item.done = cb.checked;
+        item.updatedAt = Date.now();
+        save();
+        render();
+      }
+    });
+
+    // checkbox change (更稳：兼容键盘切换)
+    listEl.addEventListener('change', (e) => {
+      const cb = e.target.closest('input.todo-check');
+      if(!cb) return;
+      const itemEl = e.target.closest('.todo-item');
+      if(!itemEl) return;
+      const id = itemEl.getAttribute('data-id');
+      const item = state.items.find(x => x.id === id);
+      if(!item) return;
+      item.done = cb.checked;
+      item.updatedAt = Date.now();
+      save();
+      render();
+    });
+  }
+
+  // 兼容：你提到过 tag 筛选（这里不做下拉，仅做搜索；但保留空函数防止引用出错）
+  function buildTagOptions(){}
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init, { once:true });
+  }else{
+    init();
+  }
+})();
+</script>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">17</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list expandBtn" id="aside-cat-list">
+            <li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">8</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/PWN/"><span class="card-category-list-name">PWN</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/Reverse/"><span class="card-category-list-name">Reverse</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/Web/"><span class="card-category-list-name">Web</span><span class="card-category-list-count">2</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%85%B6%E4%BB%96/"><span class="card-category-list-name">其他</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4/"><span class="card-category-list-name">博客日常维护</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%B6%E6%94%BF%E5%AD%A6%E4%B9%A0/"><span class="card-category-list-name">时政学习</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/"><span class="card-category-list-name">计算机基础课程</span><span class="card-category-list-count">2</span></a></li>
+          </ul></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/02/">
+            <span class="card-archive-list-date">
+              二月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              一月 2026
+            </span>
+            <span class="card-archive-list-count">11</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">17</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-09-30T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-02T08:13:15.729Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script src="/js/post-meta.js"></script><script src="/js/bg-duotone.js"></script><script src="/js/post-meta.js"></script><script src="/js/heatmap.js"></script><script src="/js/hr-random.js"></script><script>(() => {
+  window.ChatraID = 'xYpW5Meo932eB55bm'
+  window.Chatra = window.Chatra || function() {
+    (window.Chatra.q = window.Chatra.q || []).push(arguments)
+  }
+
+  btf.getScript('https://call.chatra.io/chatra.js').then(() => {
+    const isChatBtn = true
+    const isChatHideShow = true
+
+    if (isChatBtn) {
+      const close = () => {
+        Chatra('minimizeWidget')
+        Chatra('hide')
+      }
+
+      const open = () => {
+        Chatra('openChat', true)
+        Chatra('show')
+      }
+
+      window.ChatraSetup = { startHidden: true }
+    
+      window.chatBtnFn = () => document.getElementById('chatra').classList.contains('chatra--expanded') ? close() : open()
+
+      document.getElementById('chat-btn').style.display = 'block'
+    } else if (isChatHideShow) {
+      window.chatBtn = {
+        hide: () => Chatra('hide'),
+        show: () => Chatra('show')
+      }
+    }
+  })
+})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
