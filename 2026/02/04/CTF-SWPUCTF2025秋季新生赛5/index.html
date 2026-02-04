@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CTF-SWPUCTF2025秋季新生赛5 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="题目来源：NSSCTF 练习时间：2026年2月4日 练习数量：4 上篇：CTF-SWPUCTF2025秋季新生赛4 📖 SWPUCTF 2025 秋季新生赛合集：1️⃣CTF-SWPUCTF2025秋季新生赛12️⃣CTF-SWPUCTF2025秋季新生赛23️⃣CTF-SWPUCTF2025秋季新生赛34️⃣CTF-SWPUCTF2025秋季新生赛45️⃣CTF-SWPUCTF2025秋季新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF-SWPUCTF2025秋季新生赛5">
+<meta property="og:url" content="https://sereniusx.github.io/2026/02/04/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B5/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="题目来源：NSSCTF 练习时间：2026年2月4日 练习数量：4 上篇：CTF-SWPUCTF2025秋季新生赛4 📖 SWPUCTF 2025 秋季新生赛合集：1️⃣CTF-SWPUCTF2025秋季新生赛12️⃣CTF-SWPUCTF2025秋季新生赛23️⃣CTF-SWPUCTF2025秋季新生赛34️⃣CTF-SWPUCTF2025秋季新生赛45️⃣CTF-SWPUCTF2025秋季新">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/avatar2.jpg">
+<meta property="article:published_time" content="2026-02-04T07:54:05.000Z">
+<meta property="article:modified_time" content="2026-02-04T09:02:58.309Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/avatar2.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CTF-SWPUCTF2025秋季新生赛5",
+  "url": "https://sereniusx.github.io/2026/02/04/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B5/",
+  "image": "https://sereniusx.github.io/img/avatar2.jpg",
+  "datePublished": "2026-02-04T07:54:05.000Z",
+  "dateModified": "2026-02-04T09:02:58.309Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "SereniusX",
+      "url": "https://sereniusx.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon2.ico"><link rel="canonical" href="https://sereniusx.github.io/2026/02/04/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CTF-SWPUCTF2025秋季新生赛5',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/heatmap.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li><li><a class="site-page child" href="/achievements/"><i class="fa-fw fa fa-medal"></i><span> 成就</span></a></li><li><a class="site-page child" href="/todo/"><i class="fa-fw fa fa-list-check"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">CTF-SWPUCTF2025秋季新生赛5</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li><li><a class="site-page child" href="/achievements/"><i class="fa-fw fa fa-medal"></i><span> 成就</span></a></li><li><a class="site-page child" href="/todo/"><i class="fa-fw fa fa-list-check"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">CTF-SWPUCTF2025秋季新生赛5</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-02-04T07:54:05.000Z" title="发表于 2026-02-04 15:54:05">2026-02-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-02-04T09:02:58.309Z" title="更新于 2026-02-04 17:02:58">2026-02-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p><em>题目来源：NSSCTF</em></p>
+<p><em>练习时间：2026年2月4日</em></p>
+<p><em>练习数量：4</em></p>
+<p>上篇：<a href="https://sereniusx.github.io/2026/02/03/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B4/">CTF-SWPUCTF2025秋季新生赛4</a></p>
+<p>📖 <strong>SWPUCTF 2025 秋季新生赛合集</strong>：<br>1️⃣<a href="https://sereniusx.github.io/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/">CTF-SWPUCTF2025秋季新生赛1</a><br>2️⃣<a href="https://sereniusx.github.io/2026/02/01/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B2/">CTF-SWPUCTF2025秋季新生赛2</a><br>3️⃣<a href="https://sereniusx.github.io/2026/02/02/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B3/">CTF-SWPUCTF2025秋季新生赛3</a><br>4️⃣<a href="https://sereniusx.github.io/2026/02/03/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B4/">CTF-SWPUCTF2025秋季新生赛4</a><br>5️⃣<a href="https://sereniusx.github.io/2026/02/04/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B5/">CTF-SWPUCTF2025秋季新生赛5</a></p>
+<hr>
+<h2 id="⭐️-14-SWPUCTF-2025-秋季新生赛-factor？mod？"><a href="#⭐️-14-SWPUCTF-2025-秋季新生赛-factor？mod？" class="headerlink" title="⭐️ 14 [SWPUCTF 2025 秋季新生赛]factor？mod？"></a>⭐️ 14 [SWPUCTF 2025 秋季新生赛]factor？mod？</h2><p>🚩flag：<code>NSSCTF{Wh@t_4r3_y0u_pO1nt?}</code></p>
+<p>💡hint：<code>CRYPTO</code> <code>RSA</code> <code>素数分解</code></p>
+<p>🔧tool：<code>python</code></p>
+<p>原题：</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getPrime, inverse, bytes_to_long, GCD</span><br><span class="line"></span><br><span class="line">FLAG = <span class="string">b"NSSCTF{*******}"</span></span><br><span class="line"></span><br><span class="line">p = getPrime(<span class="number">496</span>)    </span><br><span class="line">q = getPrime(<span class="number">16</span>)     </span><br><span class="line">N = p * q</span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> k_candidate <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="number">200</span>):</span><br><span class="line">    e_candidate = <span class="number">65537</span> * k_candidate + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> GCD(e_candidate, phi) == <span class="number">1</span>:</span><br><span class="line">        k = k_candidate</span><br><span class="line">        e = e_candidate</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = bytes_to_long(FLAG)</span><br><span class="line">c = <span class="built_in">pow</span>(m, e, N)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"N = <span class="subst">{N}</span>"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"c = <span class="subst">{c}</span>"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"e_mod_65537 = <span class="subst">{e % <span class="number">65537</span>}</span>"</span>)   </span><br><span class="line"><span class="built_in">print</span>(<span class="string">f"PHI_mod_65537 = <span class="subst">{phi % <span class="number">65537</span>}</span>"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># N = 7766768698831459057447624753799597048605145237159899787468949300915452509464565099496679099145810975822175634998097262892579678554704760323902554901001931</span></span><br><span class="line"><span class="comment"># c = 3032034114991327495494398063970483186189941361342590220935258419146172566936781482456512156238329348954750763279841189333666924656636066281016492074315344</span></span><br><span class="line"><span class="comment"># e mod 65537 = 1</span></span><br><span class="line"><span class="comment"># PHI_mod_65537 = 43577</span></span><br></pre></td></tr></tbody></table></figure>
+<p>q = getPrime(16) 只有 16 bit，也就是一个很小的素数因子，所以 N 可以直接被快速分解，一旦分解出 p,q，RSA 就能正常求私钥解密。</p>
+<p>解题脚本：</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> inverse, long_to_bytes, GCD</span><br><span class="line"><span class="keyword">import</span> sympy <span class="keyword">as</span> sp</span><br><span class="line"></span><br><span class="line">N = <span class="number">7766768698831459057447624753799597048605145237159899787468949300915452509464565099496679099145810975822175634998097262892579678554704760323902554901001931</span></span><br><span class="line">c = <span class="number">3032034114991327495494398063970483186189941361342590220935258419146172566936781482456512156238329348954750763279841189333666924656636066281016492074315344</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1) factor N: q is 16-bit prime</span></span><br><span class="line">q = <span class="literal">None</span></span><br><span class="line"><span class="keyword">for</span> prime <span class="keyword">in</span> sp.primerange(<span class="number">2</span>, <span class="number">1</span> &lt;&lt; <span class="number">16</span>):</span><br><span class="line">    <span class="keyword">if</span> N % prime == <span class="number">0</span>:</span><br><span class="line">        q = prime</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">p = N // q</span><br><span class="line">phi = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) recover e from e = 65537*k + 1</span></span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>, <span class="number">200</span>):</span><br><span class="line">    e = <span class="number">65537</span> * k + <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span> GCD(e, phi) == <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3) decrypt</span></span><br><span class="line">d = inverse(e, phi)</span><br><span class="line">m = <span class="built_in">pow</span>(c, d, N)</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(m))</span><br></pre></td></tr></tbody></table></figure>
+<p>解题结果：<br>b‘NSSCTF{Wh@t_4r3_y0u_pO1nt?}’</p>
+<hr>
+<h2 id="⭐️-15-SWPUCTF-2025-秋季新生赛-ezmod"><a href="#⭐️-15-SWPUCTF-2025-秋季新生赛-ezmod" class="headerlink" title="⭐️ 15 [SWPUCTF 2025 秋季新生赛]ezmod"></a>⭐️ 15 [SWPUCTF 2025 秋季新生赛]ezmod</h2><p>🚩flag：<code>NNSSCTF{Wh4t_3xact1y_d0e5_an_8_a.m._c1a5s_m3an}</code></p>
+<p>💡hint：<code>CRYPTO</code> <code>RSA</code> <code>素数分解</code> <code>费马小定理</code></p>
+<p>🔧tool：<code>python</code></p>
+<p>原题：</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> libnum <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> gmpy2 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">flag = <span class="string">b"NSSCTF{***************}"</span></span><br><span class="line">m1 = s2n(flag[<span class="number">0</span>:<span class="built_in">len</span>(flag)//<span class="number">2</span>])</span><br><span class="line">m2 = s2n(flag[<span class="built_in">len</span>(flag)//<span class="number">2</span>:])</span><br><span class="line"></span><br><span class="line">p1 = getPrime(<span class="number">512</span>)</span><br><span class="line">q1 = getPrime(<span class="number">512</span>)</span><br><span class="line">n1 =p1*q1</span><br><span class="line">e1 = getPrime(<span class="number">15</span>)</span><br><span class="line">e2 = getPrime(<span class="number">15</span>)</span><br><span class="line">hint1 = <span class="built_in">pow</span>(e2*p1+e1*q1,<span class="number">2</span>,n1)</span><br><span class="line">hint2 = <span class="built_in">pow</span>((p1+e2)*q1,e1,n1)</span><br><span class="line">c1=<span class="built_in">pow</span>(m1,<span class="number">65537</span>,n1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p2 = getPrime(<span class="number">512</span>)</span><br><span class="line">q2 = getPrime(<span class="number">512</span>)</span><br><span class="line">r = getPrime(<span class="number">512</span>)</span><br><span class="line">n2 = p2*q2*r</span><br><span class="line">hint3 = <span class="built_in">pow</span>(p2*q2**<span class="number">2</span>+r,p2,n2)</span><br><span class="line">hint4 = <span class="built_in">pow</span>(p2*q2*r+q2+r,p2,n2)</span><br><span class="line">hint5 = <span class="built_in">pow</span>(r**<span class="number">2</span>+<span class="number">1</span>,m2,r**<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'n1 = '</span>,n1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'e1 = '</span>,e1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'e2 = '</span>,e2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'c1 = '</span>,c1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'hint2 = '</span>,hint2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'hint1 = '</span>,hint1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'n2 = '</span>,n2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'hint3 = '</span>,hint3)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'hint4 = '</span>,hint4)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'hint5 = '</span>,hint5)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># n1 =  69237412819939639452602923767390021440483462182682879972053689337566305146360670141885719490681273734760061512519320363972997519120208982200937497939609239656895817642113833504695009955103513083736827796959971881574254357515577554120238786887083984552104374617519795066378544484239723381870277406815344816333</span></span><br><span class="line"><span class="comment"># e1 =  29527</span></span><br><span class="line"><span class="comment"># e2 =  20117</span></span><br><span class="line"><span class="comment"># c1 =  29091310695342856566138644401065835896832250861184448854997851711346752666744213880628516094732261931894315036306410329745248525044513718362465300436701334890744982477672840197643709318354899748726146475571529311179946813181381358178861493626190582931509706101754396232759316452157394231162762993017545388413</span></span><br><span class="line"><span class="comment"># hint2 =  35064290617684889168326866883116063909046848851566428690678819117544793799571693709457524424684621704495903073634509282445170100417712329053124327037228710541383897618165318789436757925443415160782651229020549677843858532532771577582051147943146243696815139130166282984736042542125453264858041896972533226829</span></span><br><span class="line"><span class="comment"># hint1 =  6684343928626259115166556536967237351704873870967672531851104012737638516939912489158888115396930384822560698673563498898490639775761096112411751814558903510006095703737660799311396164641693857972158521286705142411677136118464043578480075934828150802349974263484801212589479718679655427434597007764470156881</span></span><br><span class="line"><span class="comment"># n2 =  1345452346323458846685078201357739237930456697726463214841840378972748510374939760683716312429693260865118966731854460154556882413775350647221842518311385613574199367419368259373562227767966719390051368563739831674520939480848992603419586010579222762497163771709730786459075520090201718825633880843179147482733505895506557434742546890561936473748675630866436648001676410604303149849018119601033995027851824674505929142399828357204316834997808360126991477224901719</span></span><br><span class="line"><span class="comment"># hint3 =  847188571113943173287332469527967344011334943746227619399621256260877662268276902469817095373874888480020071468062585786037818342625399891363280962564316441064449832009670275586211975663877027865035973739632012813329247804225301535242488377690663593897904931237203520895777439199763949284015075990326550163802234666394658195172638253704737050298013115065181864025540632934830257887421985531190093051146583215774752000629314051518227632851605979279986676394796845</span></span><br><span class="line"><span class="comment"># hint4 =  806668794330377497579889477399120279541227586456038436879781285391665348755137976786329245671139948859359946788143532968544043837955414909826507013343756603308599647221325686544191625843232340416160397119858073908352503811559979566876363266612113621634034075141694073726351946703452197479179194460281502325911084357841305170261155379651873650770166579405942671807649621165262056859860734822943050236603538147024706785308699380519584964634415545709968346683403784</span></span><br><span class="line"><span class="comment"># hint5 =  824023351148258203438869300498693582257573642933589256075919307337418863180477757714828211190934112905395542087377464543208715687979548609801730334216105292953134985687665222287478128775799341477741181300324116951794054625966987353659492980465028187867334398317297053360048397682372264656563428873630084268151903278298458772453240199263614327092856105929207255270</span></span><br></pre></td></tr></tbody></table></figure>
+<p>解题脚本：</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># solve.py  (Python 3)</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes, inverse, GCD</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====== given ======</span></span><br><span class="line">n1 = <span class="number">69237412819939639452602923767390021440483462182682879972053689337566305146360670141885719490681273734760061512519320363972997519120208982200937497939609239656895817642113833504695009955103513083736827796959971881574254357515577554120238786887083984552104374617519795066378544484239723381870277406815344816333</span></span><br><span class="line">e1 = <span class="number">29527</span></span><br><span class="line">e2 = <span class="number">20117</span></span><br><span class="line">c1 = <span class="number">29091310695342856566138644401065835896832250861184448854997851711346752666744213880628516094732261931894315036306410329745248525044513718362465300436701334890744982477672840197643709318354899748726146475571529311179946813181381358178861493626190582931509706101754396232759316452157394231162762993017545388413</span></span><br><span class="line">hint2 = <span class="number">35064290617684889168326866883116063909046848851566428690678819117544793799571693709457524424684621704495903073634509282445170100417712329053124327037228710541383897618165318789436757925443415160782651229020549677843858532532771577582051147943146243696815139130166282984736042542125453264858041896972533226829</span></span><br><span class="line">hint1 = <span class="number">6684343928626259115166556536967237351704873870967672531851104012737638516939912489158888115396930384822560698673563498898490639775761096112411751814558903510006095703737660799311396164641693857972158521286705142411677136118464043578480075934828150802349974263484801212589479718679655427434597007764470156881</span></span><br><span class="line"></span><br><span class="line">n2 = <span class="number">1345452346323458846685078201357739237930456697726463214841840378972748510374939760683716312429693260865118966731854460154556882413775350647221842518311385613574199367419368259373562227767966719390051368563739831674520939480848992603419586010579222762497163771709730786459075520090201718825633880843179147482733505895506557434742546890561936473748675630866436648001676410604303149849018119601033995027851824674505929142399828357204316834997808360126991477224901719</span></span><br><span class="line">hint3 = <span class="number">847188571113943173287332469527967344011334943746227619399621256260877662268276902469817095373874888480020071468062585786037818342625399891363280962564316441064449832009670275586211975663877027865035973739632012813329247804225301535242488377690663593897904931237203520895777439199763949284015075990326550163802234666394658195172638253704737050298013115065181864025540632934830257887421985531190093051146583215774752000629314051518227632851605979279986676394796845</span></span><br><span class="line">hint4 = <span class="number">806668794330377497579889477399120279541227586456038436879781285391665348755137976786329245671139948859359946788143532968544043837955414909826507013343756603308599647221325686544191625843232340416160397119858073908352503811559979566876363266612113621634034075141694073726351946703452197479179194460281502325911084357841305170261155379651873650770166579405942671807649621165262056859860734822943050236603538147024706785308699380519584964634415545709968346683403784</span></span><br><span class="line">hint5 = <span class="number">824023351148258203438869300498693582257573642933589256075919307337418863180477757714828211190934112905395542087377464543208715687979548609801730334216105292953134985687665222287478128775799341477741181300324116951794054625966987353659492980465028187867334398317297053360048397682372264656563428873630084268151903278298458772453240199263614327092856105929207255270</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ====== Part 1: recover (p1, q1) and decrypt m1 ======</span></span><br><span class="line">q1 = GCD(hint2, n1)</span><br><span class="line"><span class="keyword">assert</span> q1 != <span class="number">1</span> <span class="keyword">and</span> n1 % q1 == <span class="number">0</span>, <span class="string">"Failed to recover q1"</span></span><br><span class="line"></span><br><span class="line">p1 = n1 // q1</span><br><span class="line">phi1 = (p1 - <span class="number">1</span>) * (q1 - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">E = <span class="number">65537</span></span><br><span class="line">d1 = inverse(E, phi1)</span><br><span class="line">m1_int = <span class="built_in">pow</span>(c1, d1, n1)</span><br><span class="line">m1 = long_to_bytes(m1_int)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[+] q1 ="</span>, q1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[+] p1 ="</span>, p1)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[+] m1 ="</span>, m1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># (Optional) quick sanity: hint2 should be multiple of q1</span></span><br><span class="line"><span class="keyword">assert</span> hint2 % q1 == <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ====== Part 2: recover r from gcd(hint5-1, n2), then get m2 from (hint5-1)/r^2 ======</span></span><br><span class="line">r = GCD(hint5 - <span class="number">1</span>, n2)</span><br><span class="line"><span class="keyword">assert</span> r != <span class="number">1</span> <span class="keyword">and</span> n2 % r == <span class="number">0</span>, <span class="string">"Failed to recover r"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Because hint5 &lt; r^3, we can extract m2 exactly from binomial expansion:</span></span><br><span class="line"><span class="comment"># hint5 ≡ 1 + m2*r^2 (mod r^3)  and 0 &lt;= hint5 &lt; r^3  =&gt;  hint5-1 = m2*r^2</span></span><br><span class="line">m2_int = (hint5 - <span class="number">1</span>) // (r * r)</span><br><span class="line">m2 = long_to_bytes(m2_int)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[+] r  ="</span>, r)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[+] m2 ="</span>, m2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># (Optional) recover q2 from gcd(hint3-hint4, n2)</span></span><br><span class="line">q2 = GCD(hint3 - hint4, n2)</span><br><span class="line"><span class="comment"># gcd may return q2 or q2*r (rare if (hint3-hint4) also multiple of r)</span></span><br><span class="line"><span class="keyword">if</span> q2 % r == <span class="number">0</span>:</span><br><span class="line">    q2 //= r</span><br><span class="line"><span class="keyword">assert</span> q2 != <span class="number">1</span> <span class="keyword">and</span> n2 % q2 == <span class="number">0</span>, <span class="string">"Failed to recover q2"</span></span><br><span class="line"></span><br><span class="line">p2 = n2 // (q2 * r)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[+] q2 ="</span>, q2)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"[+] p2 ="</span>, p2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ====== assemble flag ======</span></span><br><span class="line">flag = m1 + m2</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\n[+] FLAG ="</span>, flag.decode(errors=<span class="string">"replace"</span>))</span><br></pre></td></tr></tbody></table></figure>
+
+<p>解题思路：<br>这道题本质是利用特殊构造的模幂表达式，通过取模与 gcd 泄露 RSA 素因子或明文。第一部分中，hint2 = ((p1+e2)·q1)^{e1} mod n1，其底数在模 n1=p1q1 下等价于 e2·q1，因此整个 hint2 必然含有因子 q1，直接计算 gcd(hint2, n1) 就能恢复 q1，从而分解 n1 并用标准 RSA 解出第一段明文 m1；第二部分中，hint5 = (r²+1)^{m2} mod r³ 利用二项式展开可得 hint5 ≡ 1 + m2·r² (mod r³)，而由于结果本身小于 r³，所以 m2 = (hint5−1)/r² 可以被直接还原，同时 gcd(hint5−1, n2) 会泄露素数 r；至于 hint3 和 hint4，它们在模 q2 下的底数同余，从而使 hint3−hint4 成为 q2 的倍数，用 gcd(hint3−hint4, n2) 可分解出 q2 作为验证。整题的核心就是：精心设计的幂模形式 + 模数结构，使得 gcd 和低阶二项式展开直接泄露关键信息。</p>
+<hr>
+<h2 id="⭐️-16-SWPUCTF-2025-秋季新生赛-哈基米南北露躲"><a href="#⭐️-16-SWPUCTF-2025-秋季新生赛-哈基米南北露躲" class="headerlink" title="⭐️ 16 [SWPUCTF 2025 秋季新生赛]哈基米南北露躲"></a>⭐️ 16 [SWPUCTF 2025 秋季新生赛]哈基米南北露躲</h2><p>🚩flag：<code>NSSCTF{welcome_to_2025_SWPU!}</code></p>
+<p>💡hint：<code>MISC</code></p>
+<p>🔧tool：<code>python</code></p>
+<p>题目：<br><img src="https://a1.boltp.com/2026/02/04/69830073d117d.png" alt="哈吉米题目"><br>扫描二维码得到key：<code>hajimi</code><br>然后再看txt</p>
+<figure class="highlight txt"><table><tbody><tr><td class="code"><pre><span class="line">米米米哈基哈基哈哈哈哈哈哈基哈哈基米哈哈哈哈基哈基哈哈哈基基米哈哈米米米哈基基米哈基哈基基基米米哈米米米基哈米米米哈基基米米米哈米米基基哈基基米基基基基哈哈基哈基基哈哈哈米哈哈基基基基基基哈基哈哈基米米米哈基基基米哈米哈哈哈基基基哈基基哈哈哈米米哈基基米哈哈哈基哈米米哈基哈哈基基米哈基基基基基基基米哈哈基基米米基哈米基米哈基米米哈米哈基基哈基基基米哈基米哈哈基哈哈基哈米哈哈米基基基米基基基哈哈基基基哈米基基哈基哈米米米基哈基哈哈基哈哈米哈哈哈基哈哈米米基米哈基哈哈哈米米哈哈哈基哈基米米米哈哈基米基基哈基基基哈基基米基</span><br></pre></td></tr></tbody></table></figure>
+<p>解题脚本：</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># Python 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">decode_hajiami</span>(<span class="params">encoded_str: <span class="built_in">str</span>, private_key: <span class="built_in">str</span> = <span class="string">"hajimi"</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">    <span class="comment"># 三符号到三进制 digit 的映射（WP 给定）</span></span><br><span class="line">    mapping = {<span class="string">'哈'</span>: <span class="number">0</span>, <span class="string">'基'</span>: <span class="number">1</span>, <span class="string">'米'</span>: <span class="number">2</span>}</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 固定凯撒基准偏移</span></span><br><span class="line">    base_shift = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 生成私钥偏移数组：把 key 每个字符的 Unicode 十进制展开成数字序列</span></span><br><span class="line">    shift_array = []</span><br><span class="line">    <span class="keyword">if</span> private_key:</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> private_key:</span><br><span class="line">            shift_array.extend(<span class="built_in">int</span>(d) <span class="keyword">for</span> d <span class="keyword">in</span> <span class="built_in">str</span>(<span class="built_in">ord</span>(ch)))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 三种长度类型对应的数据位数（trits 数）</span></span><br><span class="line">    len_table = [<span class="number">6</span>, <span class="number">9</span>, <span class="number">12</span>]</span><br><span class="line"></span><br><span class="line">    out = []</span><br><span class="line">    pos = <span class="number">0</span></span><br><span class="line">    char_index = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">need</span>(<span class="params">n: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="keyword">if</span> pos + n &gt; <span class="built_in">len</span>(encoded_str):</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">f"密文不足：当前位置 <span class="subst">{pos}</span> 需要 <span class="subst">{n}</span> 个符号，但总长 <span class="subst">{<span class="built_in">len</span>(encoded_str)}</span>"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> pos &lt; <span class="built_in">len</span>(encoded_str):</span><br><span class="line">        <span class="comment"># 1) 读取 2 位随机偏移编码</span></span><br><span class="line">        need(<span class="number">2</span>)</span><br><span class="line">        a = encoded_str[pos]</span><br><span class="line">        b = encoded_str[pos + <span class="number">1</span>]</span><br><span class="line">        pos += <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> a <span class="keyword">not</span> <span class="keyword">in</span> mapping <span class="keyword">or</span> b <span class="keyword">not</span> <span class="keyword">in</span> mapping:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">f"出现非法符号：<span class="subst">{a}</span><span class="subst">{b}</span> (pos=<span class="subst">{pos-<span class="number">2</span>}</span>)"</span>)</span><br><span class="line"></span><br><span class="line">        random_shift = mapping[a] * <span class="number">3</span> + mapping[b]  <span class="comment"># 0..8</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 2) 读取 1 位长度标识</span></span><br><span class="line">        need(<span class="number">1</span>)</span><br><span class="line">        lc = encoded_str[pos]</span><br><span class="line">        pos += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> lc <span class="keyword">not</span> <span class="keyword">in</span> mapping:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">f"出现非法符号：<span class="subst">{lc}</span> (pos=<span class="subst">{pos-<span class="number">1</span>}</span>)"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 还原长度类型： (length_digit - random_shift) mod 3</span></span><br><span class="line">        length_type = (mapping[lc] - random_shift) % <span class="number">3</span></span><br><span class="line">        data_length = len_table[length_type]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 3) 读取数据部分</span></span><br><span class="line">        need(data_length)</span><br><span class="line">        data_code = encoded_str[pos:pos + data_length]</span><br><span class="line">        pos += data_length</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> data_code:</span><br><span class="line">            <span class="keyword">if</span> ch <span class="keyword">not</span> <span class="keyword">in</span> mapping:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">f"出现非法符号：<span class="subst">{ch}</span> (data block)"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 4) 数据部分转三进制串</span></span><br><span class="line">        trits = <span class="string">''</span>.join(<span class="built_in">str</span>(mapping[ch]) <span class="keyword">for</span> ch <span class="keyword">in</span> data_code)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 5) 复原循环移位</span></span><br><span class="line">        <span class="comment"># 加密：original -&gt; 左移 random_shift 得到 trits</span></span><br><span class="line">        <span class="comment"># 解密：trits -&gt; 右移 random_shift 复原</span></span><br><span class="line">        <span class="comment"># 等价写法：original = trits[random_shift:] + trits[:random_shift]  (WP 版本)</span></span><br><span class="line">        <span class="comment"># 这里保持与 WP 一致：</span></span><br><span class="line">        original_trits = trits[random_shift:] + trits[:random_shift]</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 6) 三进制 -&gt; 十进制（得到“加密态 unicode”）</span></span><br><span class="line">        enc_unicode = <span class="built_in">int</span>(original_trits, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 7) 私钥偏移（循环使用）</span></span><br><span class="line">        private_shift = shift_array[char_index % <span class="built_in">len</span>(shift_array)] <span class="keyword">if</span> shift_array <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 总偏移</span></span><br><span class="line">        total_shift = base_shift + random_shift + private_shift</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 8) 还原原始 Unicode 并转字符</span></span><br><span class="line">        orig_unicode = enc_unicode - total_shift</span><br><span class="line">        out.append(<span class="built_in">chr</span>(orig_unicode))</span><br><span class="line"></span><br><span class="line">        char_index += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">''</span>.join(out)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    encoded_text = (</span><br><span class="line">        <span class="string">"米米米哈基哈基哈哈哈哈哈哈基哈哈基米哈哈哈哈基哈基哈哈哈基基米哈哈米米米哈基基米哈基哈基基基米米哈米米米基哈米米米哈基基米米米哈米米基基哈基基米基基基基哈哈基哈基基哈哈哈米哈哈基基基基基基哈基哈哈基米米米哈基基基米哈米哈哈哈基基基哈基基哈哈哈米米哈基基米哈哈哈基哈米米哈基哈哈基基米哈基基基基基基基米哈哈基基米米基哈米基米哈基米米哈米哈基基哈基基基米哈基米哈哈基哈哈基哈米哈哈米基基基米基基基哈哈基基基哈米基基哈基哈米米米基哈基哈哈基哈哈米哈哈哈基哈哈米米基米哈基哈哈哈米米哈哈哈基哈基米米米哈哈基米基基哈基基基哈基基米基"</span></span><br><span class="line">    )</span><br><span class="line">    key = <span class="string">"hajimi"</span></span><br><span class="line">    plain = decode_hajiami(encoded_text, key)</span><br><span class="line">    <span class="built_in">print</span>(plain)</span><br></pre></td></tr></tbody></table></figure>
+<p>先把“哈/基/米”映射成三进制数 哈=0, 基=1, 米=2；密文按每个明文字符一组解析：先读 2 个符号得到 random_shift（把两位三进制转十进制 0~8），再读 1 个符号作为长度标识并用 (标识−random_shift) mod 3 还原出数据长度是 6/9/12 位之一，然后读对应数量的符号转成三进制串；由于加密时三进制串被循环左移了 random_shift，解密时把它反向复位得到原始三进制，再转成十进制得到一个“被加密过的 Unicode”；最后再减去固定偏移 base_shift=3、随机偏移 random_shift，以及由 key “hajimi” 生成的循环私钥偏移 private_shift，即可还原每个字符并拼出最终明文/flag。</p>
+<hr>
+<h2 id="⭐️-17-SWPUCTF-2025-秋季新生赛-哈基米南北露躲"><a href="#⭐️-17-SWPUCTF-2025-秋季新生赛-哈基米南北露躲" class="headerlink" title="⭐️ 17 [SWPUCTF 2025 秋季新生赛]哈基米南北露躲"></a>⭐️ 17 [SWPUCTF 2025 秋季新生赛]哈基米南北露躲</h2><p>🚩flag：<code>NSSCTF{Y3s_7uRe_BaseHJM}</code></p>
+<p>💡hint：<code>REVERSE</code></p>
+<p>🔧tool：<code>python</code> <code>DiE</code> <code>pyinstxtractor</code> <code>uncompyle6</code></p>
+<p>python打包成的exe，工具pyinstxtractor + uncompyle6 / decompyle3</p>
+<p>解题脚本：</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line">CHARS = <span class="string">"哈基米南北绿豆阿西噶压库那鲁曼波欧马自立悠嗒步诺斯哇嗷冰踩背叮咚鸡大狗叫袋鼠兴奋剂出示健康码楼上下来带一段小白手套胖宝牛魔呵嘿喔"</span></span><br><span class="line">random.seed(<span class="number">777</span>)</span><br><span class="line">a = random.sample(<span class="built_in">range</span>(<span class="number">64</span>), <span class="number">64</span>)</span><br><span class="line">CHARS1 = <span class="string">""</span>.join((CHARS[a.index(i)] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">64</span>)))</span><br><span class="line">CHARS = CHARS1</span><br><span class="line">CHAR_TO_INDEX = {char: idx <span class="keyword">for</span> idx, char <span class="keyword">in</span> <span class="built_in">enumerate</span>(CHARS)}</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    encoded = <span class="string">"叮鼠背叮康豆绿步叫豆北哇基豆喔袋哈阿牛鼠南健牛出基来阿鸡马北豆库"</span></span><br><span class="line">    result=<span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> char <span class="keyword">in</span> encoded:</span><br><span class="line">        targetIndex = CHAR_TO_INDEX[char]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> string.printable:</span><br><span class="line">            i=<span class="built_in">str</span>(i)</span><br><span class="line">            index = -<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> <span class="string">"A"</span> &lt;= i &lt;= <span class="string">"Z"</span>:</span><br><span class="line">                index = <span class="built_in">ord</span>(i) - <span class="built_in">ord</span>(<span class="string">"A"</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> <span class="string">"a"</span> &lt;= i &lt;= <span class="string">"z"</span>:</span><br><span class="line">                    index = <span class="built_in">ord</span>(i) - <span class="built_in">ord</span>(<span class="string">"a"</span>) + <span class="number">26</span></span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">if</span> <span class="string">"0"</span> &lt;= i &lt;= <span class="string">"9"</span>:</span><br><span class="line">                        index = <span class="built_in">ord</span>(i) - <span class="built_in">ord</span>(<span class="string">"0"</span>) + <span class="number">52</span></span><br><span class="line">                    <span class="keyword">else</span>:</span><br><span class="line">                        <span class="keyword">if</span> i == <span class="string">"+"</span>:</span><br><span class="line">                            index = <span class="number">62</span></span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            <span class="keyword">if</span> i == <span class="string">"/"</span>:</span><br><span class="line">                                index = <span class="number">63</span></span><br><span class="line">            <span class="keyword">if</span> index == targetIndex:</span><br><span class="line">                result+=i</span><br><span class="line">                <span class="built_in">print</span>(result)</span><br><span class="line">                <span class="keyword">break</span></span><br></pre></td></tr></tbody></table></figure>
+<p>运行完成后用base64解码。</p>
+<hr>
+<p>以我推的美图草草收尾这个系列的题目，做了大概一半的。今天再修修前面5篇的目录。<br><img src="https://a1.boltp.com/2026/02/01/697f230347e53.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io">SereniusX</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io/2026/02/04/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B5/">https://sereniusx.github.io/2026/02/04/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B5/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sereniusx.github.io" target="_blank">SereniusX的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/02/03/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B4/" title="CTF-SWPUCTF2025秋季新生赛4"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">CTF-SWPUCTF2025秋季新生赛4</div></div><div class="info-2"><div class="info-item-1">题目来源：NSSCTF 练习时间：2026年2月3日 练习数量：1 上篇：CTF-SWPUCTF2025秋季新生赛3下篇：CTF-SWPUCTF2025秋季新生赛5 📖 SWPUCTF 2025 秋季新生赛合集：1️⃣CTF-SWPUCTF2025秋季新生赛12️⃣CTF-SWPUCTF2025秋季新生赛23️⃣CTF-SWPUCTF2025秋季新生...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">8</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-14-SWPUCTF-2025-%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B-factor%EF%BC%9Fmod%EF%BC%9F"><span class="toc-text">⭐️ 14 [SWPUCTF 2025 秋季新生赛]factor？mod？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-15-SWPUCTF-2025-%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B-ezmod"><span class="toc-text">⭐️ 15 [SWPUCTF 2025 秋季新生赛]ezmod</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-16-SWPUCTF-2025-%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B-%E5%93%88%E5%9F%BA%E7%B1%B3%E5%8D%97%E5%8C%97%E9%9C%B2%E8%BA%B2"><span class="toc-text">⭐️ 16 [SWPUCTF 2025 秋季新生赛]哈基米南北露躲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-17-SWPUCTF-2025-%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B-%E5%93%88%E5%9F%BA%E7%B1%B3%E5%8D%97%E5%8C%97%E9%9C%B2%E8%BA%B2"><span class="toc-text">⭐️ 17 [SWPUCTF 2025 秋季新生赛]哈基米南北露躲</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>CTF刷题记录</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/31/CTF-Web%E6%9A%91%E6%9C%9F%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="CTF-Web暑期刷题记录">CTF-Web暑期刷题记录</a><time datetime="2026-01-31T08:52:12.000Z" title="发表于 2026-01-31 16:52:12">2026-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/04/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B5/" title="CTF-SWPUCTF2025秋季新生赛5">CTF-SWPUCTF2025秋季新生赛5</a><time datetime="2026-02-04T07:54:05.000Z" title="发表于 2026-02-04 15:54:05">2026-02-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/03/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B4/" title="CTF-SWPUCTF2025秋季新生赛4">CTF-SWPUCTF2025秋季新生赛4</a><time datetime="2026-02-03T14:50:17.000Z" title="发表于 2026-02-03 22:50:17">2026-02-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/02/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B3/" title="CTF-SWPUCTF2025秋季新生赛3">CTF-SWPUCTF2025秋季新生赛3</a><time datetime="2026-02-02T09:18:05.000Z" title="发表于 2026-02-02 17:18:05">2026-02-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/01/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B2/" title="CTF-SWPUCTF2025秋季新生赛2">CTF-SWPUCTF2025秋季新生赛2</a><time datetime="2026-02-01T03:47:37.000Z" title="发表于 2026-02-01 11:47:37">2026-02-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/31/CTF-SWPUCTF2025%E7%A7%8B%E5%AD%A3%E6%96%B0%E7%94%9F%E8%B5%9B1/" title="CTF-SWPUCTF2025秋季新生赛1">CTF-SWPUCTF2025秋季新生赛1</a><time datetime="2026-01-31T11:43:42.000Z" title="发表于 2026-01-31 19:43:42">2026-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/31/CTF-Reverse%E6%9A%91%E6%9C%9F%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="CTF-Reverse暑期刷题记录">CTF-Reverse暑期刷题记录</a><time datetime="2026-01-31T04:49:14.000Z" title="发表于 2026-01-31 12:49:14">2026-01-31</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/30/CTFshowPWN%E7%BB%83%E4%B9%A0/" title="CTF-PWN暑期刷题记录">CTF-PWN暑期刷题记录</a><time datetime="2026-01-30T13:02:12.000Z" title="发表于 2026-01-30 21:02:12">2026-01-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/31/CTF-Crypto%E6%9A%91%E6%9C%9F%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" title="CTF-Crypto暑期刷题记录">CTF-Crypto暑期刷题记录</a><time datetime="2026-01-31T08:43:54.000Z" title="发表于 2026-01-31 16:43:54">2026-01-31</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"mapping":"pathname","strict":0,"reactions_enabled":1,"emit_metadata":0,"input_position":"top","lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'sereniusx/sereniusx.github.io',
+      'data-repo-id': 'R_kgDOQCvQvQ',
+      'data-category-id': 'DIC_kwDOQCvQvc4C1pNr',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script src="/js/post-meta.js"></script><script src="/js/bg-duotone.js"></script><script src="/js/post-meta.js"></script><script src="/js/heatmap.js"></script><script src="/js/hr-random.js"></script><script>(() => {
+  window.ChatraID = 'xYpW5Meo932eB55bm'
+  window.Chatra = window.Chatra || function() {
+    (window.Chatra.q = window.Chatra.q || []).push(arguments)
+  }
+
+  btf.getScript('https://call.chatra.io/chatra.js').then(() => {
+    const isChatBtn = true
+    const isChatHideShow = true
+
+    if (isChatBtn) {
+      const close = () => {
+        Chatra('minimizeWidget')
+        Chatra('hide')
+      }
+
+      const open = () => {
+        Chatra('openChat', true)
+        Chatra('show')
+      }
+
+      window.ChatraSetup = { startHidden: true }
+    
+      window.chatBtnFn = () => document.getElementById('chatra').classList.contains('chatra--expanded') ? close() : open()
+
+      document.getElementById('chat-btn').style.display = 'block'
+    } else if (isChatHideShow) {
+      window.chatBtn = {
+        hide: () => Chatra('hide'),
+        show: () => Chatra('show')
+      }
+    }
+  })
+})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
