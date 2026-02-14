@@ -1,0 +1,1824 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>时间价值工具箱 | SereniusX的博客</title><meta name="author" content="SereniusX"><meta name="copyright" content="SereniusX"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="时间价值工具箱         时间 ⇄ 金钱 · 回本 · 行为账本 · AI 建议（localStorage）                       设置         导出         导入                                  最近 0 &#x2F; 0 条">
+<meta property="og:type" content="website">
+<meta property="og:title" content="时间价值工具箱">
+<meta property="og:url" content="https://sereniusx.github.io/bank/index.html">
+<meta property="og:site_name" content="SereniusX的博客">
+<meta property="og:description" content="时间价值工具箱         时间 ⇄ 金钱 · 回本 · 行为账本 · AI 建议（localStorage）                       设置         导出         导入                                  最近 0 &#x2F; 0 条">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sereniusx.github.io/img/avatar2.jpg">
+<meta property="article:published_time" content="2026-02-14T08:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-14T11:29:36.757Z">
+<meta property="article:author" content="SereniusX">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sereniusx.github.io/img/avatar2.jpg"><link rel="shortcut icon" href="/img/favicon2.ico"><link rel="canonical" href="https://sereniusx.github.io/bank/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'undefined')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '时间价值工具箱',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/shuoshuo.css"><link rel="stylesheet" href="/css/gpt-article.css"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/heatmap.css"><meta name="generator" content="Hexo 7.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li><li><a class="site-page child" href="/achievements/"><i class="fa-fw fa fa-medal"></i><span> 成就</span></a></li><li><a class="site-page child" href="/todo/"><i class="fa-fw fa fa-list-check"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div></div></div><div class="page type-time-value" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">SereniusX的博客</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fa fa-graduation-cap"></i><span> 博文</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li><li><a class="site-page child" href="/heatmap/"><i class="fa-fw fa fa-fire"></i><span> 热力图</span></a></li><li><a class="site-page child" href="/writer/"><i class="fa-fw fa fa-print"></i><span> 编辑器</span></a></li></ul></div><div class="menus_item"><span class="site-page group"><i class="fa-fw fas fa-list"></i><span> 生活</span><i class="fas fa-chevron-down"></i></span><ul class="menus_item_child"><li><a class="site-page child" href="/shuoshuos/"><i class="fa-fw fa fa-heart"></i><span> 说说</span></a></li><li><a class="site-page child" href="/photos/"><i class="fa-fw fa fa-camera-retro"></i><span> 相册</span></a></li><li><a class="site-page child" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/books/"><i class="fa-fw fas fa-book"></i><span> 书单</span></a></li><li><a class="site-page child" href="/useful/"><i class="fa-fw fas fa-tags"></i><span> 常用</span></a></li><li><a class="site-page child" href="/achievements/"><i class="fa-fw fa fa-medal"></i><span> 成就</span></a></li><li><a class="site-page child" href="/todo/"><i class="fa-fw fa fa-list-check"></i><span> 待办</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/mylink/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于笔者</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><h1 class="title-seo">时间价值工具箱</h1></header><main class="layout" id="content-inner"><div id="page"><div class="page-title">时间价值工具箱</div><div class="container" id="article-container"><div id="tv-system">
+  <div class="tv-surface">
+    <!-- 顶部 -->
+    <header class="tv-header">
+      <div class="header-title">
+        <h1>时间价值工具箱</h1>
+        <p class="header-subtitle">时间 ⇄ 金钱 · 回本 · 行为账本 · AI 建议（localStorage）</p>
+      </div>
+      <div class="header-actions">
+        <button id="btn-open-settings" class="btn btn-ghost" type="button">设置</button>
+        <button id="btn-export" class="btn" type="button">导出</button>
+        <button id="btn-import" class="btn" type="button">导入</button>
+      </div>
+      <div class="header-meta">
+        <span class="meta-item">
+          最近 <strong id="visible-rows">0</strong> / <strong id="total-rows">0</strong> 条
+        </span>
+        <div class="filter">
+          <label class="filter-label" for="type-filter">类型</label>
+          <select id="type-filter" class="select" aria-label="按类型筛选">
+            <option value="__all__">全部</option>
+            <option value="convert">换算</option>
+            <option value="payback">回本</option>
+            <option value="behavior">行为账本</option>
+            <option value="potential">潜在价值</option>
+          </select>
+          <button id="btn-clear-filter" class="btn btn-ghost" type="button">清除</button>
+        </div>
+      </div>
+    </header>
+    <!-- Tabs -->
+    <nav class="tabs" aria-label="功能切换">
+      <button class="tab is-active" data-tab="tab-convert" type="button">换算</button>
+      <button class="tab" data-tab="tab-payback" type="button">回本</button>
+      <button class="tab" data-tab="tab-behavior" type="button">行为账本</button>
+      <button class="tab" data-tab="tab-review" type="button">复盘</button>
+    </nav>
+    <!-- 内容区 -->
+    <main class="tv-container">
+      <!-- ========== 换算 ========== -->
+      <section id="tab-convert" class="panel is-active">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">时间 → 金钱</div>
+            <div class="form-grid">
+              <label class="field">
+                <span class="label">小时</span>
+                <input id="c-t2m-h" class="input" inputmode="decimal" placeholder="例如 1.5">
+              </label>
+              <label class="field">
+                <span class="label">分钟</span>
+                <input id="c-t2m-m" class="input" inputmode="numeric" placeholder="例如 30">
+              </label>
+              <label class="field full">
+                <span class="label">使用基准</span>
+                <select id="c-mode-1" class="select">
+                  <option value="B">B 有效时薪（推荐）</option>
+                  <option value="A">A 标准时薪</option>
+                  <option value="C">C 私人时间定价</option>
+                </select>
+              </label>
+              <div class="field full inline-actions">
+                <button id="btn-calc-t2m" class="btn btn-primary" type="button">计算并记录</button>
+                <button id="btn-clear-c1" class="btn" type="button">清空</button>
+              </div>
+            </div>
+            <div class="result">
+              <div class="result-title">结果</div>
+              <div id="c-out-1" class="result-box">—</div>
+              <div class="result-sub" id="c-out-1-sub">（将显示 A/B/C 对比，默认按选择基准生成建议）</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">金钱 → 时间</div>
+            <div class="form-grid">
+              <label class="field full">
+                <span class="label">金额（¥）</span>
+                <input id="c-m2t-money" class="input" inputmode="decimal" placeholder="例如 99">
+              </label>
+              <label class="field full">
+                <span class="label">使用基准</span>
+                <select id="c-mode-2" class="select">
+                  <option value="B">B 有效时薪（推荐）</option>
+                  <option value="A">A 标准时薪</option>
+                  <option value="C">C 私人时间定价</option>
+                </select>
+              </label>
+              <div class="field full inline-actions">
+                <button id="btn-calc-m2t" class="btn btn-primary" type="button">计算并记录</button>
+                <button id="btn-clear-c2" class="btn" type="button">清空</button>
+              </div>
+            </div>
+            <div class="result">
+              <div class="result-title">结果</div>
+              <div id="c-out-2" class="result-box">—</div>
+              <div class="result-sub" id="c-out-2-sub">（将显示 A/B/C 对比，默认按选择基准生成建议）</div>
+            </div>
+          </div>
+        </div>
+        <div class="card ai-card">
+          <div class="card-title">AI 建议（自动）</div>
+          <div class="muted">每次“计算并记录”会生成一条建议并保存摘要到最近动态（可在设置里关闭）。</div>
+          <div id="ai-box-convert" class="ai-box">—</div>
+        </div>
+      </section>
+      <!-- ========== 回本 ========== -->
+      <section id="tab-payback" class="panel">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">回本计算（工具 / 订阅 / 外包）</div>
+            <div class="form-grid">
+              <label class="field full">
+                <span class="label">项目名称（可选）</span>
+                <input id="p-name" class="input" placeholder="例如：会员 / 自动化脚本 / 课程">
+              </label>
+              <label class="field">
+                <span class="label">成本（¥）</span>
+                <input id="p-cost" class="input" inputmode="decimal" placeholder="例如 30">
+              </label>
+              <label class="field">
+                <span class="label">每月节省时间（小时）</span>
+                <input id="p-saveh" class="input" inputmode="decimal" placeholder="例如 2">
+              </label>
+              <label class="field full">
+                <span class="label">使用基准</span>
+                <select id="p-mode" class="select">
+                  <option value="B">B 有效时薪（推荐）</option>
+                  <option value="A">A 标准时薪</option>
+                  <option value="C">C 私人时间定价</option>
+                </select>
+              </label>
+              <div class="field full inline-actions">
+                <button id="btn-payback" class="btn btn-primary" type="button">计算并记录</button>
+                <button id="btn-clear-p" class="btn" type="button">清空</button>
+              </div>
+            </div>
+            <div class="result">
+              <div class="result-title">结果</div>
+              <div id="p-out" class="result-box">—</div>
+              <div class="result-sub" id="p-out-sub">（回本周期 = 成本 ÷ 每月创造价值）</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">潜在价值 → 时间价值余额</div>
+            <div class="form-grid">
+              <label class="field full">
+                <span class="label">说明（可选）</span>
+                <input id="pv-note" class="input" placeholder="例如：今天学会快捷键 / 自动化省时">
+              </label>
+              <label class="field">
+                <span class="label">潜在时间（小时）</span>
+                <input id="pv-h" class="input" inputmode="decimal" placeholder="例如 0.5">
+              </label>
+              <label class="field">
+                <span class="label">潜在时间（分钟）</span>
+                <input id="pv-m" class="input" inputmode="numeric" placeholder="例如 30">
+              </label>
+              <label class="field full">
+                <span class="label">使用基准</span>
+                <select id="pv-mode" class="select">
+                  <option value="B">B 有效时薪（推荐）</option>
+                  <option value="A">A 标准时薪</option>
+                  <option value="C">C 私人时间定价</option>
+                </select>
+              </label>
+              <div class="field full inline-actions">
+                <button id="btn-pv" class="btn btn-primary" type="button">存入余额并记录</button>
+                <button id="btn-clear-pv" class="btn" type="button">清空</button>
+              </div>
+            </div>
+            <div class="balance">
+              <div class="balance-title">时间价值余额</div>
+              <div class="balance-amt"><span id="balance-currency">¥</span><span id="balance-amt">0</span></div>
+              <div class="muted">这是等价价值，不是现金收入。用于衡量“效率/潜在时间”带来的可支配价值。</div>
+            </div>
+            <div class="result">
+              <div class="result-title">本次存入</div>
+              <div id="pv-out" class="result-box">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="card ai-card">
+          <div class="card-title">AI 建议（自动）</div>
+          <div id="ai-box-payback" class="ai-box">—</div>
+        </div>
+      </section>
+      <!-- ========== 行为账本 ========== -->
+      <section id="tab-behavior" class="panel">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">新增行为记录</div>
+            <div class="form-grid">
+              <label class="field full">
+                <span class="label">行为类型</span>
+                <select id="b-kind" class="select">
+                  <option value="behavior.learn">学习 / 读书（延迟收益）</option>
+                  <option value="behavior.work">产出 / 工作（可直接价值）</option>
+                  <option value="behavior.rest">恢复 / 休闲（默认恢复 + 可选资产）</option>
+                  <option value="behavior.consume">纯消费（记录但不强行算回本）</option>
+                </select>
+              </label>
+              <label class="field full">
+                <span class="label">标签（可选）</span>
+                <input id="b-tags" class="input" placeholder="#学习 #读书 #音乐 #运动（空格分隔）">
+              </label>
+              <label class="field">
+                <span class="label">花费时间（小时）</span>
+                <input id="b-h" class="input" inputmode="decimal" placeholder="例如 1">
+              </label>
+              <label class="field">
+                <span class="label">花费时间（分钟）</span>
+                <input id="b-m" class="input" inputmode="numeric" placeholder="例如 30">
+              </label>
+              <label class="field full">
+                <span class="label">花费金额（¥，可选）</span>
+                <input id="b-money" class="input" inputmode="decimal" placeholder="例如 12.9">
+              </label>
+              <label class="field full">
+                <span class="label">是否有输出（学习类推荐）</span>
+                <select id="b-output" class="select">
+                  <option value="yes">✅ 有输出（笔记/练习/作品/分享）</option>
+                  <option value="no">❌ 无输出（只输入）</option>
+                </select>
+              </label>
+              <div class="field full tipline">
+                <span class="tip">恢复/休闲默认走“恢复分”，也可以额外记“资产分”（可选）。</span>
+              </div>
+              <label class="field">
+                <span class="label">恢复分（-2 ~ +5）</span>
+                <input id="b-recover" class="input" inputmode="numeric" placeholder="例如 2">
+              </label>
+              <label class="field">
+                <span class="label">资产分（0 ~ 5，可选）</span>
+                <input id="b-asset" class="input" inputmode="numeric" placeholder="例如 1">
+              </label>
+              <label class="field full">
+                <span class="label">备注</span>
+                <textarea id="b-note" class="textarea" placeholder="例如：读完一章，写了 200 字笔记；听音乐放松。"></textarea>
+              </label>
+              <label class="field full">
+                <span class="label">使用基准（用于折算展示/建议）</span>
+                <select id="b-mode" class="select">
+                  <option value="B">B 有效时薪（推荐）</option>
+                  <option value="A">A 标准时薪</option>
+                  <option value="C">C 私人时间定价</option>
+                </select>
+              </label>
+              <div class="field full inline-actions">
+                <button id="btn-behavior" class="btn btn-primary" type="button">保存并生成建议</button>
+                <button id="btn-clear-b" class="btn" type="button">清空</button>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">提示：行为记录会做什么</div>
+            <ul class="bullets">
+              <li>学习/读书：会提示“输出倍率”（无输出时 AI 会提醒加输出动作）。</li>
+              <li>恢复/休闲：默认记录恢复分，支持额外资产分（比如审美/创造力）。</li>
+              <li>产出/工作：可折算出“时间成本/价值”，帮助你看结构。</li>
+              <li>纯消费：不强行价值化，但可以配合“金钱→时间”看代价。</li>
+            </ul>
+            <div class="divider"></div>
+            <div class="card-title">AI 建议（自动）</div>
+            <div id="ai-box-behavior" class="ai-box">—</div>
+          </div>
+        </div>
+      </section>
+      <!-- ========== 复盘 ========== -->
+      <section id="tab-review" class="panel">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">本地趋势（最近 14 天）</div>
+            <div class="mini-stats">
+              <div class="stat">
+                <div class="k">记录数</div>
+                <div class="v" id="s-count">0</div>
+              </div>
+              <div class="stat">
+                <div class="k">学习时长</div>
+                <div class="v" id="s-learn">0h</div>
+              </div>
+              <div class="stat">
+                <div class="k">恢复净分</div>
+                <div class="v" id="s-recover">0</div>
+              </div>
+              <div class="stat">
+                <div class="k">余额</div>
+                <div class="v"><span id="s-cur">¥</span><span id="s-bal">0</span></div>
+              </div>
+            </div>
+            <div class="muted">这是纯本地统计，不联网。</div>
+          </div>
+          <div class="card">
+            <div class="card-title">生成“本周复盘”（AI）</div>
+            <div class="muted">会读取最近 14 天记录的摘要做复盘建议（可在设置里关闭 AI 或改成本地模式）。</div>
+            <div class="inline-actions">
+              <button id="btn-weekly" class="btn btn-primary" type="button">生成复盘</button>
+              <button id="btn-clear-ai" class="btn" type="button">清空 AI 面板</button>
+            </div>
+            <div id="ai-box-review" class="ai-box">—</div>
+          </div>
+        </div>
+      </section>
+      <!-- ========== 最近动态 ========== -->
+      <section class="card">
+        <div class="card-title">最近动态</div>
+        <div class="muted">所有内容保存在 localStorage。本页不依赖你手工把 HTML 片段粘进页面。</div>
+        <div class="list-actions">
+          <button id="btn-clear-log" class="btn btn-ghost" type="button">清空最近动态</button>
+          <button id="btn-reset" class="btn btn-ghost" type="button">重置全部数据</button>
+        </div>
+        <div id="log-list" class="log-list"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 设置弹窗 -->
+  <div id="modal-settings" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="1"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+      <div class="modal-header">
+        <h2 id="settings-title">设置</h2>
+        <button class="icon-btn" id="settings-close" type="button" aria-label="关闭">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-grid">
+          <label class="field full">
+            <span class="label">货币符号</span>
+            <input id="s-currency" class="input" placeholder="默认 ¥">
+          </label>
+          <label class="field">
+            <span class="label">A 标准时薪（¥/h）</span>
+            <input id="s-hour-a" class="input" inputmode="decimal" placeholder="例如 80">
+          </label>
+          <label class="field">
+            <span class="label">C 私人时间定价（¥/h）</span>
+            <input id="s-hour-c" class="input" inputmode="decimal" placeholder="例如 120">
+          </label>
+          <label class="field full">
+            <span class="label">B 有效时薪（¥/h）</span>
+            <input id="s-hour-b" class="input" inputmode="decimal" placeholder="例如 60（可手填，也可用下面“估算”）">
+          </label>
+          <div class="field full">
+            <div class="divider"></div>
+            <div class="muted">有效时薪估算（可选）：税后月收入 /（工作小时 + 通勤小时 + 必要加班小时）</div>
+          </div>
+          <label class="field">
+            <span class="label">税后月收入（¥）</span>
+            <input id="s-net-month" class="input" inputmode="decimal" placeholder="例如 12000">
+          </label>
+          <label class="field">
+            <span class="label">每月工作小时</span>
+            <input id="s-work-h" class="input" inputmode="decimal" placeholder="例如 160">
+          </label>
+          <label class="field">
+            <span class="label">每月通勤小时</span>
+            <input id="s-commute-h" class="input" inputmode="decimal" placeholder="例如 30">
+          </label>
+          <label class="field">
+            <span class="label">每月必要加班小时</span>
+            <input id="s-ot-h" class="input" inputmode="decimal" placeholder="例如 10">
+          </label>
+          <div class="field full inline-actions">
+            <button id="btn-est-b" class="btn" type="button">用估算值填入 B</button>
+            <button id="btn-save-settings" class="btn btn-primary" type="button">保存设置</button>
+          </div>
+          <div class="field full">
+            <div class="divider"></div>
+          </div>
+          <label class="field full">
+            <span class="label">AI 自动建议</span>
+            <select id="s-ai-enabled" class="select">
+              <option value="on">开启（默认）</option>
+              <option value="off">关闭（仅本地建议）</option>
+            </select>
+          </label>
+          <label class="field full">
+            <span class="label">AI 模式</span>
+            <select id="s-ai-mode" class="select">
+              <option value="local">本地占位建议（不联网）</option>
+              <option value="remote">远程接口（你自己提供 endpoint）</option>
+            </select>
+          </label>
+          <label class="field full">
+            <span class="label">AI Endpoint（仅 remote 模式使用）</span>
+            <input id="s-ai-endpoint" class="input" placeholder="例如：https://你的服务/chat">
+          </label>
+          <label class="field full">
+            <span class="label">AI API Key（可选，存在 localStorage）</span>
+            <input id="s-ai-key" class="input" placeholder="如果你不想存在本地，可留空">
+          </label>
+          <div class="hint">
+            说明：如果你打算接 DeepSeek / OpenAI，请做一个你自己的后端转发接口（更安全），本页只负责 POST JSON。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 导入弹窗 -->
+  <div id="modal-io" class="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close="1"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="io-title">
+      <div class="modal-header">
+        <h2 id="io-title">导入 / 导出</h2>
+        <button class="icon-btn" id="io-close" type="button" aria-label="关闭">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="preview">
+          <div class="preview-title">数据 JSON（导出复制 / 导入粘贴）</div>
+          <textarea id="io-text" class="output" placeholder="这里会显示导出的 JSON；或把 JSON 粘贴进来再点导入"></textarea>
+          <div class="preview-actions">
+            <button id="btn-io-export" class="btn" type="button">生成导出</button>
+            <button id="btn-io-import" class="btn btn-primary" type="button">执行导入</button>
+          </div>
+          <div class="hint">
+            导入会覆盖本地数据（建议先导出备份）。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ====== 基础布局：沿用你给的“极简黑白灰”风格 ====== */
+#tv-system{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 28px 18px 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: #111;
+  background: transparent;
+}
+.tv-surface{
+  background: #fff;
+  padding: 0 0 60px;
+  margin-bottom: 96px;
+}
+.tv-header{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px 16px;
+  align-items: center;
+  padding: 18px 0 22px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 14px;
+}
+.header-title h1{
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 28px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+.header-subtitle{
+  margin: 6px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+.header-actions{ display:flex; gap: 10px; align-items:center; justify-self:end; flex-wrap: wrap; }
+.header-meta{
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #777;
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+.meta-item strong{ color:#111; font-weight:650; }
+.filter{ display:flex; align-items:center; gap: 10px; }
+.filter-label{ color:#777; font-size: 12.5px; }
+
+/* tabs */
+.tabs{
+  display:flex;
+  gap: 10px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.tab{
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  color: #111;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: transform .08s ease, border-color .12s ease, background .12s ease;
+}
+.tab:hover{ background:#f7f7f7; border-color:#dedede; }
+.tab:active{ transform: translateY(1px); }
+.tab.is-active{
+  border-color:#111;
+  background:#111;
+  color:#fff;
+}
+
+/* common controls */
+.select{
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  color: #111;
+  padding: 8px 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  outline: none;
+}
+.select:focus{ border-color:#111; }
+
+.btn{
+  border: 1px solid #e5e5e5;
+  background: #fff;
+  color: #111;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform .08s ease, border-color .12s ease, background .12s ease;
+}
+.btn:hover{ background: #f7f7f7; border-color:#dedede; }
+.btn:active{ transform: translateY(1px); }
+.btn-primary{
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+.btn-primary:hover{ background:#1a1a1a; }
+.btn-ghost{
+  padding: 8px 10px;
+  font-size: 13px;
+  border-color: #ededed;
+  color: #333;
+}
+.btn-ghost:hover{
+  background:#f7f7f7;
+  border-color:#e2e2e2;
+}
+
+.tv-container{ display:flex; flex-direction:column; gap: 14px; }
+
+.panel{ display:none; }
+.panel.is-active{ display:block; }
+
+.grid-2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.card{
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 14px 14px 12px;
+  background: #fff;
+}
+.card:hover{
+  border-color: #e2e2e2;
+  box-shadow: 0 8px 24px rgba(0,0,0,.05);
+}
+.card-title{
+  font-size: 14px;
+  font-weight: 650;
+  margin-bottom: 10px;
+}
+.muted{
+  color:#777;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.divider{ height:1px; background:#eee; margin: 14px 0; }
+
+.form-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.field{ display:flex; flex-direction:column; gap: 6px; }
+.field.full{ grid-column: 1 / -1; }
+.label{ font-size: 12.5px; color:#666; }
+
+.input, .textarea, .output{
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  outline: none;
+}
+.input:focus, .textarea:focus, .output:focus{ border-color: #111; }
+.textarea{ min-height: 110px; resize: vertical; }
+
+.inline-actions{ display:flex; gap: 10px; flex-wrap: wrap; }
+.tipline .tip{ color:#777; font-size: 12.5px; }
+
+.result{ margin-top: 12px; }
+.result-title{ font-size: 12.5px; color:#666; margin-bottom: 8px; }
+.result-box{
+  border: 1px solid #eee;
+  background:#fafafa;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+.result-sub{ margin-top: 8px; color:#777; font-size: 12.5px; }
+
+.ai-card{ }
+.ai-box{
+  margin-top: 10px;
+  border: 1px solid #eee;
+  background:#fafafa;
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.balance{
+  margin-top: 8px;
+  border: 1px solid #eee;
+  background:#fff;
+  border-radius: 14px;
+  padding: 12px 12px 10px;
+}
+.balance-title{ font-size: 12.5px; color:#666; margin-bottom: 6px; }
+.balance-amt{
+  font-size: 22px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.bullets{
+  margin: 0;
+  padding-left: 18px;
+  color:#333;
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+
+.list-actions{ display:flex; gap: 10px; flex-wrap: wrap; margin: 10px 0 6px; }
+.log-list{ display:flex; flex-direction:column; gap: 10px; margin-top: 10px; }
+.log-item{
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 12px 12px 10px;
+  background: #fff;
+}
+.log-head{ display:flex; align-items:center; justify-content:space-between; gap: 10px; flex-wrap: wrap; }
+.log-type{
+  font-size: 12.5px;
+  color:#666;
+}
+.log-time{ font-size: 12.5px; color:#888; }
+.log-body{
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 1.7;
+  color:#111;
+  white-space: pre-wrap;
+}
+.log-meta{
+  margin-top: 8px;
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  color:#777;
+  font-size: 12.5px;
+}
+.chip{
+  border: 1px solid #eee;
+  background:#fafafa;
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.mini-stats{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.stat{
+  border: 1px solid #eee;
+  background:#fafafa;
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+.stat .k{ color:#666; font-size: 12.5px; }
+.stat .v{ color:#111; font-weight: 650; margin-top: 4px; font-size: 16px; }
+
+/* modal (沿用你那套) */
+.modal{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+.modal[data-open="1"]{ display:block; }
+.modal-backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.45);
+}
+.modal-panel{
+  position: relative;
+  max-width: 760px;
+  width: calc(100% - 24px);
+  margin: 6vh auto;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #eee;
+  box-shadow: 0 30px 80px rgba(0,0,0,.25);
+  overflow: hidden;
+}
+.modal-header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eee;
+}
+.modal-header h2{
+  margin:0;
+  font-size: 16px;
+  font-weight: 650;
+}
+.icon-btn{
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+.icon-btn:hover{ background:#f4f4f4; }
+.modal-body{ padding: 16px; }
+
+.preview{ margin-top: 0; }
+.preview-title{ font-size: 12.5px; color: #666; margin-bottom: 8px; }
+.output{
+  width: 100%;
+  min-height: 180px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background: #fafafa;
+}
+.preview-actions{ display:flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.hint{
+  margin-top: 10px;
+  color:#777;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.hint code{
+  background:#f5f5f5;
+  border:1px solid #eee;
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+/* responsive */
+@media (max-width: 720px){
+  .tv-header{ grid-template-columns: 1fr; }
+  .header-actions{ justify-self: start; }
+  .header-meta{ justify-content: flex-start; }
+  .grid-2{ grid-template-columns: 1fr; }
+  .form-grid{ grid-template-columns: 1fr; }
+  .modal-panel{ margin: 4vh auto; }
+  .mini-stats{ grid-template-columns: 1fr 1fr; }
+}
+</style>
+
+<script>
+(function(){
+  const $ = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+  // ========== storage keys ==========
+  const KEYS = {
+    settings: 'tv.settings.v1',
+    logs: 'tv.logs.v1',
+    balance: 'tv.balance.v1'
+  };
+
+  // ========== defaults ==========
+  const DEFAULT_SETTINGS = {
+    currency: '¥',
+    hourA: 80,
+    hourB: 60,
+    hourC: 120,
+    aiEnabled: true,
+    aiMode: 'remote',   // local | remote
+    aiEndpoint: 'https://fancy-water-923e.serenius.workers.dev',
+    aiKey: ''
+  };
+
+  function safeJSONParse(s, fallback){
+    try{ return JSON.parse(s); }catch(e){ return fallback; }
+  }
+
+  function loadSettings(){
+    const s = safeJSONParse(localStorage.getItem(KEYS.settings), null);
+    return Object.assign({}, DEFAULT_SETTINGS, (s||{}));
+  }
+  function saveSettings(v){
+    localStorage.setItem(KEYS.settings, JSON.stringify(v));
+  }
+
+  function loadLogs(){
+    return safeJSONParse(localStorage.getItem(KEYS.logs), []);
+  }
+  function saveLogs(arr){
+    localStorage.setItem(KEYS.logs, JSON.stringify(arr));
+  }
+
+  function loadBalance(){
+    const b = safeJSONParse(localStorage.getItem(KEYS.balance), null);
+    if(typeof b === 'number') return b;
+    if(b && typeof b.amount === 'number') return b.amount;
+    return 0;
+  }
+  function saveBalance(amount){
+    localStorage.setItem(KEYS.balance, JSON.stringify({amount}));
+  }
+
+  // ========== helpers ==========
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function fmtTime(d){
+    return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  }
+  function now(){
+    return new Date();
+  }
+
+  function nnum(v){
+    const x = Number(String(v||'').trim());
+    return Number.isFinite(x) ? x : 0;
+  }
+  function clamp(v, a, b){
+    return Math.max(a, Math.min(b, v));
+  }
+
+  function hoursFromHM(h, m){
+    const hh = nnum(h);
+    const mm = nnum(m);
+    return Math.max(0, hh + (mm/60));
+  }
+
+  function formatHoursToHM(hours){
+    const h = Math.floor(hours);
+    const m = Math.round((hours - h) * 60);
+    if(h <= 0) return `${m} 分钟`;
+    if(m === 0) return `${h} 小时`;
+    return `${h} 小时 ${m} 分钟`;
+  }
+
+  function moneyFmt(cur, v){
+    const x = Math.round(v * 100) / 100;
+    return `${cur}${x.toFixed(2)}`;
+  }
+
+  function pickRate(settings, mode){
+    if(mode === 'A') return nnum(settings.hourA) || 0;
+    if(mode === 'B') return nnum(settings.hourB) || 0;
+    if(mode === 'C') return nnum(settings.hourC) || 0;
+    return nnum(settings.hourB) || 0;
+  }
+
+  function modeLabel(mode){
+    return mode === 'A' ? 'A 标准时薪' : (mode === 'B' ? 'B 有效时薪' : 'C 私人时间定价');
+  }
+
+  function splitTags(text){
+    const raw = (text || '').trim();
+    if(!raw) return [];
+    const parts = raw.split(/[\s、，,]+/g).map(s => s.trim()).filter(Boolean);
+    return parts.map(p => p.startsWith('#') ? p : ('#' + p));
+  }
+
+  // ========== log ==========
+  function addLog(item){
+    const logs = loadLogs();
+    logs.unshift(item);
+    // cap
+    if(logs.length > 200) logs.length = 200;
+    saveLogs(logs);
+  }
+
+  function labelType(type){
+    const map = {
+      convert: '换算',
+      payback: '回本',
+      behavior: '行为账本',
+      potential: '潜在价值'
+    };
+    return map[type] || type;
+  }
+
+  function renderLogs(){
+    const logs = loadLogs();
+    const filter = $('#type-filter').value || '__all__';
+    const list = $('#log-list');
+
+    const rows = logs.filter(x => filter === '__all__' ? true : x.type === filter);
+
+    $('#total-rows').textContent = String(logs.length);
+    $('#visible-rows').textContent = String(rows.length);
+
+    if(rows.length === 0){
+      list.innerHTML = `<div class="muted">暂无记录。</div>`;
+      return;
+    }
+
+    list.innerHTML = rows.map(x => {
+      const chips = [];
+      if(x.mode) chips.push(`<span class="chip">${modeLabel(x.mode)}</span>`);
+      if(x.tags && x.tags.length) chips.push(`<span class="chip">${x.tags.join(' ')}</span>`);
+      if(typeof x.balanceDelta === 'number' && x.balanceDelta !== 0){
+        const sign = x.balanceDelta >= 0 ? '+' : '';
+        chips.push(`<span class="chip">余额 ${sign}${moneyFmt(currentSettings.currency, Math.abs(x.balanceDelta)).replace(currentSettings.currency,'')}</span>`);
+      }
+      if(x.ai && x.ai.summary){
+        chips.push(`<span class="chip">AI ✓</span>`);
+      }
+
+      const meta = chips.length ? `<div class="log-meta">${chips.join('')}</div>` : '';
+      const body = (x.text || '').replace(/[<>]/g, s => s === '<' ? '&lt;' : '&gt;');
+
+      return `
+        <div class="log-item">
+          <div class="log-head">
+            <div class="log-type">${labelType(x.type)}</div>
+            <div class="log-time">${x.time}</div>
+          </div>
+          <div class="log-body">${body}${x.ai && x.ai.summary ? `\n\nAI：${x.ai.summary.replace(/[<>]/g, s => s === '<' ? '&lt;' : '&gt;')}` : ''}</div>
+          ${meta}
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ========== tabs ==========
+  function setTab(id){
+    $$('.tab').forEach(b => b.classList.toggle('is-active', b.dataset.tab === id));
+    $$('.panel').forEach(p => p.classList.toggle('is-active', p.id === id));
+  }
+
+  // ========== AI ==========
+  // 本地占位建议（不联网）
+  function localAdvice(payload){
+    // payload: {kind, mode, rate, ...}
+    if(payload.kind === 'convert.t2m'){
+      const h = payload.hours;
+      const m = payload.money;
+      const rate = payload.rate;
+      if(rate <= 0) return '请先在“设置”里填写时薪（A/B/C）。';
+      return [
+        `你把 ${formatHoursToHM(h)} 按 ${modeLabel(payload.mode)} 折算成 ${moneyFmt(payload.currency, m)}。`,
+        `如果这段时间本来会被碎片化消耗，可以考虑给它一个“去向”：休息 / 学习 / 运动 / 输出。`
+      ].join('\n');
+    }
+    if(payload.kind === 'convert.m2t'){
+      const t = payload.hours;
+      const money = payload.money;
+      const rate = payload.rate;
+      if(rate <= 0) return '请先在“设置”里填写时薪（A/B/C）。';
+      return [
+        `这笔 ${moneyFmt(payload.currency, money)} 相当于 ${formatHoursToHM(t)}（按 ${modeLabel(payload.mode)}）。`,
+        `如果你是“花钱买时间”，建议顺手写下省下来的时间要做什么，不然容易被碎片吞掉。`
+      ].join('\n');
+    }
+    if(payload.kind === 'payback'){
+      const value = payload.monthValue;
+      const months = payload.months;
+      return [
+        `每月创造价值约 ${moneyFmt(payload.currency, value)}，回本周期约 ${months.toFixed(2)} 个月。`,
+        `如果你不确定节省时长，建议保守估计（打 5 折）再看是否仍能接受回本周期。`
+      ].join('\n');
+    }
+    if(payload.kind === 'potential'){
+      return [
+        `已把潜在时间折算存入余额：${moneyFmt(payload.currency, payload.delta)}（按 ${modeLabel(payload.mode)}）。`,
+        `建议：把“省下来的时间”绑定一个默认习惯（例如 10 分钟整理/复盘），效率收益更容易兑现。`
+      ].join('\n');
+    }
+    if(payload.kind === 'behavior'){
+      const kind = payload.behaviorKind;
+      const hasOutput = payload.hasOutput;
+      const rec = payload.recover;
+      const asset = payload.asset;
+      const lines = [];
+
+      if(kind === 'behavior.learn'){
+        lines.push(`这是延迟收益型投资。`);
+        if(!hasOutput) lines.push(`你这次没有输出：建议补一个 5-10 分钟“输出动作”（200 字笔记/一张卡片/一个小练习），收益概率会明显提升。`);
+        else lines.push(`你有输出：很好，建议在 7 天内做一次小复盘（把要点变成可复用的清单/模板）。`);
+      }else if(kind === 'behavior.rest'){
+        lines.push(`这是恢复型行为。恢复分 ${rec}，资产分 ${asset || 0}。`);
+        lines.push(`如果你最近恢复分偏低，建议把恢复行为“固定化”（同一时间段/同一种方式），更容易稳定。`);
+      }else if(kind === 'behavior.work'){
+        lines.push(`这是产出/工作型记录。你可以用“时间→金钱”看机会成本，用来优化结构而不是自责。`);
+      }else{
+        lines.push(`这是记录型消费。建议偶尔用“金钱→时间”看看代价，帮助你识别高性价比/低性价比的消费。`);
+      }
+      return lines.join('\n');
+    }
+    if(payload.kind === 'review.weekly'){
+      return [
+        `本地复盘（占位）：`,
+        `1) 看看“学习投入”是否配套输出；`,
+        `2) 恢复分是否长期为负；`,
+        `3) “花钱买时间”的省时是否被兑现。`,
+        `（如需真实 AI 复盘，请在设置里切到 remote 并配置 endpoint。）`
+      ].join('\n');
+    }
+    return '—';
+  }
+
+  async function remoteAdvice(settings, payload){
+    // 你自行实现的后端：接收 payload，返回 {text: "..."} 或直接字符串
+    const url = (settings.aiEndpoint || '').trim();
+    if(!url) throw new Error('AI endpoint 未配置');
+
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(settings.aiKey ? { 'Authorization': 'Bearer ' + settings.aiKey } : {})
+      },
+      body: JSON.stringify({ payload })
+    });
+
+    const ct = res.headers.get('content-type') || '';
+    if(!res.ok){
+      const t = await res.text();
+      throw new Error('AI 请求失败：' + t.slice(0, 200));
+    }
+    if(ct.includes('application/json')){
+      const j = await res.json();
+      if(typeof j === 'string') return j;
+      if(j && typeof j.text === 'string') return j.text;
+      if(j && j.data && typeof j.data.text === 'string') return j.data.text;
+      return JSON.stringify(j);
+    }else{
+      return await res.text();
+    }
+  }
+
+  async function getAdvice(payload){
+    const s = currentSettings;
+    if(!s.aiEnabled) return localAdvice(payload);
+    if(s.aiMode === 'remote'){
+      try{
+        const t = await remoteAdvice(s, payload);
+        return String(t || '').trim() || localAdvice(payload);
+      }catch(e){
+        return `（AI 远程失败，已降级本地建议）\n${localAdvice(payload)}`;
+      }
+    }
+    return localAdvice(payload);
+  }
+
+  function summarizeAdvice(text){
+    const t = String(text||'').trim().replace(/\s+/g,' ');
+    if(!t) return '';
+    return t.length > 120 ? (t.slice(0, 120) + '…') : t;
+  }
+
+  // ========== core actions ==========
+  let currentSettings = loadSettings();
+
+  function refreshBalanceUI(){
+    $('#balance-currency').textContent = currentSettings.currency || '¥';
+    $('#s-cur').textContent = currentSettings.currency || '¥';
+    const bal = loadBalance();
+    $('#balance-amt').textContent = (Math.round(bal*100)/100).toFixed(2);
+    $('#s-bal').textContent = (Math.round(bal*100)/100).toFixed(2);
+  }
+
+  function calcCompareMoneyFromHours(hours, settings){
+    const a = hours * pickRate(settings, 'A');
+    const b = hours * pickRate(settings, 'B');
+    const c = hours * pickRate(settings, 'C');
+    return {A:a, B:b, C:c};
+  }
+  function calcCompareHoursFromMoney(money, settings){
+    const a = pickRate(settings,'A') > 0 ? (money / pickRate(settings,'A')) : 0;
+    const b = pickRate(settings,'B') > 0 ? (money / pickRate(settings,'B')) : 0;
+    const c = pickRate(settings,'C') > 0 ? (money / pickRate(settings,'C')) : 0;
+    return {A:a, B:b, C:c};
+  }
+
+  async function doConvertT2M(){
+    const mode = $('#c-mode-1').value;
+    const hours = hoursFromHM($('#c-t2m-h').value, $('#c-t2m-m').value);
+    const rate = pickRate(currentSettings, mode);
+    const cur = currentSettings.currency || '¥';
+
+    if(hours <= 0){
+      $('#c-out-1').textContent = '请输入时间（小时/分钟）。';
+      return;
+    }
+    if(rate <= 0){
+      $('#c-out-1').textContent = '请先在“设置”里填写对应时薪。';
+      return;
+    }
+
+    const cmp = calcCompareMoneyFromHours(hours, currentSettings);
+    const money = hours * rate;
+
+    $('#c-out-1').textContent =
+      `按 ${modeLabel(mode)}：${moneyFmt(cur, money)}\n` +
+      `对比：A ${moneyFmt(cur, cmp.A)} / B ${moneyFmt(cur, cmp.B)} / C ${moneyFmt(cur, cmp.C)}`;
+
+    const advice = await getAdvice({kind:'convert.t2m', mode, hours, money, rate, currency: cur});
+    $('#ai-box-convert').textContent = advice;
+
+    const item = {
+      id: 'log_' + Date.now(),
+      type: 'convert',
+      time: fmtTime(now()),
+      mode,
+      tags: [],
+      text: `时间 → 金钱：${formatHoursToHM(hours)} → ${moneyFmt(cur, money)}`,
+      ai: { summary: summarizeAdvice(advice) }
+    };
+    addLog(item);
+    renderLogs();
+    refreshStats();
+  }
+
+  async function doConvertM2T(){
+    const mode = $('#c-mode-2').value;
+    const money = nnum($('#c-m2t-money').value);
+    const rate = pickRate(currentSettings, mode);
+    const cur = currentSettings.currency || '¥';
+
+    if(money <= 0){
+      $('#c-out-2').textContent = '请输入金额。';
+      return;
+    }
+    if(rate <= 0){
+      $('#c-out-2').textContent = '请先在“设置”里填写对应时薪。';
+      return;
+    }
+
+    const hours = money / rate;
+    const cmp = calcCompareHoursFromMoney(money, currentSettings);
+
+    $('#c-out-2').textContent =
+      `按 ${modeLabel(mode)}：${formatHoursToHM(hours)}\n` +
+      `对比：A ${formatHoursToHM(cmp.A)} / B ${formatHoursToHM(cmp.B)} / C ${formatHoursToHM(cmp.C)}`;
+
+    const advice = await getAdvice({kind:'convert.m2t', mode, hours, money, rate, currency: cur});
+    $('#ai-box-convert').textContent = advice;
+
+    const item = {
+      id: 'log_' + Date.now(),
+      type: 'convert',
+      time: fmtTime(now()),
+      mode,
+      tags: [],
+      text: `金钱 → 时间：${moneyFmt(cur, money)} → ${formatHoursToHM(hours)}`,
+      ai: { summary: summarizeAdvice(advice) }
+    };
+    addLog(item);
+    renderLogs();
+    refreshStats();
+  }
+
+  async function doPayback(){
+    const name = ($('#p-name').value || '').trim();
+    const cost = nnum($('#p-cost').value);
+    const saveh = nnum($('#p-saveh').value);
+    const mode = $('#p-mode').value;
+    const rate = pickRate(currentSettings, mode);
+    const cur = currentSettings.currency || '¥';
+
+    if(cost <= 0 || saveh <= 0){
+      $('#p-out').textContent = '请输入成本与每月节省时间。';
+      return;
+    }
+    if(rate <= 0){
+      $('#p-out').textContent = '请先在“设置”里填写对应时薪。';
+      return;
+    }
+
+    const monthValue = saveh * rate;
+    const months = monthValue > 0 ? (cost / monthValue) : Infinity;
+
+    $('#p-out').textContent =
+      `${name ? name + '：' : ''}每月价值 ${moneyFmt(cur, monthValue)}\n回本周期约 ${months.toFixed(2)} 个月`;
+
+    const advice = await getAdvice({kind:'payback', name, cost, saveh, mode, rate, monthValue, months, currency: cur});
+    $('#ai-box-payback').textContent = advice;
+
+    const item = {
+      id: 'log_' + Date.now(),
+      type: 'payback',
+      time: fmtTime(now()),
+      mode,
+      tags: name ? ['#回本'] : [],
+      text: `回本：${name || '项目'} 成本 ${moneyFmt(cur, cost)}，每月省时 ${saveh}h → 回本 ${months.toFixed(2)} 个月`,
+      ai: { summary: summarizeAdvice(advice) }
+    };
+    addLog(item);
+    renderLogs();
+    refreshStats();
+  }
+
+  async function doPotentialDeposit(){
+    const note = ($('#pv-note').value || '').trim();
+    const mode = $('#pv-mode').value;
+    const hours = hoursFromHM($('#pv-h').value, $('#pv-m').value);
+    const rate = pickRate(currentSettings, mode);
+    const cur = currentSettings.currency || '¥';
+
+    if(hours <= 0){
+      $('#pv-out').textContent = '请输入潜在时间。';
+      return;
+    }
+    if(rate <= 0){
+      $('#pv-out').textContent = '请先在“设置”里填写对应时薪。';
+      return;
+    }
+
+    const delta = hours * rate;
+    const newBal = loadBalance() + delta;
+    saveBalance(newBal);
+    refreshBalanceUI();
+
+    $('#pv-out').textContent = `${formatHoursToHM(hours)} → 存入 ${moneyFmt(cur, delta)}（新余额 ${moneyFmt(cur, newBal)}）`;
+
+    const advice = await getAdvice({kind:'potential', note, mode, hours, rate, delta, currency: cur});
+    $('#ai-box-payback').textContent = advice;
+
+    const item = {
+      id: 'log_' + Date.now(),
+      type: 'potential',
+      time: fmtTime(now()),
+      mode,
+      balanceDelta: delta,
+      tags: note ? ['#潜在价值'] : ['#潜在价值'],
+      text: `潜在价值：${note ? note + '，' : ''}${formatHoursToHM(hours)} → 存入 ${moneyFmt(cur, delta)}`,
+      ai: { summary: summarizeAdvice(advice) }
+    };
+    addLog(item);
+    renderLogs();
+    refreshStats();
+  }
+
+  async function doBehavior(){
+    const kind = $('#b-kind').value;
+    const tags = splitTags($('#b-tags').value);
+    const hours = hoursFromHM($('#b-h').value, $('#b-m').value);
+    const money = nnum($('#b-money').value);
+    const hasOutput = $('#b-output').value === 'yes';
+    const recover = clamp(nnum($('#b-recover').value), -2, 5);
+    const assetRaw = $('#b-asset').value.trim();
+    const asset = assetRaw === '' ? null : clamp(nnum(assetRaw), 0, 5);
+    const note = ($('#b-note').value || '').trim();
+    const mode = $('#b-mode').value;
+    const rate = pickRate(currentSettings, mode);
+    const cur = currentSettings.currency || '¥';
+
+    // 最小校验：至少填时间/金额/备注之一
+    if(hours <= 0 && money <= 0 && !note){
+      $('#ai-box-behavior').textContent = '请至少填写时间/金额/备注中的一项。';
+      return;
+    }
+
+    // 折算展示（不强行等同收益）
+    let eq = '';
+    if(hours > 0 && rate > 0){
+      eq = `（时间等价：${moneyFmt(cur, hours * rate)} / 按 ${modeLabel(mode)}）`;
+    }
+
+    const payload = {
+      kind:'behavior',
+      behaviorKind: kind,
+      tags,
+      hours,
+      money,
+      hasOutput,
+      recover,
+      asset,
+      note,
+      mode,
+      rate,
+      currency: cur
+    };
+
+    const advice = await getAdvice(payload);
+    $('#ai-box-behavior').textContent = advice;
+
+    const item = {
+      id: 'log_' + Date.now(),
+      type: 'behavior',
+      time: fmtTime(now()),
+      mode,
+      tags,
+      text: `行为：${kind.replace('behavior.','')} ${hours>0?('用时 '+formatHoursToHM(hours)+' '):''}${money>0?('花费 '+moneyFmt(cur,money)+' '):''}\n恢复分 ${recover}${asset===null?'':('，资产分 '+asset)}\n${note ? ('备注：'+note+'\n') : ''}${eq}`,
+      ai: { summary: summarizeAdvice(advice) },
+      data: { kind, hours, recover, asset, hasOutput }
+    };
+    addLog(item);
+    renderLogs();
+    refreshStats();
+  }
+
+  // ========== review stats ==========
+  function refreshStats(){
+    const logs = loadLogs();
+    const bal = loadBalance();
+    const cur = currentSettings.currency || '¥';
+    $('#s-cur').textContent = cur;
+    $('#s-bal').textContent = (Math.round(bal*100)/100).toFixed(2);
+
+    const cutoff = Date.now() - 14*24*3600*1000;
+    const recent = logs.filter(x => {
+      // x.time is string; use id timestamp fallback
+      const ts = (x.id && x.id.startsWith('log_')) ? Number(x.id.slice(4)) : 0;
+      return ts >= cutoff;
+    });
+
+    let learnHours = 0;
+    let recoverSum = 0;
+
+    for(const x of recent){
+      if(x.type === 'behavior' && x.data){
+        if(x.data.kind === 'behavior.learn') learnHours += nnum(x.data.hours);
+        recoverSum += nnum(x.data.recover);
+      }
+    }
+
+    $('#s-count').textContent = String(recent.length);
+    $('#s-learn').textContent = (Math.round(learnHours*10)/10).toFixed(1) + 'h';
+    $('#s-recover').textContent = String(Math.round(recoverSum*10)/10);
+  }
+
+  async function doWeeklyReview(){
+    const logs = loadLogs();
+    const cutoff = Date.now() - 14*24*3600*1000;
+    const recent = logs.filter(x => {
+      const ts = (x.id && x.id.startsWith('log_')) ? Number(x.id.slice(4)) : 0;
+      return ts >= cutoff;
+    }).slice(0, 60);
+
+    const compact = recent.map(x => ({
+      type: x.type,
+      time: x.time,
+      text: x.text,
+      ai: x.ai && x.ai.summary ? x.ai.summary : ''
+    }));
+
+    const advice = await getAdvice({kind:'review.weekly', items: compact, currency: currentSettings.currency || '¥'});
+    $('#ai-box-review').textContent = advice;
+  }
+
+  // ========== settings modal ==========
+  function openModal(el){
+    el.setAttribute('data-open','1');
+    el.setAttribute('aria-hidden','false');
+  }
+  function closeModal(el){
+    el.removeAttribute('data-open');
+    el.setAttribute('aria-hidden','true');
+  }
+
+  function fillSettingsUI(){
+    const s = currentSettings;
+    $('#s-currency').value = s.currency || '¥';
+    $('#s-hour-a').value = String(s.hourA ?? '');
+    $('#s-hour-b').value = String(s.hourB ?? '');
+    $('#s-hour-c').value = String(s.hourC ?? '');
+
+    $('#s-net-month').value = '';
+    $('#s-work-h').value = '';
+    $('#s-commute-h').value = '';
+    $('#s-ot-h').value = '';
+
+    $('#s-ai-enabled').value = s.aiEnabled ? 'on' : 'off';
+    $('#s-ai-mode').value = s.aiMode || 'local';
+    $('#s-ai-endpoint').value = s.aiEndpoint || '';
+    $('#s-ai-key').value = s.aiKey || '';
+  }
+
+  function saveSettingsFromUI(){
+    const s = Object.assign({}, currentSettings);
+    s.currency = ($('#s-currency').value || '¥').trim() || '¥';
+    s.hourA = nnum($('#s-hour-a').value) || 0;
+    s.hourB = nnum($('#s-hour-b').value) || 0;
+    s.hourC = nnum($('#s-hour-c').value) || 0;
+
+    s.aiEnabled = ($('#s-ai-enabled').value === 'on');
+    s.aiMode = $('#s-ai-mode').value || 'local';
+    s.aiEndpoint = ($('#s-ai-endpoint').value || '').trim();
+    s.aiKey = ($('#s-ai-key').value || '').trim();
+
+    currentSettings = s;
+    saveSettings(s);
+    refreshBalanceUI();
+    renderLogs();
+    refreshStats();
+  }
+
+  function estimateB(){
+    const net = nnum($('#s-net-month').value);
+    const work = nnum($('#s-work-h').value);
+    const commute = nnum($('#s-commute-h').value);
+    const ot = nnum($('#s-ot-h').value);
+    const denom = work + commute + ot;
+    if(net > 0 && denom > 0){
+      const b = net / denom;
+      $('#s-hour-b').value = String(Math.round(b*100)/100);
+    }
+  }
+
+  // ========== import/export ==========
+  function exportAll(){
+    return JSON.stringify({
+      version: 1,
+      settings: loadSettings(),
+      balance: loadBalance(),
+      logs: loadLogs()
+    }, null, 2);
+  }
+  function importAll(text){
+    const j = safeJSONParse(text, null);
+    if(!j || typeof j !== 'object') throw new Error('JSON 解析失败');
+    if(!('settings' in j) || !('logs' in j)) throw new Error('缺少必要字段');
+    localStorage.setItem(KEYS.settings, JSON.stringify(j.settings));
+    localStorage.setItem(KEYS.logs, JSON.stringify(j.logs));
+    localStorage.setItem(KEYS.balance, JSON.stringify({amount: nnum(j.balance)}));
+    currentSettings = loadSettings();
+    refreshBalanceUI();
+    renderLogs();
+    refreshStats();
+  }
+
+  // ========== wire events ==========
+  function bind(){
+    // tabs
+    $$('.tab').forEach(btn => {
+      btn.addEventListener('click', () => setTab(btn.dataset.tab));
+    });
+
+    // filter
+    $('#type-filter').addEventListener('change', renderLogs);
+    $('#btn-clear-filter').addEventListener('click', () => {
+      $('#type-filter').value = '__all__';
+      renderLogs();
+    });
+
+    // convert
+    $('#btn-calc-t2m').addEventListener('click', doConvertT2M);
+    $('#btn-calc-m2t').addEventListener('click', doConvertM2T);
+    $('#btn-clear-c1').addEventListener('click', () => { $('#c-t2m-h').value=''; $('#c-t2m-m').value=''; $('#c-out-1').textContent='—'; });
+    $('#btn-clear-c2').addEventListener('click', () => { $('#c-m2t-money').value=''; $('#c-out-2').textContent='—'; });
+
+    // payback & potential
+    $('#btn-payback').addEventListener('click', doPayback);
+    $('#btn-clear-p').addEventListener('click', () => { $('#p-name').value=''; $('#p-cost').value=''; $('#p-saveh').value=''; $('#p-out').textContent='—'; });
+    $('#btn-pv').addEventListener('click', doPotentialDeposit);
+    $('#btn-clear-pv').addEventListener('click', () => { $('#pv-note').value=''; $('#pv-h').value=''; $('#pv-m').value=''; $('#pv-out').textContent='—'; });
+
+    // behavior
+    $('#btn-behavior').addEventListener('click', doBehavior);
+    $('#btn-clear-b').addEventListener('click', () => {
+      $('#b-tags').value=''; $('#b-h').value=''; $('#b-m').value='';
+      $('#b-money').value=''; $('#b-note').value='';
+      $('#b-recover').value=''; $('#b-asset').value='';
+      $('#ai-box-behavior').textContent='—';
+    });
+
+    // review
+    $('#btn-weekly').addEventListener('click', doWeeklyReview);
+    $('#btn-clear-ai').addEventListener('click', () => { $('#ai-box-review').textContent='—'; });
+
+    // logs
+    $('#btn-clear-log').addEventListener('click', () => {
+      localStorage.setItem(KEYS.logs, JSON.stringify([]));
+      renderLogs(); refreshStats();
+    });
+    $('#btn-reset').addEventListener('click', () => {
+      localStorage.removeItem(KEYS.settings);
+      localStorage.removeItem(KEYS.logs);
+      localStorage.removeItem(KEYS.balance);
+      currentSettings = loadSettings();
+      refreshBalanceUI();
+      renderLogs();
+      refreshStats();
+      $('#ai-box-convert').textContent='—';
+      $('#ai-box-payback').textContent='—';
+      $('#ai-box-behavior').textContent='—';
+      $('#ai-box-review').textContent='—';
+    });
+
+    // settings modal
+    const ms = $('#modal-settings');
+    $('#btn-open-settings').addEventListener('click', () => { fillSettingsUI(); openModal(ms); });
+    $('#settings-close').addEventListener('click', () => closeModal(ms));
+    $('.modal-backdrop', ms).addEventListener('click', () => closeModal(ms));
+    $('#btn-est-b').addEventListener('click', estimateB);
+    $('#btn-save-settings').addEventListener('click', () => { saveSettingsFromUI(); closeModal(ms); });
+
+    // io modal
+    const mio = $('#modal-io');
+    $('#btn-export').addEventListener('click', () => { $('#io-text').value = exportAll(); openModal(mio); });
+    $('#btn-import').addEventListener('click', () => { $('#io-text').value = ''; openModal(mio); });
+    $('#io-close').addEventListener('click', () => closeModal(mio));
+    $('.modal-backdrop', mio).addEventListener('click', () => closeModal(mio));
+    $('#btn-io-export').addEventListener('click', () => { $('#io-text').value = exportAll(); });
+    $('#btn-io-import').addEventListener('click', () => {
+      try{
+        importAll($('#io-text').value);
+        $('#btn-io-import').textContent = '导入成功';
+        setTimeout(()=> $('#btn-io-import').textContent='执行导入', 900);
+      }catch(e){
+        $('#btn-io-import').textContent = '导入失败';
+        setTimeout(()=> $('#btn-io-import').textContent='执行导入', 900);
+        alert(String(e && e.message ? e.message : e));
+      }
+    });
+
+    // esc
+    document.addEventListener('keydown', (e) => {
+      if(e.key !== 'Escape') return;
+      if(ms.getAttribute('data-open') === '1') closeModal(ms);
+      if(mio.getAttribute('data-open') === '1') closeModal(mio);
+    });
+  }
+
+  // ========== init ==========
+  document.addEventListener('DOMContentLoaded', () => {
+    currentSettings = loadSettings();
+    refreshBalanceUI();
+    renderLogs();
+    refreshStats();
+    bind();
+  });
+
+})();
+</script>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">SereniusX</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">30</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/sereniusx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list expandBtn" id="aside-cat-list">
+            <li class="card-category-list-item parent"><a class="card-category-list-link" href="/categories/CTF/"><span class="card-category-list-name">CTF</span><span class="card-category-list-count">18</span><i class="fas fa-caret-left "></i></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/PWN/"><span class="card-category-list-name">PWN</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/Reverse/"><span class="card-category-list-name">Reverse</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/CTF/Web/"><span class="card-category-list-name">Web</span><span class="card-category-list-count">2</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%85%B6%E4%BB%96/"><span class="card-category-list-name">其他</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%8D%9A%E5%AE%A2%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4/"><span class="card-category-list-name">博客日常维护</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%B6%E6%94%BF%E5%AD%A6%E4%B9%A0/"><span class="card-category-list-name">时政学习</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B/"><span class="card-category-list-name">计算机基础课程</span><span class="card-category-list-count">2</span></a></li>
+          </ul></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/02/">
+            <span class="card-archive-list-date">
+              二月 2026
+            </span>
+            <span class="card-archive-list-count">14</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              一月 2026
+            </span>
+            <span class="card-archive-list-count">11</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              十月 2025
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">30</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-09-30T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-14T11:32:21.489Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;2025 - 2026 By SereniusX</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.0-b2</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="chat-btn" type="button" title="聊天" style="display:none"><i class="fas fa-message"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>(() => {
+  const runMermaid = ele => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    ele.forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = `%%{init:{ 'theme':'${theme}'}}%%\n`
+      const mermaidID = `mermaid-${index}`
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+      const renderMermaid = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      // mermaid v9 and v10 compatibility
+      typeof renderFn === 'string' ? renderMermaid(renderFn) : renderFn.then(({ svg }) => renderMermaid(svg))
+    })
+  }
+
+  const codeToMermaid = () => {
+    const codeMermaidEle = document.querySelectorAll('pre > code.mermaid')
+    if (codeMermaidEle.length === 0) return
+
+    codeMermaidEle.forEach(ele => {
+      const preEle = document.createElement('pre')
+      preEle.className = 'mermaid-src'
+      preEle.hidden = true
+      preEle.textContent = ele.textContent
+      const newEle = document.createElement('div')
+      newEle.className = 'mermaid-wrap'
+      newEle.appendChild(preEle)
+      ele.parentNode.replaceWith(newEle)
+    })
+  }
+
+  const loadMermaid = () => {
+    if (false) codeToMermaid()
+    const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+    if ($mermaid.length === 0) return
+
+    const runMermaidFn = () => runMermaid($mermaid)
+    btf.addGlobalFn('themeChange', runMermaidFn, 'mermaid')
+    window.loadMermaid ? runMermaidFn() : btf.getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaidFn)
+  }
+
+  btf.addGlobalFn('encrypt', loadMermaid, 'mermaid')
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/xiabo2/CDN@latest/fishes.js"></script><script src="/js/post-meta.js"></script><script src="/js/bg-duotone.js"></script><script src="/js/post-meta.js"></script><script src="/js/heatmap.js"></script><script src="/js/hr-random.js"></script><script>(() => {
+  window.ChatraID = 'xYpW5Meo932eB55bm'
+  window.Chatra = window.Chatra || function() {
+    (window.Chatra.q = window.Chatra.q || []).push(arguments)
+  }
+
+  btf.getScript('https://call.chatra.io/chatra.js').then(() => {
+    const isChatBtn = true
+    const isChatHideShow = true
+
+    if (isChatBtn) {
+      const close = () => {
+        Chatra('minimizeWidget')
+        Chatra('hide')
+      }
+
+      const open = () => {
+        Chatra('openChat', true)
+        Chatra('show')
+      }
+
+      window.ChatraSetup = { startHidden: true }
+    
+      window.chatBtnFn = () => document.getElementById('chatra').classList.contains('chatra--expanded') ? close() : open()
+
+      document.getElementById('chat-btn').style.display = 'block'
+    } else if (isChatHideShow) {
+      window.chatBtn = {
+        hide: () => Chatra('hide'),
+        show: () => Chatra('show')
+      }
+    }
+  })
+})()</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
